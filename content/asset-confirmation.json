@@ -1,0 +1,161 @@
+{
+ "version": "1.4",
+ "records": [
+  {
+   "category": "air",
+   "asset": "Citation CJ4",
+   "confirmedFacts": "Category positioning; example sectors",
+   "publicTypeData": "Range \u22482,000nm; cruise \u2248450kt; 7\u20138 guests (type data, labelled)",
+   "operatorConfirmedNeeded": "Specific tail availability; base; luggage config",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Charter rate structure",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "Accessed through selected operators",
+   "approvalNeeded": "Operator"
+  },
+  {
+   "category": "air",
+   "asset": "Challenger 605",
+   "confirmedFacts": "Category positioning",
+   "publicTypeData": "Range \u22484,000nm; cruise \u2248470kt; 10\u201312 guests (type data)",
+   "operatorConfirmedNeeded": "Tail availability; cabin crew arrangements",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Charter rate structure",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "Accessed through selected operators",
+   "approvalNeeded": "Operator"
+  },
+  {
+   "category": "air",
+   "asset": "King Air B200",
+   "confirmedFacts": "Two-crew ops; up to 9 guests; soft luggage; strip access",
+   "publicTypeData": "Turboprop class data",
+   "operatorConfirmedNeeded": "Base; payload ranges by mission",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Charter rate structure",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "Accessed through selected operators",
+   "approvalNeeded": "Operator"
+  },
+  {
+   "category": "air",
+   "asset": "Twin-Engine Helicopter",
+   "confirmedFacts": "Category positioning",
+   "publicTypeData": "Rotary class data",
+   "operatorConfirmedNeeded": "Specific type; base; pad approvals",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Rate structure",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "Accessed through selected operators",
+   "approvalNeeded": "Operator"
+  },
+  {
+   "category": "sea",
+   "asset": "M/Y ALANI",
+   "confirmedFacts": "House flagship; Whitsundays waters; crewed overnight",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Specifications sheet; guest capacity; crew",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Charter rates; APA/terms",
+   "seasonalInfo": "Whitsundays season pattern",
+   "relationshipLanguage": "House flagship",
+   "approvalNeeded": "Owner (house)"
+  },
+  {
+   "category": "sea",
+   "asset": "Capelli Stradivari 52",
+   "confirmedFacts": "Day charter; Noosa summer / Hamilton Mar\u2013Nov",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Guest configurations; crew",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Seasonal pricing",
+   "seasonalInfo": "Confirmed seasonal pattern",
+   "relationshipLanguage": "House day-charter hero",
+   "approvalNeeded": "House/operator"
+  },
+  {
+   "category": "sea",
+   "asset": "Sydney partner vessel",
+   "confirmedFacts": "Arrangement model",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Actual vessel(s); capacity",
+   "unverifiedCopy": "All copy provisional",
+   "commercialInfoNeeded": "Rates",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "Trusted partner network",
+   "approvalNeeded": "Partner"
+  },
+  {
+   "category": "sea",
+   "asset": "M/Y ANASA",
+   "confirmedFacts": "Future Mediterranean chapter",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Vessel specifics; first season",
+   "unverifiedCopy": "All copy provisional",
+   "commercialInfoNeeded": "Register-interest only",
+   "seasonalInfo": "Future seasons",
+   "relationshipLanguage": "House future",
+   "approvalNeeded": "Owner (house)"
+  },
+  {
+   "category": "stay",
+   "asset": "The Cowries",
+   "confirmedFacts": "Hamilton Island; oceanfront setting",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Bedrooms; capacity; amenities",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Nightly rates; terms",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "By arrangement via owners/managers",
+   "approvalNeeded": "Owner/manager"
+  },
+  {
+   "category": "stay",
+   "asset": "JASMINE",
+   "confirmedFacts": "Hamilton Island; pool setting",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Bedrooms; capacity",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Nightly rates",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "By arrangement via owners/managers",
+   "approvalNeeded": "Owner/manager"
+  },
+  {
+   "category": "stay",
+   "asset": "ONE W",
+   "confirmedFacts": "Hamilton Island; architectural character",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Bedrooms; capacity",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Nightly rates",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "By arrangement via owners/managers",
+   "approvalNeeded": "Owner/manager"
+  },
+  {
+   "category": "stay",
+   "asset": "Mountain Majesty",
+   "confirmedFacts": "South Lake Tahoe; alpine residence",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Bedrooms; capacity; seasons",
+   "unverifiedCopy": "Editorial description",
+   "commercialInfoNeeded": "Nightly rates",
+   "seasonalInfo": "Winter/summer characters",
+   "relationshipLanguage": "By arrangement via owners/managers",
+   "approvalNeeded": "Owner/manager"
+  },
+  {
+   "category": "stay",
+   "asset": "Tasmanian slow stay",
+   "confirmedFacts": "Concept placeholder \u2014 final residence selected to journey",
+   "publicTypeData": "\u2014",
+   "operatorConfirmedNeeded": "Actual residence identity",
+   "unverifiedCopy": "All copy provisional",
+   "commercialInfoNeeded": "Rates",
+   "seasonalInfo": "\u2014",
+   "relationshipLanguage": "Selected to the journey",
+   "approvalNeeded": "Owner/manager"
+  }
+ ]
+}

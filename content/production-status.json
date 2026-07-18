@@ -1,0 +1,194 @@
+{
+ "version": "1.4",
+ "records": [
+  {
+   "scope": "route",
+   "ref": "/",
+   "imageryStatus": "Tonal placeholder",
+   "note": "Frozen editorial \u2014 briefs are approved prototype aesthetic until imagery lands",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/air",
+   "imageryStatus": "Tonal placeholder",
+   "note": "Hero + category frames",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/sea",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/stay",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/air/fleet",
+   "imageryStatus": "Tonal placeholder",
+   "note": "Cards gate briefs in production",
+   "blocker": "Real photography"
+  },
+  {
+   "scope": "route",
+   "ref": "/sea/fleet",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": "Real photography"
+  },
+  {
+   "scope": "route",
+   "ref": "/stay/collection",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": "Real photography"
+  },
+  {
+   "scope": "route",
+   "ref": "/world",
+   "imageryStatus": "Tonal placeholder",
+   "note": "Atlas gradients acceptable long-term",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/world/whitsundays",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/world/sydney",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/world/noosa",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/world/tasmania",
+   "imageryStatus": "Tonal placeholder",
+   "note": "",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/begin",
+   "imageryStatus": "No imagery",
+   "note": "Engine is chart-led by design \u2014 no imagery required",
+   "blocker": null
+  },
+  {
+   "scope": "route",
+   "ref": "/journal",
+   "imageryStatus": "Tonal placeholder",
+   "note": "Covers awaiting AI editorial batch",
+   "blocker": null
+  },
+  {
+   "scope": "inventory",
+   "ref": "air:citation-cj4",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "air:challenger-605",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "air:king-air-b200",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "air:twin-helicopter",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "sea:alani",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "sea:capelli-stradivari-52",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "sea:sydney-harbour-yacht",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "sea:anasa",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "stay:the-cowries",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "stay:jasmine",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "stay:one-w",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "stay:mountain-majesty",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  },
+  {
+   "scope": "inventory",
+   "ref": "stay:tasmanian-slow-stay",
+   "imageryStatus": "Tonal placeholder",
+   "note": "REAL_ASSET required",
+   "blocker": "Owner/operator photography + rights"
+  }
+ ]
+}

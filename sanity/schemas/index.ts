@@ -1,3 +1,4 @@
+import waypointImage from './waypointImage';
 import {objects} from './objects'
 import {destination, place, waypoint} from './core-world'
 import {vessel, residence, aircraft, experience} from './assets'

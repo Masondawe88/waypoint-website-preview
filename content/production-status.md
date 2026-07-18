@@ -1,0 +1,29 @@
+# Production status · imagery readiness · v1.4
+
+- `/` — **Tonal placeholder**
+- `/air` — **Tonal placeholder**
+- `/sea` — **Tonal placeholder**
+- `/stay` — **Tonal placeholder**
+- `/air/fleet` — **Tonal placeholder** · blocker: Real photography
+- `/sea/fleet` — **Tonal placeholder** · blocker: Real photography
+- `/stay/collection` — **Tonal placeholder** · blocker: Real photography
+- `/world` — **Tonal placeholder**
+- `/world/whitsundays` — **Tonal placeholder**
+- `/world/sydney` — **Tonal placeholder**
+- `/world/noosa` — **Tonal placeholder**
+- `/world/tasmania` — **Tonal placeholder**
+- `/begin` — **No imagery**
+- `/journal` — **Tonal placeholder**
+- `air:citation-cj4` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `air:challenger-605` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `air:king-air-b200` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `air:twin-helicopter` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `sea:alani` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `sea:capelli-stradivari-52` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `sea:sydney-harbour-yacht` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `sea:anasa` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `stay:the-cowries` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `stay:jasmine` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `stay:one-w` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `stay:mountain-majesty` — **Tonal placeholder** · blocker: Owner/operator photography + rights
+- `stay:tasmanian-slow-stay` — **Tonal placeholder** · blocker: Owner/operator photography + rights

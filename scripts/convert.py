@@ -4,7 +4,7 @@ Preserves each page exactly: CSS + body markup as-is, scripts re-run on mount.
 Applies the v1.0 freeze patches: remove page-local pills; wire engine POST."""
 import re, json, os, sys
 
-SRC = "/mnt/user-data/outputs"
+SRC = "design-source"  # in-repo source of truth
 
 PAGES = [
     # (source, route_dir, component, title, description)
@@ -110,15 +110,13 @@ for src, route, comp, title, desc in PAGES:
     css, body, js = extract(raw)
     d = os.path.join("app", route) if route else "app"
     os.makedirs(d, exist_ok=True)
-    open(os.path.join(d, "page.tsx"), "w").write(
-        PAGE_TSX.format(title=json.dumps(title), desc=json.dumps(desc)))
+    if route == "design-system":
+        print("design-system: page.tsx left as-is (production-gated, see QA v1.1)")
+    else:
+        open(os.path.join(d, "page.tsx"), "w").write(
+            PAGE_TSX.format(title=json.dumps(title), desc=json.dumps(desc)))
     open(os.path.join(d, "client.tsx"), "w").write(
         CLIENT_TSX.format(note=src, comp=comp,
                           css=json.dumps(css), html=json.dumps(body), js=json.dumps(js)))
     print(f"converted {src:42s} -> /{route or ''}  (css {len(css)}, html {len(body)}, js {len(js)})")
 
-# keep pristine sources in-repo for future edits
-os.makedirs("design-source", exist_ok=True)
-for src, *_ in PAGES:
-    open(os.path.join("design-source", src), "w").write(open(os.path.join(SRC, src)).read())
-print("design sources archived")

@@ -152,10 +152,16 @@
       if (!item || !item.kind || !item.ref) return;
       const id = item.kind + ':' + item.ref;
       if (this.state.added.some(a => (a.kind + ':' + a.ref) === id)) return;
-      this.state.added.push({ kind: item.kind, ref: item.ref, title: item.title || item.ref });
+      this.state.added.push({ kind: item.kind, ref: item.ref, title: item.title || item.ref, meta: item.meta || null });
       this.persist();
       Analytics.track('journey_addition', { kind: item.kind, ref: item.ref });
       UI.announce(`${item.title || item.ref} — ${LANG.addedTo} ${LANG.journey}`);
+    },
+
+    remove(kind, ref) {
+      const id = kind + ':' + ref;
+      this.state.added = this.state.added.filter(a => (a.kind + ':' + a.ref) !== id);
+      this.persist();
     },
 
     began(seed) {
@@ -497,12 +503,21 @@
 .wp-eco-label:first-child{margin-top:0;}
 .wp-eco-course{position:relative;padding-left:22px;}
 .wp-eco-course::before{content:"";position:absolute;left:3px;top:8px;bottom:8px;width:1px;background:var(--eco-line);}
-.wp-eco-fix{position:relative;padding:0 0 18px;}
+.wp-eco-fix{position:relative;padding:0 0 16px;}
+.wp-eco-course .wp-eco-fix.explicit{padding:12px 26px 14px 0;border-bottom:1px solid rgba(179,176,167,.45);}
+.wp-eco-course .wp-eco-fix.explicit:last-child{border-bottom:none;}
 .wp-eco-fix:last-child{padding-bottom:0;}
 .wp-eco-fix::before{content:"";position:absolute;left:-22px;top:7px;width:7px;height:7px;border-radius:50%;
   border:1px solid var(--eco-accent);background:var(--eco-paper);}
 .wp-eco-fix.explicit::before{background:var(--eco-accent);}
 .wp-eco-fix .k{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--eco-soft);}
+.wp-eco-glabel{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--eco-accent);margin:20px 0 12px;}
+.wp-eco-glabel:first-child{margin-top:0;}
+.wp-eco-cmeta{display:block;font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--eco-soft);margin-top:4px;line-height:1.9;}
+.wp-eco-cdef{display:block;font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:13.5px;color:var(--eco-soft);margin-top:2px;}
+.wp-eco-rm{position:absolute;right:0;top:2px;background:none;border:none;cursor:pointer;color:var(--eco-soft);font-size:14px;padding:4px 6px;min-width:28px;min-height:28px;}
+.wp-eco-rm:hover,.wp-eco-rm:focus-visible{color:var(--eco-ink);}
+.wp-eco-rm:focus-visible{outline:2px solid var(--eco-accent);outline-offset:2px;}
 .wp-eco-fix a{font-family:"Instrument Serif",Georgia,serif;font-size:19px;line-height:1.25;color:var(--eco-ink);
   text-decoration:none;display:block;margin-top:2px;}
 .wp-eco-fix a:hover,.wp-eco-fix a:focus-visible{color:var(--eco-accent);}
@@ -626,11 +641,22 @@
           <a href="${f.url}">${f.title}</a>
         </div>`).join('');
 
-      const addedHtml = st.added.map(a => `
-        <div class="wp-eco-fix explicit">
-          <span class="k">${KIND_LABEL[a.kind] || a.kind}</span>
+      const GROUP = { 'aircraft-category':'AIR', vessel:'SEA', residence:'STAY',
+        destination:'DESTINATIONS', world:'DESTINATIONS', place:'DESTINATIONS',
+        experience:'EXPERIENCES', journey:'JOURNEYS' };
+      const groups = {};
+      st.added.forEach(a => {
+        const g = GROUP[a.kind] || 'ALSO CONSIDERED';
+        (groups[g] = groups[g] || []).push(a);
+      });
+      const addedHtml = Object.keys(groups).map(g => `
+        <div class="wp-eco-glabel">${g}</div>` + groups[g].map(a => `
+        <div class="wp-eco-fix explicit" data-k="${a.kind}" data-r="${a.ref}">
+          <button class="wp-eco-rm" type="button" aria-label="Remove ${a.title}">\u00D7</button>
           <a href="${resumeUrl}">${a.title}</a>
-        </div>`).join('');
+          ${a.meta ? `<span class="wp-eco-cmeta">${[a.meta.location, a.meta.capacity, a.meta.price].filter(Boolean).join(' \u00B7 ')}</span>
+          <span class="wp-eco-cdef">${a.meta.defining || ''}</span>` : ''}
+        </div>`).join('')).join('');
 
       const collHtml = st.collections.map(c => `
         <div class="wp-eco-coll-row"><span>${c.name}</span>
@@ -642,14 +668,14 @@
           <button class="wp-eco-close" type="button">Close</button>
         </div>
         <div class="wp-eco-sum">${
-          s.empty ? 'THE COURSE IS STILL BLANK'
+          s.empty ? 'THE COURSE IS STILL BLANK \u00B7 EXPLORE, AND IT PLOTS ITSELF'
                   : [LANG.placesExplored(s.places), LANG.expSaved(s.experiences), LANG.journeysStarted(s.journeys)].join('<br>')
         }</div>
         <div class="wp-eco-body">
           ${ s.empty
             ? `<p class="wp-eco-empty">Move through the world — destinations, residences, vessels and experiences you spend time with will quietly plot themselves here.</p>`
             : `
-              ${ addedHtml ? `<p class="wp-eco-label">${LANG.wayForward}</p><div class="wp-eco-course">${addedHtml}</div>` : '' }
+              ${ addedHtml ? `<p class="wp-eco-label">Your considered options</p><div class="wp-eco-course">${addedHtml}</div>` : '' }
               <p class="wp-eco-label">${LANG.recently}</p>
               <div class="wp-eco-course">${fixHtml}</div>
               ${ collHtml ? `<p class="wp-eco-label">${LANG.collections}</p><div class="wp-eco-coll">${collHtml}</div>` : '' }
@@ -661,6 +687,14 @@
         </div>`;
 
       this.drawer.querySelector('.wp-eco-close').addEventListener('click', () => this.close());
+      this.drawer.querySelectorAll('.wp-eco-rm').forEach(btn => {
+        btn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          const row = btn.closest('.wp-eco-fix');
+          Journey.remove(row.getAttribute('data-k'), row.getAttribute('data-r'));
+          this.renderDrawer();
+        });
+      });
       const forget = this.drawer.querySelector('.wp-eco-forget');
       if (forget) forget.addEventListener('click', () => { Journey.forget(); this.renderDrawer(); });
     },
@@ -703,6 +737,7 @@
      ---------------------------------------------------------- */
   const API = {
     add: (item) => Journey.add(item),
+    remove: (kind, ref) => Journey.remove(kind, ref),
     remember: (evt) => Journey.remember(evt),
     seed: () => Journey.seed(),
     summary: () => Journey.summary(),
@@ -725,6 +760,8 @@
      BOOT
      ---------------------------------------------------------- */
   function boot() {
+    /* QA fix: no overlay UI on the full-screen Journey Engine */
+    if (window.location.pathname === '/begin') return;
     Journey.init();
     UI.build();
     Observe.pageContext();

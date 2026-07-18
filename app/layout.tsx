@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   description:
     "A precision travel house. Private aviation, yacht charter and private residences, coordinated as one considered journey.",
   metadataBase: new URL("https://waypointandco.com"),
+  robots:
+    process.env.NEXT_PUBLIC_SITE_LIVE === "true"
+      ? undefined
+      : { index: false, follow: false },
 };
 
 export default function RootLayout({

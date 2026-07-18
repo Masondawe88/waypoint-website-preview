@@ -1,0 +1,28 @@
+scope,ref,imageryStatus,note,blocker
+route,/,Tonal placeholder,Frozen editorial — briefs are approved prototype aesthetic until imagery lands,
+route,/air,Tonal placeholder,Hero + category frames,
+route,/sea,Tonal placeholder,,
+route,/stay,Tonal placeholder,,
+route,/air/fleet,Tonal placeholder,Cards gate briefs in production,Real photography
+route,/sea/fleet,Tonal placeholder,,Real photography
+route,/stay/collection,Tonal placeholder,,Real photography
+route,/world,Tonal placeholder,Atlas gradients acceptable long-term,
+route,/world/whitsundays,Tonal placeholder,,
+route,/world/sydney,Tonal placeholder,,
+route,/world/noosa,Tonal placeholder,,
+route,/world/tasmania,Tonal placeholder,,
+route,/begin,No imagery,Engine is chart-led by design — no imagery required,
+route,/journal,Tonal placeholder,Covers awaiting AI editorial batch,
+inventory,air:citation-cj4,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,air:challenger-605,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,air:king-air-b200,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,air:twin-helicopter,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,sea:alani,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,sea:capelli-stradivari-52,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,sea:sydney-harbour-yacht,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,sea:anasa,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,stay:the-cowries,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,stay:jasmine,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,stay:one-w,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,stay:mountain-majesty,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights
+inventory,stay:tasmanian-slow-stay,Tonal placeholder,REAL_ASSET required,Owner/operator photography + rights

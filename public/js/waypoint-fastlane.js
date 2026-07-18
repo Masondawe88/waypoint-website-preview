@@ -585,6 +585,11 @@
     const nav = document.querySelector('.nav');
     if (!nav) return;
     if (nav.querySelector('.wp-fl-nav')) return;
+    /* QA fix: some pages (homepage) carry their own Enquire control — never duplicate it */
+    var existing = nav.querySelectorAll('a,button');
+    for (var i = 0; i < existing.length; i++) {
+      if (existing[i].textContent.trim().toLowerCase() === 'enquire') return;
+    }
     const begin = nav.querySelector('.nav-begin');
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -640,6 +645,9 @@
      BOOT
      ---------------------------------------------------------- */
   function boot() {
+    /* QA fix: the Journey Engine is a full-screen fixed surface — the bar,
+       FAB and nav injection would overlay its own controls. Stand down. */
+    if (window.location.pathname === '/begin') return;
     css();
     buildModal();
     bindTriggers();
