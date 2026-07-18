@@ -9,7 +9,8 @@ import { destBySlug } from "@/lib/destinations";
 import { FleetBrowser, inventoryCss, InventoryCard, JourneyToast } from "./InventorySystem";
 import { metaLines } from "@/lib/inventory-meta";
 import { showInternalBriefs } from "@/lib/images";
-import { INVENTORY } from "@/lib/inventory";
+import { InventoryImage } from "@/components/media/InventoryImage";
+import { INVENTORY, priceDisplay, RATE_DISCLOSURE } from "@/lib/inventory";
 
 const shellCss = `
 .wpf{--ivory:#F1EEE7;--ink:#211F1B;--metal:#B3B0A7;--soft:#6D6A61;--accent:#5E6B75;
@@ -39,11 +40,12 @@ const shellCss = `
 /* detail */
 .wpf .detail{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(36px,5vw,90px);align-items:start;padding-top:clamp(30px,4vh,48px);}
 .wpf .dframe{position:relative;aspect-ratio:16/10;}
-.wpf .dframe::after{content:"";position:absolute;inset:14px;border:1px solid rgba(241,238,231,.55);pointer-events:none;}
+.wpf .dframe::after{content:"";position:absolute;inset:14px;border:1px solid rgba(241,238,231,.55);pointer-events:none;z-index:2;}
+.wpf .dframe .brief,.wpf .gframe .brief{z-index:2;}
 .wpf .dframe .brief{position:absolute;left:26px;bottom:22px;right:26px;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:300;letter-spacing:.24em;text-transform:uppercase;color:rgba(241,238,231,.85);line-height:1.9;}
 .wpf .gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
 .wpf .gframe{position:relative;aspect-ratio:4/3;}
-.wpf .gframe::after{content:"";position:absolute;inset:10px;border:1px dashed rgba(241,238,231,.5);pointer-events:none;}
+.wpf .gframe::after{content:"";position:absolute;inset:10px;border:1px dashed rgba(241,238,231,.5);pointer-events:none;z-index:2;}
 .wpf .gframe .brief{position:absolute;left:18px;bottom:14px;font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,238,231,.8);}
 .wpf .dmeta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);line-height:2;margin:10px 0 18px;}
 .wpf .desc{font-size:16px;color:var(--soft);max-width:52ch;line-height:1.8;}
@@ -63,7 +65,8 @@ const shellCss = `
 .wpf .feature{position:relative;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(30px,4vw,70px);
   align-items:center;margin:clamp(10px,2vh,20px) 0 clamp(44px,6vh,72px);}
 .wpf .fframe{position:relative;aspect-ratio:16/9;}
-.wpf .fframe::after{content:"";position:absolute;inset:16px;border:1px solid rgba(241,238,231,.55);pointer-events:none;}
+.wpf .fframe::after{content:"";position:absolute;inset:16px;border:1px solid rgba(241,238,231,.55);pointer-events:none;z-index:2;}
+.wpf .fframe .flabel,.wpf .fframe .brief{z-index:2;}
 .wpf .fframe .brief{position:absolute;left:28px;bottom:24px;right:28px;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:300;letter-spacing:.24em;text-transform:uppercase;color:rgba(241,238,231,.85);line-height:1.9;}
 .wpf .fframe .flabel{position:absolute;left:28px;top:22px;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(241,238,231,.9);}
 .wpf .fname{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(28px,3.4vw,46px);line-height:1.08;}
@@ -131,6 +134,7 @@ export function FleetPage({
             <section className="feature" aria-label={`Featured — ${hero.name}`}>
               <a className="fframe" href={`${meta.browsePath}/${hero.slug}`}
                  style={{ background: `linear-gradient(165deg, ${hero.tone[0]} 0%, ${hero.tone[1]} 52%, ${hero.tone[2]} 100%)` }}>
+                <InventoryImage slug={hero.slug} alt={hero.name} eager />
                 <span className="flabel">Featured · {category.toUpperCase()}</span>
                 {showInternalBriefs() && <span className="brief">{hero.heroBrief}</span>}
               </a>
@@ -159,6 +163,7 @@ export function FleetPage({
               CURATED · CONFIRMED BY PEOPLE
             </span>
           </div>
+          <p style={{ fontFamily: '"Instrument Sans",sans-serif', fontSize: 12.5, color: "#6D6A61", margin: "0 0 18px", maxWidth: "68ch" }}>{RATE_DISCLOSURE}</p>
           <FleetBrowser items={items} category={category} />
         </div>
       </main>
@@ -182,13 +187,16 @@ export function InventoryDetail({ category, slug }: { category: Category; slug: 
           <div className="detail">
             <div>
               <div className="dframe" style={{ background: grad }}>
+                <InventoryImage slug={item.slug} alt={item.name} eager />
                 {showInternalBriefs() && <span className="brief">{item.heroBrief}</span>}
               </div>
               <div className="gallery" aria-label="Gallery — photography in commission">
                 <div className="gframe" style={{ background: grad, filter: "saturate(.9) brightness(1.04)" }}>
+                  <InventoryImage slug={item.slug} name="g1.jpg" alt={`${item.name} — gallery`} />
                   {showInternalBriefs() && <span className="brief">GALLERY 02 · DETAIL</span>}
                 </div>
                 <div className="gframe" style={{ background: grad, filter: "saturate(.85) brightness(.96)" }}>
+                  <InventoryImage slug={item.slug} name="g2.jpg" alt={`${item.name} — gallery`} />
                   {showInternalBriefs() && <span className="brief">GALLERY 03 · IN USE</span>}
                 </div>
               </div>
@@ -220,9 +228,12 @@ export function InventoryDetail({ category, slug }: { category: Category; slug: 
                 ))}
               </div>
               <div className="priceline">
-                <span className="price">{item.priceLabel}</span>
+                <span className="price">{priceDisplay(item).line}</span>
                 <span className="status">{STATUS_LABEL[item.status]}</span>
               </div>
+              <p style={{ fontFamily: '"IBM Plex Mono",monospace', fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: "#6D6A61", margin: "8px 0 0", maxWidth: 520 }}>
+                {priceDisplay(item).qualifier}
+              </p>
               <div className="dactions wpi">
                 <button
                   type="button" className="wpi-req"
@@ -266,6 +277,16 @@ export function InventoryDetail({ category, slug }: { category: Category; slug: 
             </div>
           </div>
 
+          <section style={{ marginTop: "clamp(40px,6vh,64px)", borderTop: "1px solid #B3B0A7", paddingTop: 26, maxWidth: 640 }}>
+            <p style={{ fontFamily: '"IBM Plex Mono",monospace', fontSize: 10, letterSpacing: ".3em", textTransform: "uppercase", color: "#5E6B75", margin: 0 }}>What happens when you enquire</p>
+            <p style={{ fontFamily: '"Instrument Sans",sans-serif', fontSize: 15, color: "#6D6A61", lineHeight: 1.8, margin: "14px 0 0" }}>
+              A person reviews your enquiry the same day. Availability is confirmed to your dates,
+              the rate is confirmed to your routing, guests and season, and what the rate covers is
+              set out in writing before anything is committed. No automated checkout — one point of
+              contact across air, sea and stay.
+            </p>
+          </section>
+
           {(() => {
             const related = INVENTORY.filter(
               (x) => x.slug !== item.slug && x.category !== item.category &&
@@ -274,7 +295,7 @@ export function InventoryDetail({ category, slug }: { category: Category; slug: 
             if (!related.length) return null;
             return (
               <div className="wpi">
-                <p className="relhead">Continue the journey · air, sea and stay together</p>
+                <p className="relhead">Often paired with · complete the journey across air, sea and stay</p>
                 <div className="wpi-grid">
                   {related.map((r) => <InventoryCard key={r.category + r.slug} item={r} />)}
                 </div>

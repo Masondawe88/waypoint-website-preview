@@ -253,6 +253,45 @@ a:focus-visible, button:focus-visible{ outline: 2px solid var(--water-deep); out
 /* ============================================================
    3 · THE JOURNEY — the geographic descent
    ============================================================ */
+
+/* ---- WJ: geographic journey spine (v2.0.1) ---- */
+.wj{ background: var(--haze); padding: clamp(80px,12vh,150px) 0; }
+.wj-grid{ display:grid; grid-template-columns: minmax(220px,26%) minmax(0,1fr); gap: clamp(30px,4vw,72px); max-width:1360px; margin:0 auto; padding:0 clamp(20px,5vw,72px); align-items:start; }
+.wj-rail{ position:sticky; top: clamp(48px,10vh,110px); align-self:start; }
+.wj-brand{ font-family: var(--mono); font-size:10px; letter-spacing:.42em; color: var(--sea-ink); }
+.wj-course{ font-family: var(--mono); font-size:9px; letter-spacing:.26em; color: var(--sea-ink); opacity:.65; margin-top:6px; }
+.wj-rail-inner{ position:relative; padding-left:18px; }
+.wj-line{ position:absolute; left:3px; top:64px; bottom:34px; width:1px; background: var(--sea-ink); opacity:.28; }
+.wj-marks{ list-style:none; margin:34px 0 0; padding:0; display:flex; flex-direction:column; gap: clamp(26px,4vh,44px); }
+.wj-mark{ position:relative; opacity:.42; transition: opacity .6s cubic-bezier(.22,1,.36,1); }
+.wj-mark .d{ position:absolute; left:-18.5px; top:5px; width:6px; height:6px; border:1px solid var(--sea-ink); transform:rotate(45deg); background:transparent; transition: background .5s; }
+.wj-mark .n{ font-family: var(--mono); font-size:9px; letter-spacing:.3em; color: var(--sea-ink); display:block; }
+.wj-mark .p{ font-family: var(--serif); font-size:17px; color: var(--sea-ink); display:block; margin-top:3px; line-height:1.2; }
+.wj-mark .c{ font-family: var(--mono); font-size:8.5px; letter-spacing:.18em; color: var(--sea-ink); opacity:.6; display:block; margin-top:4px; }
+.wj-mark.on{ opacity:1; }
+.wj-mark.on .d{ background: var(--sea-ink); }
+.wj-progress{ font-family: var(--mono); font-size:9px; letter-spacing:.3em; color: var(--sea-ink); opacity:.6; margin-top:34px; }
+.wj-stages{ display:flex; flex-direction:column; gap: clamp(70px,11vh,130px); }
+.wj-shead{ display:flex; justify-content:space-between; gap:16px; font-family: var(--mono); font-size:9.5px; letter-spacing:.26em; color: var(--sea-ink); opacity:.75; border-top:1px solid rgba(62,95,92,.3); padding-top:14px; }
+.wj-sname{ font-family: var(--serif); font-weight:400; font-size: clamp(28px,3.2vw,44px); color: var(--sea-ink); margin:14px 0 4px; line-height:1.08; }
+.wj-srole{ font-family: var(--serif); font-style:italic; font-size:17px; color: var(--sea-ink); opacity:.72; margin:0 0 20px; }
+.wj-frame{ position:relative; aspect-ratio:16/9; margin:0 0 20px; }
+.wj-frame::after{ content:""; position:absolute; inset:12px; border:1px solid rgba(244,239,226,.55); pointer-events:none; }
+.wj-scopy{ font-family: var(--sans); font-size:16px; line-height:1.75; color: var(--sea-ink); max-width:56ch; margin:0 0 18px; }
+.wj-sact .action{ font-size:12px; }
+@media (max-width:860px){
+  .wj-grid{ grid-template-columns:1fr; }
+  .wj-rail{ position:static; }
+  .wj-rail-inner{ padding-left:0; }
+  .wj-line{ display:none; }
+  .wj-marks{ flex-direction:row; overflow-x:auto; gap:22px; margin-top:22px; padding-bottom:8px; scrollbar-width:none; border-bottom:1px solid rgba(62,95,92,.28); }
+  .wj-marks::-webkit-scrollbar{ display:none; }
+  .wj-mark{ min-width:150px; }
+  .wj-mark .d{ display:none; }
+  .wj-stages{ margin-top:34px; }
+}
+@media (prefers-reduced-motion:reduce){ .wj-mark{ transition:none; } }
+
 .descent{ background: var(--haze); padding: clamp(96px, 14vh, 180px) 0; }
 .descent-head{ text-align: center; max-width: 640px; margin: 0 auto clamp(64px, 9vh, 120px); }
 .descent-head h2{ font-size: clamp(32px, 3.8vw, 54px); margin-top: 20px; }
@@ -618,77 +657,64 @@ a:focus-visible, button:focus-visible{ outline: 2px solid var(--water-deep); out
 </section>
 
 <!-- ============ 3 · THE JOURNEY — geographic descent ============ -->
-<section class="descent" id="descent">
-  <div class="wrap">
-    <div class="descent-head">
-      <p class="eyebrow rise">The journey</p>
-      <h2 class="display rise d1">From a continent to a single anchorage.</h2>
-    </div>
-
-    <!-- Waypoints render from `place` via the relationship graph -->
-    <div class="chart" id="chart">
-      <div class="chart-line" aria-hidden="true"><div class="plotted" id="chartPlotted"></div></div>
-
-      <div class="wpt scale-shift rise" data-cms="place" data-place="australia">
-        <div class="node"></div>
-        <div class="w-scale">Continent</div>
-        <div class="w-name">Australia</div>
-        <p class="w-story">The journey begins wherever you are. Everything after this line is coordinated.</p>
+<section class="wj" id="descent" aria-label="The course through the Whitsundays">
+  <div class="wj-grid">
+    <aside class="wj-rail" aria-hidden="false">
+      <div class="wj-rail-inner">
+        <div class="wj-brand">WAYPOINT</div>
+        <div class="wj-course">COURSE 01 / WHITSUNDAYS · 20° S</div>
+        <div class="wj-line" aria-hidden="true"></div>
+        <ol class="wj-marks">
+          <li class="wj-mark" data-wj="wj1"><span class="d"></span><span class="n">01</span><span class="p">Hamilton Island</span><span class="c">20.3514° S · 148.9519° E</span></li>
+          <li class="wj-mark" data-wj="wj2"><span class="d"></span><span class="n">02</span><span class="p">Whitehaven Beach</span><span class="c">20.2820° S · 149.0368° E</span></li>
+          <li class="wj-mark" data-wj="wj3"><span class="d"></span><span class="n">03</span><span class="p">Hook Island</span><span class="c">20.1030° S · 148.9220° E</span></li>
+          <li class="wj-mark" data-wj="wj4"><span class="d"></span><span class="n">04</span><span class="p">Hayman Island</span><span class="c">20.0555° S · 148.8858° E</span></li>
+          <li class="wj-mark" data-wj="wj5"><span class="d"></span><span class="n">05</span><span class="p">The Outer Reef</span><span class="c">≈ 19.7° S · OPEN WATER</span></li>
+        </ol>
+        <div class="wj-progress"><span class="cur">01</span> / 05</div>
       </div>
-
-      <div class="wpt scale-shift rise" data-cms="place" data-place="queensland">
-        <div class="node"></div>
-        <div class="w-scale">State</div>
-        <div class="w-name">Queensland</div>
-        <p class="w-story">North along the coast, the water begins to change colour.</p>
-      </div>
-
-      <div class="wpt scale-shift rise" data-cms="place" data-place="whitsundays">
-        <div class="node"></div>
-        <div class="w-scale">The world</div>
-        <div class="w-name">The Whitsundays</div>
-        <div class="w-fix mono-note">20°S · 149°E</div>
-        <p class="w-story">Seventy-four islands inside the reef's shelter. The passage runs between them like a road that was never built.</p>
-      </div>
-
-      <div class="wpt rise" data-cms="place" data-place="hamilton-island">
-        <div class="node"></div>
-        <div class="w-scale">Waypoint 01</div>
-        <div class="w-name">Hamilton Island</div>
-        <div class="w-fix mono-note">HTI · 20°21′S 148°57′E</div>
-        <p class="w-story">The island with its own runway. Arrival, residence and marina within minutes of each other — the world's front door.</p>
-      </div>
-
-      <div class="wpt rise" data-cms="place" data-place="whitehaven">
-        <div class="node"></div>
-        <div class="w-scale">Waypoint 02</div>
-        <div class="w-name">Whitehaven</div>
-        <div class="w-fix mono-note">20°17′S 149°02′E</div>
-        <p class="w-story">Seven kilometres of silica sand that stays cool underfoot. Best met early, from the water, before the day arrives.</p>
-      </div>
-
-      <div class="wpt rise" data-cms="place" data-place="hook-island">
-        <div class="node"></div>
-        <div class="w-scale">Waypoint 03</div>
-        <div class="w-name">Hook Island</div>
-        <div class="w-fix mono-note">20°06′S 148°57′E</div>
-        <p class="w-story">Steep, forested and quiet. Anchorages on its northern edge hold still water and the best of the fringing reef.</p>
-      </div>
-
-      <div class="wpt rise" data-cms="place" data-place="hayman">
-        <div class="node"></div>
-        <div class="w-scale">Waypoint 04</div>
-        <div class="w-name">Hayman</div>
-        <div class="w-fix mono-note">20°03′S 148°53′E</div>
-        <p class="w-story">The most northern of the group — the last island before open water, and the turn toward the reef proper.</p>
-      </div>
-
-      <div class="wpt rise" data-cms="place" data-place="outer-reef">
-        <div class="node"></div>
-        <div class="w-scale">Waypoint 05</div>
-        <div class="w-name">The Outer Reef</div>
-        <p class="w-story">Beyond the islands, the reef itself. A different scale of blue — reached by sea or by air, never hurried.</p>
-      </div>
+    </aside>
+    <div class="wj-stages">
+      <article class="wj-stage" id="wj1" data-cms="place" data-ref="hamilton-island">
+        <header class="wj-shead"><span class="wj-sn">01 · ARRIVE</span><span class="wj-sc">20.3514° S · 148.9519° E</span></header>
+        <h3 class="wj-sname">Hamilton Island</h3>
+        <p class="wj-srole">Arrival and access.</p>
+        <div class="wj-frame" style="background:linear-gradient(165deg,#8FB3AE 0%,#C2D5D0 52%,#EDE6D6 100%)"></div>
+        <p class="wj-scopy">The runway meets the water and the journey changes register. Private fixed-wing lands within sight of the marina; the residence, the vessel and the passage are minutes apart. Everything that follows starts here.</p>
+        <p class="wj-sact"><a class="action" href="/air/fleet">Arrive by AIR <span class="mark">→</span></a></p>
+      </article>
+      <article class="wj-stage" id="wj2" data-cms="place" data-ref="whitehaven">
+        <header class="wj-shead"><span class="wj-sn">02 · CROSS</span><span class="wj-sc">20.2820° S · 149.0368° E</span></header>
+        <h3 class="wj-sname">Whitehaven Beach</h3>
+        <p class="wj-srole">The first crossing.</p>
+        <div class="wj-frame" style="background:linear-gradient(165deg,#C2D5D0 0%,#EDE6D6 55%,#F4EFE2 100%)"></div>
+        <p class="wj-scopy">Seven kilometres of silica so fine it squeaks underfoot, best reached before the day arrives. The crossing from Hamilton is short; the change in register is complete.</p>
+        <p class="wj-sact"><a class="action" href="/sea/fleet">Continue by SEA <span class="mark">→</span></a></p>
+      </article>
+      <article class="wj-stage" id="wj3" data-cms="place" data-ref="hook-island">
+        <header class="wj-shead"><span class="wj-sn">03 · ANCHOR</span><span class="wj-sc">20.1030° S · 148.9220° E</span></header>
+        <h3 class="wj-sname">Hook Island</h3>
+        <p class="wj-srole">Protected water and hidden anchorages.</p>
+        <div class="wj-frame" style="background:linear-gradient(165deg,#3E5F5C 0%,#8FB3AE 55%,#C2D5D0 100%)"></div>
+        <p class="wj-scopy">The fjord-cut north of the group — still water inside Nara and Macona Inlets, coral gardens at the northern tips, and evenings where the only movement is tide. The anchorage is the destination.</p>
+        <p class="wj-sact"><a class="action" href="/begin?dest=whitsundays&src=world-course" >Add to the journey <span class="mark">→</span></a></p>
+      </article>
+      <article class="wj-stage" id="wj4" data-cms="place" data-ref="hayman-island">
+        <header class="wj-shead"><span class="wj-sn">04 · RETREAT</span><span class="wj-sc">20.0555° S · 148.8858° E</span></header>
+        <h3 class="wj-sname">Hayman Island</h3>
+        <p class="wj-srole">A place to stay.</p>
+        <div class="wj-frame" style="background:linear-gradient(165deg,#8FB3AE 0%,#B9CEC6 50%,#EDE6D6 100%)"></div>
+        <p class="wj-scopy">The most northerly of the group holds its own harbour and a quieter pace. From here the reef is close and the passage is behind you — a night ashore before the final horizon.</p>
+        <p class="wj-sact"><a class="action" href="/stay/collection">View nearby stays <span class="mark">→</span></a></p>
+      </article>
+      <article class="wj-stage" id="wj5" data-cms="place" data-ref="outer-reef">
+        <header class="wj-shead"><span class="wj-sn">05 · GO BEYOND</span><span class="wj-sc">≈ 19.7° S · OPEN WATER</span></header>
+        <h3 class="wj-sname">The Outer Reef</h3>
+        <p class="wj-srole">The final horizon.</p>
+        <div class="wj-frame" style="background:linear-gradient(165deg,#2E4744 0%,#3E5F5C 45%,#8FB3AE 100%)"></div>
+        <p class="wj-scopy">When the weather opens, the passage gives way to a different scale of blue. Reef positions are chosen on the day, to conditions — which is exactly how it should be.</p>
+        <p class="wj-sact"><a class="action" href="/enquire?dest=whitsundays&src=world-course">Request availability <span class="mark">→</span></a></p>
+      </article>
     </div>
   </div>
 </section>
@@ -1003,6 +1029,23 @@ a:focus-visible, button:focus-visible{ outline: 2px solid var(--water-deep); out
   }
   scrollDraw('chart', 'chartPlotted');
   scrollDraw('voyage', 'voyagePlotted');
+})();
+
+/* WJ active-state (v2.0.1) */
+(function(){
+  var marks = document.querySelectorAll('.wj-mark');
+  var cur = document.querySelector('.wj-progress .cur');
+  if (!marks.length || !('IntersectionObserver' in window)) { if (marks[0]) marks[0].classList.add('on'); return; }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if (en.isIntersecting) {
+        marks.forEach(function(m){ m.classList.toggle('on', m.getAttribute('data-wj') === en.target.id); });
+        if (cur) cur.textContent = '0' + (Array.prototype.findIndex.call(marks, function(m){ return m.getAttribute('data-wj') === en.target.id; }) + 1);
+      }
+    });
+  }, { rootMargin: '-38% 0px -52% 0px' });
+  document.querySelectorAll('.wj-stage').forEach(function(s){ io.observe(s); });
+  if (marks[0]) marks[0].classList.add('on');
 })();
 </script>
 

@@ -117,12 +117,18 @@
   }
 
   function contextFromTrigger(trigger) {
+    /* V2: carry the indicative rate the client saw, for CRM context */
+    
     /* 1 · explicit data-fastlane-* on the trigger wins */
     if (trigger && trigger.getAttribute('data-fastlane-ref')) {
       return {
         kind: trigger.getAttribute('data-fastlane-kind') || '',
         ref:  trigger.getAttribute('data-fastlane-ref'),
-        title:trigger.getAttribute('data-fastlane-title') || trigger.getAttribute('data-fastlane-ref')
+        title:trigger.getAttribute('data-fastlane-title') || trigger.getAttribute('data-fastlane-ref'),
+        rateViewed: trigger.getAttribute('data-fastlane-rate') || null,
+        priceUnit: trigger.getAttribute('data-fastlane-unit') || null,
+        priceOnApplication: trigger.getAttribute('data-fastlane-poa') === 'true',
+        location: trigger.getAttribute('data-fastlane-loc') || null
       };
     }
     /* 2 · nearest tagged ancestor (the pattern every page already uses) */
@@ -493,6 +499,15 @@
 
     const payload = {
       submissionType: 'FastLane',
+      enquiryType: 'direct',
+      assetId: (S.context && S.context.ref) || null,
+      assetName: (S.context && S.context.title) || null,
+      assetCategory: (S.context && S.context.kind) || null,
+      indicativeRateViewed: (S.context && S.context.rateViewed) || null,
+      enquirySource: window.location.pathname + window.location.search,
+      priceUnit: (S.context && S.context.priceUnit) || null,
+      priceOnApplication: (S.context && S.context.priceOnApplication) || false,
+      assetLocation: (S.context && S.context.location) || null,
       contact: {
         name: form.name.value.trim() || null,
         email,

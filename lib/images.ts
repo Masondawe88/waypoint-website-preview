@@ -45,3 +45,20 @@ export function canPublish(r: ImageRecord): { ok: boolean; reason?: string } {
     return { ok: false, reason: "Temporary images require a replacement note" };
   return { ok: true };
 }
+
+/* ---- V2.2 preview photography system ---- */
+export type ImageStatus = "preview" | "verified" | "editorial";
+export type InventoryImageMeta = {
+  imageStatus: ImageStatus;
+  imageCredit?: string | null;
+  imageSource?: string | null;
+  imageReplacementRequired: boolean;   // true for every preview image
+  ownerApprovalRequired: boolean;
+};
+/* Convention-based resolution — drop files in, nothing else changes:
+   /public/images/inventory/{slug}/verified/hero.jpg   ← owner photography (wins automatically)
+   /public/images/inventory/{slug}/hero.jpg            ← preview (representative)
+   (tonal frame renders when neither exists)
+   Gallery: g1.jpg, g2.jpg in the same folders. */
+export const inventoryImg = (slug: string, name: string, verified = false) =>
+  `/images/inventory/${slug}/${verified ? "verified/" : ""}${name}`;

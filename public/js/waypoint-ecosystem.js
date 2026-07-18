@@ -511,6 +511,7 @@
   border:1px solid var(--eco-accent);background:var(--eco-paper);}
 .wp-eco-fix.explicit::before{background:var(--eco-accent);}
 .wp-eco-fix .k{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--eco-soft);}
+.wp-eco-value{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.24em;color:var(--eco-accent);line-height:2;margin:18px 0 0;padding-top:14px;border-top:1px solid rgba(179,176,167,.45);}
 .wp-eco-glabel{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--eco-accent);margin:20px 0 12px;}
 .wp-eco-glabel:first-child{margin-top:0;}
 .wp-eco-cmeta{display:block;font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--eco-soft);margin-top:4px;line-height:1.9;}
@@ -675,7 +676,7 @@
           ${ s.empty
             ? `<p class="wp-eco-empty">Move through the world — destinations, residences, vessels and experiences you spend time with will quietly plot themselves here.</p>`
             : `
-              ${ addedHtml ? `<p class="wp-eco-label">Your considered options</p><div class="wp-eco-course">${addedHtml}</div>` : '' }
+              ${ addedHtml ? `<p class="wp-eco-label">Your considered options</p><div class="wp-eco-course">${addedHtml}</div><p class="wp-eco-value">INDICATIVE JOURNEY VALUE \u00B7 AVAILABLE ONCE ROUTING AND DATES ARE REVIEWED \u00B7 EVERY JOURNEY IS HUMAN-REVIEWED</p>` : '' }
               <p class="wp-eco-label">${LANG.recently}</p>
               <div class="wp-eco-course">${fixHtml}</div>
               ${ collHtml ? `<p class="wp-eco-label">${LANG.collections}</p><div class="wp-eco-coll">${collHtml}</div>` : '' }

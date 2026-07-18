@@ -10,6 +10,7 @@ import {
   InventoryItem, Category, STATUS_LABEL, CATEGORY_META,
 } from "@/lib/inventory";
 import { showInternalBriefs } from "@/lib/images";
+import { InventoryImage } from "@/components/media/InventoryImage";
 
 declare global {
   interface Window {
@@ -52,7 +53,8 @@ export const inventoryCss = `
 .wpi-card{display:flex;flex-direction:column;transition:transform .7s cubic-bezier(.22,1,.36,1);}
 .wpi-card:hover{transform:translateY(-6px);}
 .wpi-frame{position:relative;aspect-ratio:16/10;overflow:hidden;display:block;}
-.wpi-frame::after{content:"";position:absolute;inset:12px;border:1px solid rgba(241,238,231,.5);pointer-events:none;transition:inset .7s cubic-bezier(.22,1,.36,1);}
+.wpi-frame::after{content:"";position:absolute;inset:12px;border:1px solid rgba(241,238,231,.5);pointer-events:none;transition:inset .7s cubic-bezier(.22,1,.36,1);z-index:2;}
+.wpi-frame .flag,.wpi-frame .brief{z-index:2;}
 .wpi-card:hover .wpi-frame::after{inset:8px;}
 .wpi-frame .brief{position:absolute;left:22px;bottom:18px;right:22px;
   font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:300;letter-spacing:.22em;
@@ -137,6 +139,7 @@ export const inventoryCss = `
 
 /* character-specific metadata — shared helpers */
 import { kindLine, metaLines } from "@/lib/inventory-meta";
+import { priceDisplay, CATEGORY_BANDS } from "@/lib/inventory";
 export { metaLines };
 
 /* ---------------- quiet confirmation ---------------- */
@@ -181,7 +184,7 @@ export function InventoryCard({ item }: { item: InventoryItem }) {
     try {
       window.WaypointJourney?.add({
         kind: meta.kind, ref: item.slug, title: item.name,
-        meta: { location: metaLines(item)[0], capacity: item.capacityLabel, price: item.priceLabel, defining: item.essence, cat: item.category.toUpperCase() },
+        meta: { location: metaLines(item)[0], capacity: item.capacityLabel, price: priceDisplay(item).line, defining: item.essence, cat: item.category.toUpperCase() },
       });
       setAdded(true);
       announceAdd(item);
@@ -191,6 +194,7 @@ export function InventoryCard({ item }: { item: InventoryItem }) {
   return (
     <article className="wpi-card" data-cms={meta.kind} data-ref={item.slug}>
       <a className="wpi-frame" href={detail} style={{ background: grad }} aria-label={`${meta.viewLabel}: ${item.name}`}>
+        <InventoryImage slug={item.slug} alt={item.name} />
         {item.featured && <span className="flag">Featured</span>}
         {showInternalBriefs() && <span className="brief">{item.heroBrief}</span>}
       </a>
@@ -199,14 +203,19 @@ export function InventoryCard({ item }: { item: InventoryItem }) {
         <span className="wpi-kind">{kindLine(item)}</span>
         <p className="wpi-meta">{l1}<br />{l2}</p>
         <div className="wpi-priceline">
-          <span className="wpi-price">{item.priceLabel}</span>
+          <span className="wpi-price">{priceDisplay(item).line}</span>
           <span className="wpi-status">{STATUS_LABEL[item.status]}</span>
         </div>
+        {item.pricing?.seasonalNote && <p className="wpi-meta" style={{ opacity: .75 }}>{item.pricing.seasonalNote}</p>}
         <p className="wpi-essence">{item.essence}</p>
         <div className="wpi-actions">
           <button type="button" className="wpi-req"
             data-fastlane="" data-fastlane-kind={meta.kind}
-            data-fastlane-ref={item.slug} data-fastlane-title={item.name}>
+            data-fastlane-ref={item.slug} data-fastlane-title={item.name}
+            data-fastlane-rate={priceDisplay(item).line}
+            data-fastlane-unit={item.pricing?.priceUnit || ""}
+            data-fastlane-poa={item.priceConfirmed ? "false" : "true"}
+            data-fastlane-loc={item.location}>
             Request availability
           </button>
           <a className="wpi-view" href={detail}>{meta.viewLabel} →</a>
@@ -227,12 +236,12 @@ function InventoryRow({ item }: { item: InventoryItem }) {
   const [l1, l2] = metaLines(item);
   return (
     <div className="wpi-row" data-cms={meta.kind} data-ref={item.slug}>
-      <a className="rframe" href={detail} style={{ background: grad }} aria-label={item.name}></a>
+      <a className="rframe" href={detail} style={{ background: grad }} aria-label={item.name}><InventoryImage slug={item.slug} alt={item.name} /></a>
       <div>
         <a className="rname" href={detail}>{item.name}</a>
         <span className="rkind">{kindLine(item)} · {STATUS_LABEL[item.status]}</span>
       </div>
-      <p className="rmeta">{l1}<br />{l2}<br />{item.priceLabel}</p>
+      <p className="rmeta">{l1}<br />{l2}<br />{priceDisplay(item).line}</p>
       <div className="racts">
         <button type="button" className="wpi-req" style={{ padding: "10px 14px", minHeight: 38 }}
           data-fastlane="" data-fastlane-kind={meta.kind}
@@ -246,7 +255,7 @@ function InventoryRow({ item }: { item: InventoryItem }) {
 }
 
 /* ---------------- Browser ---------------- */
-type Filters = { dest: string | null; type: string | null; cap: string | null };
+type Filters = { dest: string | null; type: string | null; cap: string | null; band: string | null };
 function capBand(item: InventoryItem): string {
   const nums = (item.capacityLabel.match(/\d+/g) || []).map(Number);
   const max = nums.length ? Math.max(...nums) : 0;
@@ -262,18 +271,26 @@ const WHERE_LABEL: Record<Category, string> = { air: "Base / region", sea: "Loca
 const TYPE_LABEL: Record<Category, string> = { air: "Class", sea: "Format", stay: "Character" };
 
 export function FleetBrowser({ items, category }: { items: InventoryItem[]; category: Category }) {
-  const [f, setF] = useState<Filters>({ dest: null, type: null, cap: null });
+  const [f, setF] = useState<Filters>({ dest: null, type: null, cap: null, band: null });
   const [mode, setMode] = useState<"editorial" | "index">("editorial");
 
   const dests = useMemo(() => Array.from(new Set(items.flatMap((i) => i.destinations))).sort(), [items]);
   const types = useMemo(() => Array.from(new Set(items.map(kindLine).filter(Boolean))), [items]);
   const caps = useMemo(() => Array.from(new Set(items.map(capBand))), [items]);
-  const active = !!(f.dest || f.type || f.cap);
+  const active = !!(f.dest || f.type || f.cap || f.band);
 
   const shown = items.filter((i) => {
     if (f.dest && !i.destinations.includes(f.dest)) return false;
     if (f.type && kindLine(i) !== f.type) return false;
     if (f.cap && capBand(i) !== f.cap) return false;
+    if (f.band) {
+      if (f.band === "poa") { if (!(i.pricing?.priceOnApplication || !i.priceConfirmed)) return false; }
+      else {
+        const b = CATEGORY_BANDS[category].find((x) => x.id === f.band);
+        const p = i.priceConfirmed ? i.pricing?.priceFrom : undefined;
+        if (!b || p === undefined || p < b.min || p >= b.max) return false;
+      }
+    }
     return true;
   });
 
@@ -309,7 +326,14 @@ export function FleetBrowser({ items, category }: { items: InventoryItem[]; cate
           {chip(!f.cap, "All", () => setF({ ...f, cap: null }), "c-all")}
           {caps.map((x) => chip(f.cap === x, CAP_LABEL[x], () => setF({ ...f, cap: f.cap === x ? null : x }), "c" + x))}
         </span>
-        {active && <button type="button" className="wpi-reset" onClick={() => setF({ dest: null, type: null, cap: null })}>Reset</button>}
+        <span className="wpi-fgroup">
+          <span className="wpi-flabel">Rate</span>
+          {chip(!f.band, "All", () => setF({ ...f, band: null }), "b-all")}
+          {CATEGORY_BANDS[category].map((b) =>
+            chip(f.band === b.id, b.label, () => setF({ ...f, band: f.band === b.id ? null : b.id }), "b" + b.id))}
+          {chip(f.band === "poa", "Price on application", () => setF({ ...f, band: f.band === "poa" ? null : "poa" }), "b-poa")}
+        </span>
+        {active && <button type="button" className="wpi-reset" onClick={() => setF({ dest: null, type: null, cap: null, band: null })}>Reset</button>}
         <span className="wpi-count">{shown.length} of {items.length} · curated</span>
       </div>
 
