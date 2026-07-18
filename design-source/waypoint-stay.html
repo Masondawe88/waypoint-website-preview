@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STAY — Private Residences | WAYPOINT &amp; Co.</title>
+<meta name="description" content="Private residences selected for their setting, architecture, privacy and connection to the destination. Whitsundays, Noosa and Tasmania.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WAYPOINT & Co. — STAY
+   Phase Seven · Belonging
+   Motion language: inward, spatial, grounded.
+   ============================================================ */
+
+:root{
+  --ivory:        #F1EEE7;
+  --ivory-deep:   #EAE5DA;
+  --linen:        #E6E0D2;
+  --limestone:    #D8CFC0;
+  --sand:         #C9B295;
+  --timber:       #8A6F52;
+  --charcoal:     #211F1B;
+  --charcoal-soft:#2B2822;
+  --forest:       #3A453B;
+  --forest-deep:  #2C352E;
+  --ocean-grey:   #7C8B8F;
+  --stone-tas:    #56534B;
+  --fire:         #A9703C;
+  --metal:        #B3B0A7;
+  --ink-soft:     #6D6A61;
+  --ink-on-dark:  #EDEAE1;
+
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans:  "Instrument Sans", -apple-system, "Helvetica Neue", sans-serif;
+  --mono:  "IBM Plex Mono", "SF Mono", monospace;
+
+  --gutter: clamp(20px, 5vw, 72px);
+  --max: 1360px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection{ background: var(--timber); color: var(--ivory); }
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+/* ---------- shared vocabulary ---------- */
+.wrap{ max-width: var(--max); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+
+.eyebrow{
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.32em; text-transform: uppercase; color: var(--timber);
+}
+.dark .eyebrow{ color: var(--sand); }
+
+.display{ font-family: var(--serif); font-weight: 400; line-height: 1.07; letter-spacing: -0.01em; }
+
+.lede{ font-size: clamp(17px, 1.35vw, 20px); line-height: 1.78; color: var(--ink-soft); max-width: 56ch; }
+.dark .lede{ color: #BDB9AD; }
+
+.mono-note{
+  font-family: var(--mono); font-size: 11.5px; font-weight: 300;
+  letter-spacing: 0.08em; line-height: 1.9; color: var(--ink-soft);
+}
+.dark .mono-note{ color: #96938A; }
+
+.action{
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 17px 30px;
+  border: 1px solid var(--charcoal);
+  transition: background .5s var(--ease), color .5s var(--ease);
+}
+.action .mark{ font-family: var(--mono); font-weight: 300; transition: transform .5s var(--ease); }
+.action:hover{ background: var(--charcoal); color: var(--ivory); }
+.action:hover .mark{ transform: translateX(4px); }
+.action.solid{ background: var(--charcoal); color: var(--ivory); }
+.action.solid:hover{ background: var(--timber); border-color: var(--timber); }
+.action.quiet{ border: none; padding: 6px 0; border-bottom: 1px solid var(--metal); }
+.action.quiet:hover{ background: none; color: var(--timber); border-bottom-color: var(--timber); }
+.dark .action{ border-color: var(--ink-on-dark); color: var(--ink-on-dark); }
+.dark .action:hover{ background: var(--ink-on-dark); color: var(--charcoal); }
+
+a:focus-visible, button:focus-visible, summary:focus-visible{
+  outline: 2px solid var(--timber); outline-offset: 4px;
+}
+
+/* inward reveal — entering a space */
+.enter{
+  opacity: 0;
+  transform: scale(1.025);
+  clip-path: inset(5% 7% 5% 7%);
+  transition: opacity 1.1s var(--ease), transform 1.4s var(--ease), clip-path 1.4s var(--ease);
+}
+.enter.in{ opacity: 1; transform: scale(1); clip-path: inset(0 0 0 0); }
+.enter.d1{ transition-delay: .14s; }
+.enter.d2{ transition-delay: .28s; }
+.enter.d3{ transition-delay: .42s; }
+
+/* soft settle for text */
+.settle{
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 1s var(--ease), transform 1.2s var(--ease);
+}
+.settle.in{ opacity: 1; transform: none; }
+.settle.d1{ transition-delay: .14s; }
+.settle.d2{ transition-delay: .28s; }
+.settle.d3{ transition-delay: .42s; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px var(--gutter);
+  transition: background .5s var(--ease), box-shadow .5s var(--ease), padding .5s var(--ease);
+}
+.nav.scrolled{
+  background: rgba(241,238,231,0.93);
+  backdrop-filter: blur(12px);
+  padding-top: 14px; padding-bottom: 14px;
+  box-shadow: 0 1px 0 rgba(33,31,27,0.08);
+}
+.nav .wordmark{ font-family: var(--serif); font-size: 19px; letter-spacing: .04em; }
+.nav .wordmark span{ font-family: var(--mono); font-size: 10px; letter-spacing: .3em; color: var(--timber); display:block; margin-top: 1px; }
+.nav-links{ display: flex; gap: 34px; align-items: center; }
+.nav-links a{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ink-soft); padding-bottom: 3px; border-bottom: 1px solid transparent;
+  transition: color .3s, border-color .3s;
+}
+.nav-links a:hover{ color: var(--charcoal); }
+.nav-links a.current{ color: var(--charcoal); border-bottom-color: var(--charcoal); }
+.nav-begin{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .24em; text-transform: uppercase;
+  border: 1px solid var(--charcoal); padding: 10px 20px;
+  transition: background .4s var(--ease), color .4s var(--ease);
+}
+.nav-begin:hover{ background: var(--charcoal); color: var(--ivory); }
+.nav.on-dark:not(.scrolled){ color: var(--ink-on-dark); }
+.nav.on-dark:not(.scrolled) .nav-links a{ color: rgba(237,234,225,.7); }
+.nav.on-dark:not(.scrolled) .nav-links a:hover,
+.nav.on-dark:not(.scrolled) .nav-links a.current{ color: var(--ink-on-dark); border-bottom-color: var(--ink-on-dark); }
+.nav.on-dark:not(.scrolled) .nav-begin{ border-color: var(--ink-on-dark); }
+.nav.on-dark:not(.scrolled) .nav-begin:hover{ background: var(--ink-on-dark); color: var(--charcoal); }
+.nav.on-dark:not(.scrolled) .wordmark span{ color: var(--sand); }
+
+/* ============================================================
+   1 · HERO — THE THRESHOLD
+   Walls part; the visitor enters a private world.
+   ============================================================ */
+.hero{
+  position: relative;
+  min-height: 100svh;
+  display: flex; align-items: flex-end;
+  color: var(--ink-on-dark);
+  background: var(--charcoal);
+  overflow: hidden;
+}
+/* the view beyond the threshold */
+.hero .view{
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      #A9B4B2 0%,
+      #C3C6BB 30%,
+      #7C8B8F 46%,     /* sea line */
+      #8E958C 52%,
+      #C9BBA4 70%,     /* limestone terrace */
+      #D8CFC0 86%,
+      #B7A98F 100%);
+}
+.hero .view::after{ /* light across the surface */
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(115deg, rgba(241,238,231,0.0) 30%, rgba(241,238,231,0.22) 48%, rgba(241,238,231,0.0) 62%);
+  animation: light-pass 18s var(--ease) infinite alternate;
+}
+@keyframes light-pass{
+  from{ transform: translateX(-8%); }
+  to{   transform: translateX(8%); }
+}
+/* threshold walls — part on arrival, a fine frame remains */
+.hero .wall{ position: absolute; top: 0; bottom: 0; background: var(--charcoal); z-index: 2; }
+.hero .wall.left{ left: 0; width: 38%; animation: part-left 2.4s var(--ease) .3s forwards; }
+.hero .wall.right{ right: 0; width: 38%; animation: part-right 2.4s var(--ease) .3s forwards; }
+.hero .lintel{
+  position:absolute; left:0; right:0; top:0; height: 26%;
+  background: var(--charcoal); z-index: 2;
+  animation: lift 2.4s var(--ease) .3s forwards;
+}
+@keyframes part-left{ to{ width: 4.5%; } }
+@keyframes part-right{ to{ width: 4.5%; } }
+@keyframes lift{ to{ height: 7%; } }
+.hero .sill{
+  position:absolute; left:0; right:0; bottom:0; height: 4.5%;
+  background: var(--charcoal); z-index: 2;
+}
+/* dark grade over the view for legibility */
+.hero .grade{
+  position:absolute; inset:0; z-index: 3; pointer-events:none;
+  background: linear-gradient(180deg, rgba(33,31,27,0.18) 0%, rgba(33,31,27,0.0) 40%, rgba(33,31,27,0.5) 100%);
+}
+.hero-inner{
+  position: relative; z-index: 4;
+  width: 100%;
+  padding-bottom: clamp(64px, 10vh, 120px);
+}
+.hero h1{
+  font-size: clamp(46px, 7.2vw, 104px);
+  max-width: 12ch;
+  text-shadow: 0 1px 26px rgba(33,31,27,0.25);
+}
+.hero .lede{ color: rgba(237,234,225,0.86); margin-top: 26px; max-width: 48ch; }
+.hero-actions{ display: flex; gap: 18px; margin-top: 44px; flex-wrap: wrap; }
+.hero .action{ border-color: rgba(237,234,225,0.9); color: var(--ink-on-dark); }
+.hero .action:hover{ background: var(--ink-on-dark); color: var(--charcoal); }
+.hero .action.solid{ background: rgba(237,234,225,0.96); color: var(--charcoal); border-color: transparent; }
+.hero .action.solid:hover{ background: var(--ivory); }
+.hero-ident{
+  position: absolute; right: calc(var(--gutter) + 1%); bottom: clamp(64px, 10vh, 120px);
+  text-align: right; z-index: 4;
+  font-family: var(--mono); font-size: 11px; font-weight: 300;
+  letter-spacing: .3em; line-height: 2.3; color: rgba(237,234,225,0.66);
+}
+.hero-ident b{ font-weight: 400; color: rgba(237,234,225,0.95); letter-spacing: .34em; }
+.hero .load{ opacity: 0; transform: translateY(24px); animation: settle-in 1.5s var(--ease) forwards; }
+.hero .load.l2{ animation-delay: .55s; }
+.hero .load.l3{ animation-delay: .85s; }
+.hero .load.l4{ animation-delay: 1.15s; }
+@keyframes settle-in{ to{ opacity: 1; transform: none; } }
+
+/* ============================================================
+   2 · EDITORIAL INTRODUCTION
+   ============================================================ */
+.intro{ padding: clamp(96px, 14vh, 180px) 0 clamp(84px, 12vh, 160px); }
+.split{
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 110px); align-items: center;
+}
+.intro h2{ font-size: clamp(34px, 4.2vw, 62px); margin: 22px 0 30px; max-width: 14ch; }
+.intro .statement{
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(19px, 1.7vw, 24px); color: var(--timber);
+  margin-top: 34px; max-width: 32ch;
+}
+/* window elevation — drawn, lived-in */
+.window-figure svg{ display:block; width: 100%; height: auto; }
+.window-figure .fig-caption{
+  margin-top: 18px; display:flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+
+/* ============================================================
+   3 · THE ARCHITECTURE OF BELONGING — STAY's navigation system
+   Thresholds and spaces, an architect's pencil interpreted editorially.
+   ============================================================ */
+.belonging{ background: var(--linen); padding: clamp(96px, 14vh, 180px) 0; }
+.belonging-head{ text-align: center; max-width: 660px; margin: 0 auto clamp(64px, 9vh, 120px); }
+.belonging-head h2{ font-size: clamp(32px, 3.8vw, 54px); margin-top: 20px; }
+.plan{
+  position: relative; max-width: 760px; margin: 0 auto;
+}
+/* the wall line */
+.plan-line{
+  position: absolute; left: 27px; top: 10px; bottom: 10px; width: 1px;
+  background: var(--metal);
+}
+.plan-line .pencil{
+  position: absolute; top: 0; left: 0; width: 100%; height: 0%;
+  background: var(--timber); transition: height .2s linear;
+}
+.space{
+  position: relative; display: grid;
+  grid-template-columns: 56px 200px minmax(0,1fr);
+  gap: clamp(20px, 3vw, 44px); align-items: start;
+  padding: 0 0 clamp(48px, 6.5vh, 76px);
+}
+.space:last-child{ padding-bottom: 0; }
+.space .glyph{ position: relative; z-index: 2; }
+.space .glyph svg{ display:block; width: 56px; height: 56px; background: var(--linen); }
+.space .sp-name{
+  font-family: var(--mono); font-size: 12px; letter-spacing: .38em;
+  text-transform: uppercase; color: var(--charcoal); padding-top: 16px;
+}
+.space .sp-anno{ display:block; margin-top: 8px; font-family: var(--mono); font-size: 10px; font-weight:300; letter-spacing: .16em; color: var(--ink-soft); }
+.space .sp-line{
+  font-family: var(--serif); font-size: clamp(21px, 2.3vw, 30px);
+  line-height: 1.32; max-width: 24ch; padding-top: 8px;
+}
+.plan-footnote{ text-align: center; margin-top: clamp(52px, 7vh, 84px); }
+
+/* ============================================================
+   4 · FEATURED DESTINATIONS — three material worlds
+   ============================================================ */
+.dest-chapters{ padding: clamp(96px, 14vh, 180px) 0 0; }
+.dest-chapters-head{ max-width: 700px; margin-bottom: clamp(64px, 9vh, 110px); }
+.dest-chapters-head h2{ font-size: clamp(34px, 4.2vw, 60px); margin-top: 20px; }
+
+.dchapter{
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(36px, 5vw, 90px);
+  padding: clamp(64px, 8vh, 100px) 0;
+  border-top: 1px solid var(--metal);
+  align-items: center;
+}
+.dchapter:last-of-type{ border-bottom: 1px solid var(--metal); }
+.dchapter .material{
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+}
+.dchapter .material::before{ content:""; position: absolute; inset: 0; }
+.dchapter .material::after{ /* interior frame — the view held in architecture */
+  content:""; position:absolute; inset: 14px;
+  border: 1px solid rgba(241,238,231,0.55);
+  pointer-events: none;
+}
+.dchapter[data-tone="hamilton"] .material::before{
+  background: linear-gradient(180deg, #BCC7C4 0%, #D5D4C6 34%, #7C8B8F 50%, #98A096 58%, #D8CFC0 82%, #C4B69C 100%);
+}
+.dchapter[data-tone="noosa"] .material::before{
+  background: linear-gradient(180deg, #C7C4A8 0%, #A9B08C 32%, #7E9287 48%, #C9B295 72%, #B99F7C 100%);
+}
+.dchapter[data-tone="tasmania"] .material::before{
+  background: linear-gradient(180deg, #3E4640 0%, #56534B 38%, #6E6759 58%, #8A6F52 80%, #A9703C 100%);
+}
+.dchapter .material .m-note{
+  position:absolute; left: 26px; bottom: 22px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase; color: rgba(241,238,231,0.85);
+}
+.dchapter h3{ font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; }
+.dchapter .d-essence{
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(18px, 1.6vw, 23px); color: var(--ink-soft);
+  margin: 16px 0 26px; max-width: 30ch;
+}
+.dchapter .themes{
+  display: flex; flex-wrap: wrap; gap: 8px 0; max-width: 46ch;
+  font-family: var(--mono); font-size: 11px; font-weight: 300;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+}
+.dchapter .themes span::after{ content: "·"; margin: 0 10px; color: var(--metal); }
+.dchapter .themes span:last-child::after{ content: ""; margin: 0; }
+.dchapter .services{
+  margin-top: 26px; font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--timber);
+}
+.dchapter .action{ margin-top: 34px; }
+.dchapter:nth-child(even) .material{ order: 2; }
+
+/* ============================================================
+   5 · CURATED RESIDENCES — one at a time
+   ============================================================ */
+.residences{ background: var(--ivory-deep); padding: clamp(96px, 14vh, 180px) 0; }
+.residences-head{ max-width: 720px; margin-bottom: clamp(56px, 8vh, 100px); }
+.residences-head h2{ font-size: clamp(34px, 4.2vw, 60px); margin: 20px 0 26px; }
+
+.residence{
+  border-top: 1px solid var(--metal);
+  padding: clamp(56px, 7.5vh, 92px) 0;
+}
+.residence:last-of-type{ border-bottom: 1px solid var(--metal); }
+.res-grid{
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(36px, 5vw, 90px); align-items: start;
+}
+.res-media{ position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+.res-media::before{ content:""; position:absolute; inset:0; }
+.residence[data-tone="hamilton"] .res-media::before{
+  background: linear-gradient(165deg, #D5D4C6 0%, #BCC7C4 34%, #7C8B8F 62%, #D8CFC0 100%);
+}
+.residence[data-tone="noosa"] .res-media::before{
+  background: linear-gradient(165deg, #C9C6AB 0%, #A9B08C 40%, #C9B295 78%, #E6E0D2 100%);
+}
+.residence[data-tone="tasmania"] .res-media::before{
+  background: linear-gradient(165deg, #3E4640 0%, #56534B 44%, #8A6F52 82%, #6E6759 100%);
+}
+.res-media .placeholder{
+  position: absolute; inset: 16px; border: 1px dashed rgba(241,238,231,0.5);
+  display: flex; align-items: flex-end; padding: 20px;
+}
+.res-media .placeholder span{
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em;
+  text-transform: uppercase; color: rgba(241,238,231,0.85); line-height: 2;
+}
+.res-body .r-dest{ margin-bottom: 16px; }
+.res-body h3{ font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3vw, 42px); line-height: 1.1; }
+.res-body .r-essence{
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(17px, 1.5vw, 21px); color: var(--ink-soft);
+  margin: 14px 0 24px; max-width: 34ch;
+}
+.res-facts{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px 32px; margin: 26px 0;
+}
+.res-facts .f-label{
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--timber); margin-bottom: 6px;
+}
+.res-facts p{ font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
+.res-with{
+  margin: 26px 0 8px; padding-top: 22px; border-top: 1px solid var(--metal);
+}
+.res-with .f-label{
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--timber); margin-bottom: 12px;
+}
+.res-with ul{ list-style: none; display: flex; flex-wrap: wrap; gap: 8px 0; font-size: 14px; color: var(--ink-soft); }
+.res-with li::after{ content: "·"; margin: 0 10px; color: var(--metal); }
+.res-with li:last-child::after{ content: ""; margin: 0; }
+.res-attr{ margin-top: 18px; }
+.res-body .action{ margin-top: 28px; }
+
+/* ============================================================
+   6 · THE RHYTHM OF A STAY
+   ============================================================ */
+.rhythm{ padding: clamp(96px, 14vh, 180px) 0; }
+.rhythm-head{ text-align: center; max-width: 620px; margin: 0 auto clamp(64px, 9vh, 110px); }
+.rhythm-head h2{ font-size: clamp(32px, 3.8vw, 54px); margin-top: 20px; }
+.day{
+  max-width: 680px; margin: 0 auto;
+}
+.moment{
+  display: grid; grid-template-columns: 140px minmax(0,1fr);
+  gap: clamp(24px, 4vw, 56px); align-items: baseline;
+  padding: clamp(26px, 3.4vh, 40px) 0;
+  border-top: 1px solid var(--metal);
+}
+.moment:last-child{ border-bottom: 1px solid var(--metal); }
+.moment .m-time{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .38em;
+  text-transform: uppercase; color: var(--timber);
+}
+.moment .m-line{ font-family: var(--serif); font-size: clamp(21px, 2.2vw, 29px); line-height: 1.3; }
+.moment .m-detail{
+  display: block; margin-top: 10px;
+  font-size: 13.5px; color: var(--ink-soft); font-family: var(--sans); line-height: 1.7; max-width: 44ch;
+}
+.rhythm-footnote{ text-align: center; margin-top: clamp(44px, 6vh, 64px); }
+
+/* ============================================================
+   7 · CONNECTED JOURNEYS
+   ============================================================ */
+.journeys{ background: var(--linen); padding: clamp(96px, 14vh, 180px) 0; }
+.journeys-head{ max-width: 700px; margin-bottom: clamp(56px, 8vh, 90px); }
+.journeys-head h2{ font-size: clamp(34px, 4.2vw, 60px); margin-top: 20px; }
+.journey-grid{ display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(20px, 2.6vw, 40px); }
+.journey{
+  background: var(--ivory);
+  border: 1px solid rgba(179,176,167,0.65);
+  padding: clamp(28px, 3vw, 44px);
+  display: flex; flex-direction: column;
+  transition: transform .8s var(--ease), box-shadow .8s var(--ease);
+}
+.journey:hover{ transform: translateY(-8px); box-shadow: 0 26px 60px -32px rgba(33,31,27,0.3); }
+.journey .j-kicker{ margin-bottom: 22px; }
+.journey h3{ font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.12; margin-bottom: 26px; }
+.j-course{ position: relative; padding-left: 24px; flex: 1; }
+.j-course::before{
+  content:""; position:absolute; left:3px; top: 7px; bottom: 7px; width:1px; background: var(--metal);
+}
+.j-step{ position: relative; padding-bottom: 18px; }
+.j-step:last-child{ padding-bottom: 0; }
+.j-step::before{
+  content:""; position:absolute; left:-24px; top: 6px;
+  width: 7px; height: 7px; border-radius: 50%;
+  border: 1px solid var(--timber); background: var(--ivory);
+}
+.j-step .s-kind{ font-family: var(--mono); font-size: 9.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--timber); }
+.j-step .s-text{ font-size: 14.5px; margin-top: 3px; line-height: 1.55; }
+.journey .j-actions{
+  margin-top: 34px; padding-top: 24px; border-top: 1px solid rgba(179,176,167,0.55);
+  display: flex; flex-direction: column; gap: 12px; align-items: flex-start;
+}
+
+/* ============================================================
+   8 · PRIVATE SERVICES — quiet, text-led
+   ============================================================ */
+.services{ padding: clamp(96px, 14vh, 180px) 0; }
+.services .split{ align-items: start; }
+.services h2{ font-size: clamp(32px, 3.8vw, 54px); margin: 20px 0 26px; max-width: 15ch; }
+.service-list{ border-top: 1px solid var(--metal); }
+.service-row{
+  display: grid; grid-template-columns: minmax(0,1fr) auto;
+  gap: 24px; align-items: baseline;
+  padding: 17px 0; border-bottom: 1px solid var(--metal);
+  font-size: 15.5px;
+}
+.service-row .s-note{
+  font-family: var(--mono); font-size: 10px; font-weight: 300;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft);
+}
+.services .caveat{ margin-top: 26px; }
+
+/* ============================================================
+   9 · WHY WAYPOINT — behind the stay (forest, warmer than AIR)
+   ============================================================ */
+.dark{ color: var(--ink-on-dark); }
+.why{ background: var(--forest-deep); padding: clamp(104px, 15vh, 190px) 0; position: relative; overflow: hidden; }
+.why::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(80% 55% at 85% 0%, rgba(201,178,149,0.09), transparent 62%),
+    radial-gradient(70% 45% at 8% 100%, rgba(169,112,60,0.10), transparent 58%);
+}
+.why .wrap{ position: relative; }
+.why h2{ font-size: clamp(34px, 4.4vw, 64px); margin: 22px 0 26px; max-width: 15ch; }
+.principles{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(230,224,210,0.18);
+  border: 1px solid rgba(230,224,210,0.18);
+  margin-top: clamp(56px, 7vh, 90px);
+}
+.principle{ background: var(--forest-deep); padding: clamp(30px, 3.4vw, 52px); }
+.principle .p-code{
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .34em;
+  text-transform: uppercase; color: var(--sand); margin-bottom: 20px;
+}
+.principle p{ font-family: var(--serif); font-size: clamp(19px, 1.8vw, 25px); line-height: 1.42; color: var(--ink-on-dark); max-width: 28ch; }
+
+/* ============================================================
+   10/11 · BEGIN YOUR STAY — dusk, calm, complete
+   ============================================================ */
+.begin{
+  position: relative;
+  padding: clamp(130px, 20vh, 240px) 0;
+  text-align: center;
+  color: var(--ink-on-dark);
+  background:
+    linear-gradient(180deg,
+      #2B2822 0%,
+      #3A3A33 30%,
+      #56534B 52%,
+      #8A6F52 76%,
+      #A9703C 92%,
+      #B4763F 100%);
+  overflow: hidden;
+}
+.begin::before{ /* open doorway of light at centre */
+  content:""; position:absolute; left:50%; bottom:0; transform: translateX(-50%);
+  width: min(280px, 40vw); height: 62%;
+  background: linear-gradient(180deg, rgba(241,238,231,0.0), rgba(241,238,231,0.14) 55%, rgba(241,238,231,0.26));
+  border-left: 1px solid rgba(241,238,231,0.35);
+  border-right: 1px solid rgba(241,238,231,0.35);
+  border-top: 1px solid rgba(241,238,231,0.35);
+}
+.begin .wrap{ position: relative; }
+.begin h2{ font-size: clamp(38px, 5.4vw, 84px); max-width: 13ch; margin: 24px auto 26px; }
+.begin .lede{ margin: 0 auto 46px; color: rgba(237,234,225,0.85); }
+.begin-actions{ display:flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+.begin .action{ border-color: rgba(237,234,225,0.9); color: var(--ink-on-dark); }
+.begin .action:hover{ background: var(--ink-on-dark); color: var(--charcoal); }
+.begin .action.solid{ background: rgba(237,234,225,0.96); color: var(--charcoal); border-color: transparent; }
+.begin .action.solid:hover{ background: var(--ivory); }
+.begin .closing{ margin-top: clamp(48px, 7vh, 72px); }
+.begin .closing .mono-note{ color: rgba(237,234,225,0.55); letter-spacing: .32em; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{ background: var(--charcoal); color: var(--ink-on-dark); padding: clamp(64px, 8vh, 100px) 0 40px; }
+.footer-top{
+  display: grid; grid-template-columns: minmax(0,1.4fr) repeat(3, minmax(0,1fr));
+  gap: clamp(32px, 4vw, 64px);
+  padding-bottom: clamp(44px, 5vh, 64px);
+  border-bottom: 1px solid rgba(179,176,167,0.22);
+}
+.footer .wordmark{ font-family: var(--serif); font-size: 22px; }
+.footer .wordmark span{ font-family: var(--mono); font-size: 10px; letter-spacing: .3em; color: var(--sand); display: block; margin-top: 4px; }
+.footer h4{ font-family: var(--mono); font-size: 10.5px; font-weight: 400; letter-spacing: .32em; text-transform: uppercase; color: var(--sand); margin-bottom: 20px; }
+.footer ul{ list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer ul a{ font-size: 14px; color: #BDB9AD; transition: color .3s; }
+.footer ul a:hover{ color: var(--ink-on-dark); }
+.footer-bottom{ display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-top: 32px; }
+.footer-bottom .mono-note{ color: #7A776E; }
+
+/* ============================================================
+   ADD STAY TO JOURNEY — persistent quiet control
+   ============================================================ */
+.add-stay{
+  position: fixed; right: 26px; bottom: 26px; z-index: 70;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase;
+  background: rgba(241,238,231,0.94); backdrop-filter: blur(10px);
+  color: var(--charcoal);
+  border: 1px solid var(--metal);
+  padding: 13px 20px;
+  transition: background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease), transform .6s var(--ease);
+  opacity: 0; transform: translateY(16px); pointer-events: none;
+}
+.add-stay.visible{ opacity: 1; transform: translateY(0); pointer-events: auto; }
+.add-stay .dot{ width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--timber); transition: background .4s; }
+.add-stay:hover{ border-color: var(--charcoal); }
+.add-stay.added{ background: var(--charcoal); color: var(--ivory); border-color: var(--charcoal); }
+.add-stay.added .dot{ background: var(--sand); border-color: var(--sand); }
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{ animation: none !important; transition: none !important; }
+  .enter, .settle, .hero .load{ opacity: 1; transform: none; clip-path: none; }
+  .hero .wall.left, .hero .wall.right{ width: 4.5%; }
+  .hero .lintel{ height: 7%; }
+  .plan-line .pencil{ height: 100% !important; }
+}
+
+/* ============================================================
+   MOBILE — vertical residence log
+   ============================================================ */
+@media (max-width: 980px){
+  .split{ grid-template-columns: 1fr; }
+  .dchapter{ grid-template-columns: 1fr; }
+  .dchapter:nth-child(even) .material{ order: 0; }
+  .dchapter .material{ aspect-ratio: 4 / 3; }
+  .res-grid{ grid-template-columns: 1fr; }
+  .space{ grid-template-columns: 56px minmax(0,1fr); }
+  .space .sp-line{ grid-column: 2; padding-top: 12px; }
+  .journey-grid{ grid-template-columns: 1fr; }
+  .principles{ grid-template-columns: 1fr; }
+  .moment{ grid-template-columns: 96px minmax(0,1fr); }
+  .footer-top{ grid-template-columns: 1fr 1fr; }
+  .hero-ident{ display: none; }
+  .nav-links{ display: none; }
+  .hero .wall.left, .hero .wall.right{ animation-name: part-left-m; }
+  @keyframes part-left-m{ to{ width: 3%; } }
+}
+@media (max-width: 560px){
+  .footer-top{ grid-template-columns: 1fr; }
+  .res-facts{ grid-template-columns: 1fr; }
+  .add-stay{ right: 16px; bottom: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav on-dark" id="nav">
+  <a href="/" class="wordmark">WAYPOINT &amp; Co.<span>SEA · STAY · AIR</span></a>
+  <div class="nav-links">
+    <a href="/sea">Sea</a>
+    <a href="/stay" class="current" aria-current="page">Stay</a>
+    <a href="/air">Air</a>
+    <a href="/journeys">Journeys</a>
+  </div>
+  <a class="nav-begin" href="/begin?mode=stay&src=stay-nav">Begin</a>
+</nav>
+
+<!-- ============ 1 · HERO — THE THRESHOLD ============ -->
+<header class="hero" id="threshold">
+  <div class="view" aria-hidden="true"></div>
+  <div class="wall left" aria-hidden="true"></div>
+  <div class="wall right" aria-hidden="true"></div>
+  <div class="lintel" aria-hidden="true"></div>
+  <div class="sill" aria-hidden="true"></div>
+  <div class="grade" aria-hidden="true"></div>
+
+  <div class="hero-inner wrap">
+    <p class="eyebrow load" style="color:rgba(237,234,225,.62)">Phase of the journey · Belonging</p>
+    <h1 class="display load l2">A place within the&nbsp;place.</h1>
+    <p class="lede load l3">Private residences selected for their setting, architecture, privacy and connection to the destination.</p>
+    <div class="hero-actions load l4">
+      <a class="action solid" href="#destinations">Explore private stays <span class="mark">→</span></a>
+      <a class="action" href="/begin?mode=stay&src=stay-hero">Begin a journey <span class="mark">→</span></a>
+    </div>
+  </div>
+
+  <div class="hero-ident load l4" aria-label="Stay — private residences, Whitsundays, Noosa, Tasmania">
+    <b>STAY</b><br>
+    PRIVATE RESIDENCES<br>
+    WHITSUNDAYS · NOOSA · TASMANIA
+  </div>
+</header>
+
+<!-- ============ 2 · EDITORIAL INTRODUCTION ============ -->
+<section class="intro">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow settle">Stay</p>
+      <h2 class="display settle d1">Some places are worth staying for.</h2>
+      <p class="lede settle d2">The most memorable residences do more than provide a view. They shape the way a destination is experienced — through light, landscape, privacy and the rhythm of each day.</p>
+      <p class="statement settle d3">Chosen not only for where they are, but for how they make you feel while you are there.</p>
+    </div>
+
+    <!-- Drawn architectural detail: window elevation framing the landscape -->
+    <figure class="window-figure enter d2">
+      <svg viewBox="0 0 560 640" role="img" aria-label="Elevation drawing of a window framing a coastal landscape, with curtain and measured annotations">
+        <rect x="0" y="0" width="560" height="640" fill="#2B2822"/>
+        <!-- the view held in the frame -->
+        <g>
+          <rect x="90" y="80" width="380" height="460" fill="#C3C6BB"/>
+          <rect x="90" y="270" width="380" height="34" fill="#7C8B8F"/>
+          <rect x="90" y="304" width="380" height="236" fill="#D8CFC0"/>
+          <rect x="90" y="304" width="380" height="10" fill="#98A096" opacity=".6"/>
+        </g>
+        <!-- linen curtain, mid-breeze -->
+        <path d="M 350 80
+                 C 370 180, 330 260, 356 350
+                 C 378 430, 340 500, 360 540
+                 L 470 540 L 470 80 Z"
+              fill="#E6E0D2" opacity="0.92"/>
+        <path d="M 396 80 C 408 200, 384 330, 402 540" stroke="#C9B295" stroke-width="1.5" fill="none" opacity=".7"/>
+        <path d="M 432 80 C 440 190, 420 340, 436 540" stroke="#C9B295" stroke-width="1.5" fill="none" opacity=".5"/>
+        <!-- frame + mullion -->
+        <g stroke="#211F1B" fill="none">
+          <rect x="90" y="80" width="380" height="460" stroke-width="10"/>
+          <line x1="90" y1="310" x2="470" y2="310" stroke-width="6"/>
+        </g>
+        <!-- timber sill -->
+        <rect x="74" y="540" width="412" height="16" fill="#8A6F52"/>
+        <!-- a book left beside the window -->
+        <g>
+          <rect x="120" y="524" width="64" height="10" fill="#A9703C"/>
+          <rect x="126" y="516" width="52" height="8" fill="#E6E0D2"/>
+        </g>
+        <!-- measured annotations -->
+        <g stroke="#96938A" stroke-width="1" opacity="0.85">
+          <line x1="90" y1="600" x2="470" y2="600"/>
+          <line x1="90" y1="592" x2="90" y2="608"/>
+          <line x1="470" y1="592" x2="470" y2="608"/>
+          <line x1="34" y1="80" x2="34" y2="540"/>
+          <line x1="26" y1="80" x2="42" y2="80"/>
+          <line x1="26" y1="540" x2="42" y2="540"/>
+        </g>
+        <text x="280" y="622" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#96938A" letter-spacing="2">OPENING · EAST</text>
+        <text x="22" y="315" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#96938A" letter-spacing="2" transform="rotate(-90 22 315)">SILL — HEAD</text>
+      </svg>
+      <figcaption class="fig-caption">
+        <span class="mono-note">W-02 · EAST ELEVATION</span>
+        <span class="mono-note">TIMBER · LINEN · MORNING LIGHT</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 3 · THE ARCHITECTURE OF BELONGING ============ -->
+<section class="belonging" id="belonging">
+  <div class="wrap">
+    <div class="belonging-head">
+      <p class="eyebrow settle">The architecture of belonging</p>
+      <h2 class="display settle d1">A stay, drawn as a sequence of thresholds.</h2>
+    </div>
+
+    <div class="plan" id="plan">
+      <div class="plan-line" aria-hidden="true"><div class="pencil" id="pencil"></div></div>
+
+      <div class="space settle">
+        <div class="glyph" aria-hidden="true">
+          <!-- threshold ticks -->
+          <svg viewBox="0 0 56 56"><g stroke="#8A6F52" stroke-width="1.4" fill="none">
+            <line x1="28" y1="6" x2="28" y2="50"/>
+            <line x1="18" y1="14" x2="38" y2="14"/><line x1="18" y1="26" x2="38" y2="26"/><line x1="18" y1="38" x2="38" y2="38"/>
+          </g></svg>
+        </div>
+        <div><div class="sp-name">Arrive</div><span class="sp-anno">THR-01 · APPROACH</span></div>
+        <p class="sp-line">The destination becomes quieter as the door closes behind you.</p>
+      </div>
+
+      <div class="space settle">
+        <div class="glyph" aria-hidden="true">
+          <!-- door swing -->
+          <svg viewBox="0 0 56 56"><g stroke="#8A6F52" stroke-width="1.4" fill="none">
+            <line x1="12" y1="46" x2="12" y2="10"/>
+            <path d="M 12 10 A 36 36 0 0 1 48 46" stroke-dasharray="3 4"/>
+            <line x1="12" y1="46" x2="48" y2="46"/>
+          </g></svg>
+        </div>
+        <div><div class="sp-name">Enter</div><span class="sp-anno">DR-01 · SWING 90°</span></div>
+        <p class="sp-line">Architecture frames the first view.</p>
+      </div>
+
+      <div class="space settle">
+        <div class="glyph" aria-hidden="true">
+          <!-- elevation datum lines -->
+          <svg viewBox="0 0 56 56"><g stroke="#8A6F52" stroke-width="1.4" fill="none">
+            <line x1="8" y1="18" x2="48" y2="18"/><line x1="8" y1="30" x2="48" y2="30"/><line x1="8" y1="42" x2="48" y2="42"/>
+            <line x1="8" y1="14" x2="8" y2="22"/><line x1="48" y1="38" x2="48" y2="46"/>
+          </g></svg>
+        </div>
+        <div><div class="sp-name">Settle</div><span class="sp-anno">RL +0.00 · DATUM</span></div>
+        <p class="sp-line">Bags disappear. Time slows.</p>
+      </div>
+
+      <div class="space settle">
+        <div class="glyph" aria-hidden="true">
+          <!-- table in plan -->
+          <svg viewBox="0 0 56 56"><g stroke="#8A6F52" stroke-width="1.4" fill="none">
+            <rect x="16" y="20" width="24" height="16"/>
+            <line x1="12" y1="24" x2="12" y2="32"/><line x1="44" y1="24" x2="44" y2="32"/>
+            <line x1="22" y1="14" x2="34" y2="14"/><line x1="22" y1="42" x2="34" y2="42"/>
+          </g></svg>
+        </div>
+        <div><div class="sp-name">Gather</div><span class="sp-anno">TB-01 · SEATS AS NEEDED</span></div>
+        <p class="sp-line">Food, conversation and the day meet around one table.</p>
+      </div>
+
+      <div class="space settle">
+        <div class="glyph" aria-hidden="true">
+          <!-- section hatch: interior meets landscape -->
+          <svg viewBox="0 0 56 56"><g stroke="#8A6F52" stroke-width="1.2" fill="none">
+            <line x1="8" y1="40" x2="48" y2="40"/>
+            <line x1="12" y1="40" x2="18" y2="46"/><line x1="20" y1="40" x2="26" y2="46"/><line x1="28" y1="40" x2="34" y2="46"/><line x1="36" y1="40" x2="42" y2="46"/>
+            <path d="M 10 40 C 18 24, 30 18, 46 16" stroke-dasharray="3 4"/>
+          </g></svg>
+        </div>
+        <div><div class="sp-name">Rest</div><span class="sp-anno">SEC A–A · GROUND LINE</span></div>
+        <p class="sp-line">The residence becomes part of the landscape.</p>
+      </div>
+
+      <div class="space settle">
+        <div class="glyph" aria-hidden="true">
+          <!-- door swing, returning inward -->
+          <svg viewBox="0 0 56 56"><g stroke="#8A6F52" stroke-width="1.4" fill="none">
+            <line x1="44" y1="46" x2="44" y2="10"/>
+            <path d="M 44 10 A 36 36 0 0 0 8 46" stroke-dasharray="3 4"/>
+            <line x1="8" y1="46" x2="44" y2="46"/>
+          </g></svg>
+        </div>
+        <div><div class="sp-name">Return</div><span class="sp-anno">DR-01 · INWARD</span></div>
+        <p class="sp-line">Each journey out begins and ends here.</p>
+      </div>
+    </div>
+
+    <div class="plan-footnote settle">
+      <a class="action quiet" href="/begin?mode=stay&src=stay-belonging">Begin your stay <span class="mark">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · FEATURED DESTINATIONS ============ -->
+<section class="dest-chapters" id="destinations">
+  <div class="wrap">
+    <div class="dest-chapters-head">
+      <p class="eyebrow settle">Destinations</p>
+      <h2 class="display settle d1">Three places. Three ways of belonging.</h2>
+    </div>
+
+    <!-- CMS: destination chapters render from `destination` + relationship graph -->
+
+    <article class="dchapter settle" data-tone="hamilton" data-cms="destination" data-dest="whitsundays">
+      <div class="material enter" aria-hidden="true">
+        <span class="m-note">LIGHT · WATER · OPENNESS</span>
+      </div>
+      <div>
+        <h3>Hamilton Island</h3>
+        <p class="d-essence">An island residence at the centre of the Whitsundays.</p>
+        <div class="themes">
+          <span>Ocean views</span><span>Private arrival</span><span>Yacht access</span><span>Whitehaven &amp; reef journeys</span><span>Long lunches</span><span>Sunset</span><span>Golf</span><span>Helicopter access</span>
+        </div>
+        <div class="services">AIR · SEA · STAY · EXPERIENCES</div>
+        <a class="action" href="/begin?dest=whitsundays&mode=stay&src=stay-dest">Explore Hamilton Island <span class="mark">→</span></a>
+      </div>
+    </article>
+
+    <article class="dchapter settle" data-tone="noosa" data-cms="destination" data-dest="noosa">
+      <div class="material enter" aria-hidden="true">
+        <span class="m-note">WARMTH · RIVER · COAST</span>
+      </div>
+      <div>
+        <h3>Noosa</h3>
+        <p class="d-essence">Coast, river and hinterland within one unhurried stay.</p>
+        <div class="themes">
+          <span>Morning ocean swims</span><span>River access</span><span>Private dining</span><span>Wellness</span><span>Hinterland</span><span>Yacht &amp; boat experiences</span><span>Local food</span><span>Sunshine Coast Airport nearby</span>
+        </div>
+        <div class="services">AIR · SEA · STAY · EXPERIENCES</div>
+        <a class="action" href="/begin?dest=noosa&mode=stay&src=stay-dest">Explore Noosa <span class="mark">→</span></a>
+      </div>
+    </article>
+
+    <article class="dchapter settle" data-tone="tasmania" data-cms="destination" data-dest="tasmania">
+      <div class="material enter" aria-hidden="true">
+        <span class="m-note">STONE · TIMBER · SHADOW · FIRELIGHT</span>
+      </div>
+      <div>
+        <h3>Tasmania</h3>
+        <p class="d-essence">Architecture, wilderness and the feeling of being far away.</p>
+        <div class="themes">
+          <span>Firelight</span><span>Cool-climate wine</span><span>Remote coast</span><span>Wilderness</span><span>Private guides</span><span>Chef-led dining</span><span>Aviation access</span><span>Seasonal landscapes</span>
+        </div>
+        <div class="services">AIR · STAY · EXPERIENCES</div>
+        <a class="action" href="/begin?dest=tasmania&mode=stay&src=stay-dest">Explore Tasmania <span class="mark">→</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 5 · CURATED RESIDENCES ============ -->
+<section class="residences" id="residences">
+  <div class="wrap">
+    <div class="residences-head">
+      <p class="eyebrow settle">Curated residences</p>
+      <h2 class="display settle d1">One residence at a time.</h2>
+      <p class="lede settle d2">A small collection, chosen for setting, character and the role each plays within the wider journey. Final residence allocation depends on availability and journey requirements.</p>
+    </div>
+
+    <!-- CMS: residences render from `residence` schema.
+         commercialRelationship · listingStatus · availabilityMode · specsVerified
+         Bedrooms, capacity and inclusions render only where verified. -->
+
+    <article class="residence settle" data-tone="hamilton" data-cms="residence" data-residence="hamilton-island-residence">
+      <div class="res-grid">
+        <div class="res-media enter">
+          <div class="placeholder"><span>SELECTED RESIDENCE · HAMILTON ISLAND<br>MEDIA RENDERS FROM CMS · PLACEHOLDER</span></div>
+        </div>
+        <div class="res-body">
+          <p class="eyebrow r-dest">Whitsundays</p>
+          <h3>Hamilton Island Residence</h3>
+          <p class="r-essence">The island at your door; the passage beyond the terrace.</p>
+          <div class="res-facts">
+            <div><div class="f-label">Setting</div><p>Elevated over the water, minutes from the marina and airport.</p></div>
+            <div><div class="f-label">Guest profile</div><p>Families and small groups building an island-and-sea journey.</p></div>
+            <div><div class="f-label">Architectural character</div><p>Open living, limestone and timber, framed ocean views.</p></div>
+            <div><div class="f-label">Ideal journey</div><p>Island Passage — residence, ALANI and the reef in one course.</p></div>
+          </div>
+          <div class="res-with">
+            <div class="f-label">Best experienced with</div>
+            <ul><li>Yacht charter</li><li>Private chef</li><li>Helicopter arrival</li><li>Reef experience</li></ul>
+          </div>
+          <p class="mono-note res-attr" data-cms-bind="residence.attribution">ATTRIBUTION RENDERS FROM COMMERCIAL RELATIONSHIP · AVAILABLE BY ARRANGEMENT</p>
+          <p class="mono-note" data-cms-bind="residence.specs" data-render="verified-only">VERIFIED FACTS RENDER FROM CMS DATA</p>
+          <a class="action quiet" href="/begin?dest=whitsundays&mode=stay&residence=hamilton-island-residence&src=stay-residence">Explore the residence <span class="mark">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="residence settle" data-tone="noosa" data-cms="residence" data-residence="noosa-residence">
+      <div class="res-grid">
+        <div class="res-media enter">
+          <div class="placeholder"><span>SELECTED RESIDENCE · NOOSA<br>MEDIA RENDERS FROM CMS · PLACEHOLDER</span></div>
+        </div>
+        <div class="res-body">
+          <p class="eyebrow r-dest">Noosa</p>
+          <h3>Noosa Residence</h3>
+          <p class="r-essence">River light in the morning; the coast by afternoon.</p>
+          <div class="res-facts">
+            <div><div class="f-label">Setting</div><p>Between river and headland, an easy transfer from Sunshine Coast Airport.</p></div>
+            <div><div class="f-label">Guest profile</div><p>Couples and families settling into an unhurried coastal rhythm.</p></div>
+            <div><div class="f-label">Architectural character</div><p>Relaxed natural materials, open to the breeze and the water.</p></div>
+            <div><div class="f-label">Ideal journey</div><p>Coastal Interlude — river charter, wellness and private dining.</p></div>
+          </div>
+          <div class="res-with">
+            <div class="f-label">Best experienced with</div>
+            <ul><li>River or coastal charter</li><li>Private dining</li><li>Wellness</li><li>Hinterland day</li></ul>
+          </div>
+          <p class="mono-note res-attr" data-cms-bind="residence.attribution">ATTRIBUTION RENDERS FROM COMMERCIAL RELATIONSHIP · AVAILABLE BY ARRANGEMENT</p>
+          <p class="mono-note" data-cms-bind="residence.specs" data-render="verified-only">VERIFIED FACTS RENDER FROM CMS DATA</p>
+          <a class="action quiet" href="/begin?dest=noosa&mode=stay&residence=noosa-residence&src=stay-residence">Explore the residence <span class="mark">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="residence settle" data-tone="tasmania" data-cms="residence" data-residence="tasmania-residence">
+      <div class="res-grid">
+        <div class="res-media enter">
+          <div class="placeholder"><span>SELECTED RESIDENCE · TASMANIA<br>MEDIA RENDERS FROM CMS · PLACEHOLDER</span></div>
+        </div>
+        <div class="res-body">
+          <p class="eyebrow r-dest">Tasmania</p>
+          <h3>Tasmanian Residence</h3>
+          <p class="r-essence">Stone and timber holding warmth against the weather.</p>
+          <div class="res-facts">
+            <div><div class="f-label">Setting</div><p>Within reach of wine country and the wild coast, arrived by air.</p></div>
+            <div><div class="f-label">Guest profile</div><p>Travellers seeking distance, texture and the southern table.</p></div>
+            <div><div class="f-label">Architectural character</div><p>Grounded forms, deep windows, firelight after dark.</p></div>
+            <div><div class="f-label">Ideal journey</div><p>Southern Latitude — wine, wilderness and chef-led dining.</p></div>
+          </div>
+          <div class="res-with">
+            <div class="f-label">Best experienced with</div>
+            <ul><li>Private guide</li><li>Wine experience</li><li>Chef-led dining</li><li>Wilderness access</li></ul>
+          </div>
+          <p class="mono-note res-attr" data-cms-bind="residence.attribution">ATTRIBUTION RENDERS FROM COMMERCIAL RELATIONSHIP · AVAILABLE BY ARRANGEMENT</p>
+          <p class="mono-note" data-cms-bind="residence.specs" data-render="verified-only">VERIFIED FACTS RENDER FROM CMS DATA</p>
+          <a class="action quiet" href="/begin?dest=tasmania&mode=stay&residence=tasmania-residence&src=stay-residence">Explore the residence <span class="mark">→</span></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 6 · THE RHYTHM OF A STAY ============ -->
+<section class="rhythm" id="rhythm">
+  <div class="wrap">
+    <div class="rhythm-head">
+      <p class="eyebrow settle">The rhythm of a stay</p>
+      <h2 class="display settle d1">One day, unscheduled.</h2>
+    </div>
+
+    <div class="day">
+      <div class="moment settle">
+        <div class="m-time">Early</div>
+        <div><div class="m-line">Coffee before the house wakes.</div>
+        <span class="m-detail">Bare feet on stone. A door left open to the breeze.</span></div>
+      </div>
+      <div class="moment settle">
+        <div class="m-time">Morning</div>
+        <div><div class="m-line">The destination begins outside the door.</div>
+        <span class="m-detail">Towels after the ocean. Wet swimwear drying on the rail.</span></div>
+      </div>
+      <div class="moment settle">
+        <div class="m-time">Midday</div>
+        <div><div class="m-line">Lunch returns to the table.</div>
+        <span class="m-detail">Produce being prepared. A table set slowly, without occasion.</span></div>
+      </div>
+      <div class="moment settle">
+        <div class="m-time">Afternoon</div>
+        <div><div class="m-line">The residence becomes quiet again.</div>
+        <span class="m-detail">A book beside a window. Light moving across timber.</span></div>
+      </div>
+      <div class="moment settle">
+        <div class="m-time">Evening</div>
+        <div><div class="m-line">Fire, water, wine or sunset.</div>
+        <span class="m-detail">A fire being lit. The day settling into the landscape.</span></div>
+      </div>
+      <div class="moment settle">
+        <div class="m-time">Night</div>
+        <div><div class="m-line">Nothing scheduled.</div>
+        <span class="m-detail">Children asleep. The house holding its quiet.</span></div>
+      </div>
+    </div>
+
+    <div class="rhythm-footnote settle">
+      <span class="mono-note">THE RESIDENCE, INHABITED · NOT STAGED</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7 · CONNECTED JOURNEYS ============ -->
+<section class="journeys" id="journeys">
+  <div class="wrap">
+    <div class="journeys-head">
+      <p class="eyebrow settle">Connected journeys</p>
+      <h2 class="display settle d1">The residence at the centre of the course.</h2>
+    </div>
+
+    <!-- CMS: journeys render from `journey` + `journeyLeg`; relationships CMS-authored only -->
+    <div class="journey-grid">
+
+      <article class="journey settle" data-cms="journey" data-journey="island-passage">
+        <div class="j-kicker eyebrow">Journey 01</div>
+        <h3>Island Passage</h3>
+        <div class="j-course">
+          <div class="j-step"><div class="s-kind">Depart</div><div class="s-text">Brisbane.</div></div>
+          <div class="j-step"><div class="s-kind">Air</div><div class="s-text">Private aircraft to Hamilton Island.</div></div>
+          <div class="j-step"><div class="s-kind">Stay</div><div class="s-text">Hamilton Island residence.</div></div>
+          <div class="j-step"><div class="s-kind">Sea</div><div class="s-text">ALANI through the passage.</div></div>
+          <div class="j-step"><div class="s-kind">Experience</div><div class="s-text">Whitehaven Beach · private chef.</div></div>
+          <div class="j-step"><div class="s-kind">Return</div><div class="s-text">Helicopter return.</div></div>
+        </div>
+        <div class="j-actions">
+          <a class="action quiet" href="/begin?journey=island-passage&src=stay-journeys">Explore the journey <span class="mark">→</span></a>
+          <a class="action quiet" href="/begin?journey=island-passage&shape=1&src=stay-journeys">Shape this journey <span class="mark">→</span></a>
+        </div>
+      </article>
+
+      <article class="journey settle d1" data-cms="journey" data-journey="southern-latitude">
+        <div class="j-kicker eyebrow">Journey 02</div>
+        <h3>Southern Latitude</h3>
+        <div class="j-course">
+          <div class="j-step"><div class="s-kind">Depart</div><div class="s-text">Melbourne.</div></div>
+          <div class="j-step"><div class="s-kind">Air</div><div class="s-text">Private aircraft across the strait.</div></div>
+          <div class="j-step"><div class="s-kind">Stay</div><div class="s-text">Tasmanian residence.</div></div>
+          <div class="j-step"><div class="s-kind">Experience</div><div class="s-text">Wine region · private guide.</div></div>
+          <div class="j-step"><div class="s-kind">Experience</div><div class="s-text">Wilderness dining.</div></div>
+          <div class="j-step"><div class="s-kind">Return</div><div class="s-text">Northbound, rested.</div></div>
+        </div>
+        <div class="j-actions">
+          <a class="action quiet" href="/begin?journey=southern-latitude&src=stay-journeys">Explore the journey <span class="mark">→</span></a>
+          <a class="action quiet" href="/begin?journey=southern-latitude&shape=1&src=stay-journeys">Shape this journey <span class="mark">→</span></a>
+        </div>
+      </article>
+
+      <article class="journey settle d2" data-cms="journey" data-journey="coastal-interlude">
+        <div class="j-kicker eyebrow">Journey 03</div>
+        <h3>Coastal Interlude</h3>
+        <div class="j-course">
+          <div class="j-step"><div class="s-kind">Arrive</div><div class="s-text">Sunshine Coast Airport.</div></div>
+          <div class="j-step"><div class="s-kind">Transfer</div><div class="s-text">Private transfer to Noosa.</div></div>
+          <div class="j-step"><div class="s-kind">Stay</div><div class="s-text">Noosa residence.</div></div>
+          <div class="j-step"><div class="s-kind">Sea</div><div class="s-text">River or coastal charter.</div></div>
+          <div class="j-step"><div class="s-kind">Experience</div><div class="s-text">Wellness · private dining.</div></div>
+        </div>
+        <div class="j-actions">
+          <a class="action quiet" href="/begin?journey=coastal-interlude&src=stay-journeys">Explore the journey <span class="mark">→</span></a>
+          <a class="action quiet" href="/begin?journey=coastal-interlude&shape=1&src=stay-journeys">Shape this journey <span class="mark">→</span></a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 · PRIVATE SERVICES ============ -->
+<section class="services" id="services">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow settle">Private services</p>
+      <h2 class="display settle d1">Everything the stay needs. Nothing it does not.</h2>
+      <p class="lede settle d2">Services are arranged around the residence, the destination and the way you prefer to travel.</p>
+      <p class="mono-note caveat settle d3">ALL SERVICES SUBJECT TO DESTINATION, PROVIDER AND AVAILABILITY</p>
+    </div>
+    <div class="service-list settle d1">
+      <div class="service-row"><span>Private chef</span><span class="s-note">By arrangement</span></div>
+      <div class="service-row"><span>Butler or host</span><span class="s-note">By arrangement</span></div>
+      <div class="service-row"><span>Housekeeping</span><span class="s-note">Per residence</span></div>
+      <div class="service-row"><span>Provisioning</span><span class="s-note">Before arrival</span></div>
+      <div class="service-row"><span>Airport &amp; helipad transfers</span><span class="s-note">Coordinated</span></div>
+      <div class="service-row"><span>Yacht coordination</span><span class="s-note">With SEA</span></div>
+      <div class="service-row"><span>Wellness</span><span class="s-note">In residence</span></div>
+      <div class="service-row"><span>Childcare</span><span class="s-note">By arrangement</span></div>
+      <div class="service-row"><span>Private guide</span><span class="s-note">Per destination</span></div>
+      <div class="service-row"><span>Wine &amp; food experiences</span><span class="s-note">Per destination</span></div>
+      <div class="service-row"><span>Security &amp; discretion</span><span class="s-note">Where required</span></div>
+      <div class="service-row"><span>Event preparation</span><span class="s-note">By arrangement</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 · WHY WAYPOINT — BEHIND THE STAY ============ -->
+<section class="dark why" id="why">
+  <div class="wrap">
+    <p class="eyebrow settle">Behind the stay</p>
+    <h2 class="display settle d1">Privacy is considered before arrival.</h2>
+
+    <div class="principles">
+      <div class="principle settle">
+        <div class="p-code">Selected with purpose</div>
+        <p>Residences are chosen for their setting, character and role within the wider journey.</p>
+      </div>
+      <div class="principle settle d1">
+        <div class="p-code">One relationship</div>
+        <p>Air, residence, yacht and experience are coordinated through one point of contact.</p>
+      </div>
+      <div class="principle settle d2">
+        <div class="p-code">Local connection</div>
+        <p>Trusted owners, managers and destination partners support each stay.</p>
+      </div>
+      <div class="principle settle d3">
+        <div class="p-code">Human oversight</div>
+        <p>Every request is personally reviewed rather than automatically confirmed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10/11 · BEGIN YOUR STAY ============ -->
+<section class="begin" id="begin">
+  <div class="wrap">
+    <p class="eyebrow settle" style="color:rgba(237,234,225,.62)">Begin</p>
+    <h2 class="display settle d1">Where will you return to?</h2>
+    <p class="lede settle d2">Tell us where you are drawn to, and we will begin shaping the stay — and the journey around it.</p>
+    <div class="begin-actions settle d3">
+      <a class="action solid" href="/begin?mode=stay&src=stay-begin">Begin your stay <span class="mark">→</span></a>
+      <a class="action" href="/begin?mode=stay&concierge=1&src=stay-begin">Speak with our concierge <span class="mark">→</span></a>
+    </div>
+    <div class="closing settle d3">
+      <span class="mono-note">AIR · SEA · STAY — ONE CONSIDERED JOURNEY</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer dark">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="wordmark">WAYPOINT &amp; Co.<span>SEA · STAY · AIR</span></div>
+      </div>
+      <div>
+        <h4>Journey</h4>
+        <ul>
+          <li><a href="/sea">Sea</a></li>
+          <li><a href="/stay">Stay</a></li>
+          <li><a href="/air">Air</a></li>
+          <li><a href="/journeys">Journeys</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay</h4>
+        <ul>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#residences">Residences</a></li>
+          <li><a href="#services">Private services</a></li>
+          <li><a href="#journeys">Connected journeys</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="mono-note">STAY · PRIVATE RESIDENCES · WHITSUNDAYS · NOOSA · TASMANIA</span>
+      <span class="mono-note">© WAYPOINT &amp; CO.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ ADD STAY TO JOURNEY ============ -->
+<button class="add-stay" id="addStay" aria-pressed="false">
+  <span class="dot" aria-hidden="true"></span>
+  <span class="label">Add STAY to journey</span>
+</button>
+
+<script>
+(function(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- nav state ---- */
+  const nav = document.getElementById('nav');
+  const onScrollNav = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScrollNav();
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+
+  /* ---- inward + settle reveals ---- */
+  const revealEls = document.querySelectorAll('.enter, .settle');
+  if ('IntersectionObserver' in window && !reduced){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  /* ---- architecture of belonging: pencil line draws with scroll ---- */
+  const plan = document.getElementById('plan');
+  const pencil = document.getElementById('pencil');
+  if (plan && pencil && !reduced){
+    const draw = () => {
+      const r = plan.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const start = vh * 0.82;
+      const total = r.height + (start - vh * 0.3);
+      const travelled = Math.min(Math.max(start - r.top, 0), total);
+      pencil.style.height = (travelled / total * 100).toFixed(2) + '%';
+    };
+    draw();
+    window.addEventListener('scroll', draw, { passive: true });
+    window.addEventListener('resize', draw);
+  }
+
+  /* ---- add STAY to journey (session state only) ---- */
+  const addStay = document.getElementById('addStay');
+  const label = addStay.querySelector('.label');
+  let added = false; // joins the visitor's living plotted course via the Journey Engine session
+  const showFrom = () => addStay.classList.toggle('visible', window.scrollY > window.innerHeight * 0.7);
+  showFrom();
+  window.addEventListener('scroll', showFrom, { passive: true });
+  addStay.addEventListener('click', () => {
+    added = !added;
+    addStay.classList.toggle('added', added);
+    addStay.setAttribute('aria-pressed', added ? 'true' : 'false');
+    label.textContent = added ? 'STAY added to journey' : 'Add STAY to journey';
+    /* Journey Engine hook: window.WaypointJourney?.add({ mode: 'stay', src: 'stay-page' }) */
+  });
+})();
+</script>
+
+</body>
+</html>

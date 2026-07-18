@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEA — WAYPOINT &amp; Co. · Private yacht charter, considered</title>
+<meta name="description" content="Private yacht charters designed around extraordinary destinations, thoughtful service and seamless journeys. Whitsundays, Noosa and Sydney Harbour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WAYPOINT & Co. — SEA · Flagship v2 (Phase 4.5 refinement)
+   Slower · quieter · charted
+   ============================================================ */
+:root{
+  --wp-surface:#F5F2EB; --wp-surface-2:#EDE9DE; --wp-linen:#F0EADC;
+  --wp-bg-dark:#16333A; --wp-bg-ink:#1B1C1C;
+  --wp-border:#DBD4C4; --wp-border-soft:#E9E4D8;
+  --wp-border-inverse:rgba(245,242,235,.22);
+  --wp-text:#1B1C1C; --wp-text-2:#66675F;
+  --wp-text-inv:#F5F2EB; --wp-text-inv-2:rgba(245,242,235,.68);
+  --wp-accent:#16333A; --wp-accent-soft:#274B54; --wp-metal:#8E744C;
+  --wp-muted:#A9A395;
+  --wp-overlay:rgba(12,18,20,.45); --wp-glass:rgba(245,242,235,.86);
+  --wp-s1:4px;--wp-s2:8px;--wp-s3:12px;--wp-s4:16px;--wp-s5:24px;
+  --wp-s6:32px;--wp-s7:48px;--wp-s8:64px;--wp-s9:96px;--wp-s10:128px;
+  --wp-section:clamp(100px,14vh,170px);        /* 4.5: more air         */
+  --wp-pad:clamp(24px,6vw,96px); --wp-max:1360px;
+  --wp-ease:cubic-bezier(.22,1,.36,1);
+  --wp-dur-scene:1300ms;                        /* 4.5: slowed           */
+  --wp-dur-reveal:950ms;                        /* 4.5: slowed           */
+  --wp-dur-micro:350ms;
+  --wp-serif:'Fraunces',serif; --wp-sans:'Hanken Grotesk',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--wp-surface);color:var(--wp-text);font-family:var(--wp-sans);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--wp-accent);color:var(--wp-surface)}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1.5px solid var(--wp-accent);outline-offset:4px}
+button{font-family:inherit;cursor:pointer}
+
+/* ---- type ---- */
+.wp-display{font-family:var(--wp-serif);font-weight:300;font-size:clamp(34px,4.4vw,54px);line-height:1.14;letter-spacing:-.01em}
+.wp-h-page{font-family:var(--wp-serif);font-weight:300;font-size:clamp(30px,3.6vw,46px);line-height:1.16}
+.wp-h-section{font-family:var(--wp-serif);font-weight:300;font-size:clamp(27px,3vw,38px);line-height:1.2}
+.wp-h-editorial{font-family:var(--wp-serif);font-weight:300;font-size:clamp(22px,2.2vw,28px);line-height:1.3}
+.wp-body{font-size:17px;line-height:1.65;max-width:66ch}
+.wp-body p+p{margin-top:1.2em}
+.wp-caption{font-size:13px;line-height:1.55;color:var(--wp-text-2)}
+.wp-eyebrow{display:block;font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--wp-text-2)}
+.wp-quote{font-family:var(--wp-serif);font-style:italic;font-weight:300;font-size:clamp(19px,1.7vw,22px);line-height:1.5;color:var(--wp-accent)}
+.wp-meta{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-text-2)}
+.wp-kicker{font-size:10.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--wp-metal)}
+/* 4.5: the log voice — coordinates, headings, passage notes */
+.wp-fix{font-size:10.5px;font-weight:400;letter-spacing:.14em;color:var(--wp-text-2);font-variant-numeric:tabular-nums}
+.on-dark{color:var(--wp-text-inv)}
+.on-dark .wp-eyebrow,.on-dark .wp-meta,.on-dark .wp-caption,.on-dark .wp-fix{color:var(--wp-text-inv-2)}
+
+/* ---- actions ---- */
+.wp-action{display:inline-block;font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--wp-text);padding-bottom:7px;border-bottom:1px solid var(--wp-text);transition:color var(--wp-dur-micro) var(--wp-ease),border-color var(--wp-dur-micro) var(--wp-ease)}
+.wp-action:hover{color:var(--wp-accent);border-color:var(--wp-accent)}
+.wp-action--quiet{color:var(--wp-text-2);border-color:var(--wp-border)}
+.wp-action--quiet:hover{color:var(--wp-accent);border-color:var(--wp-accent)}
+.wp-action--light{color:var(--wp-text-inv);border-color:rgba(245,242,235,.55)}
+.wp-action--light:hover{color:#fff;border-color:#fff}
+.wp-action-row{display:flex;gap:44px;flex-wrap:wrap;margin-top:44px}
+
+/* ---- frame ---- */
+.wp-frame{position:relative;overflow:hidden;background:var(--wp-surface-2);isolation:isolate}
+.wp-frame::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wp-frame::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 120% at 50% 45%,transparent 55%,rgba(15,20,22,.28) 100%)}
+.wp-frame .scene{position:absolute;inset:0;z-index:1;transition:transform 1600ms var(--wp-ease)}
+.wp-frame:hover .scene{transform:scale(1.02)}
+.wp-frame .cap{position:absolute;left:22px;bottom:18px;z-index:3;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,242,235,.85)}
+.wp-frame .cap b{font-weight:500;color:rgba(245,242,235,.55);margin-right:10px}
+.wp-frame .fix{position:absolute;right:22px;top:18px;z-index:3;font-size:10px;letter-spacing:.14em;color:rgba(245,242,235,.6);font-variant-numeric:tabular-nums}
+.r-169{aspect-ratio:16/9}.r-45{aspect-ratio:4/5}.r-32{aspect-ratio:3/2}.r-11{aspect-ratio:1/1}.r-219{aspect-ratio:21/9}
+
+/* ---- scenes (warm SEA set) ---- */
+.sc-passage{background:linear-gradient(168deg,#0C2229,#16333A 34%,#2E5A61 62%,#84A5A2 88%,#BFCBB9 100%)}
+.sc-whitehaven{background:linear-gradient(175deg,#1D3A41,#3E7076 36%,#7FB0AA 62%,#E8DFC4 90%,#F2EAD2 100%)}
+.sc-hill{background:linear-gradient(185deg,#28464C,#4E8489 38%,#8FC0B4 66%,#EFE4C6 100%)}
+.sc-hook{background:linear-gradient(165deg,#14313A,#2A5A5E 44%,#5F8F87 74%,#B8C6AC 100%)}
+.sc-hayman{background:linear-gradient(178deg,#1B3A44,#38707B 40%,#7FAFAF 70%,#E2DCC2 100%)}
+.sc-reef{background:linear-gradient(150deg,#0E2A33,#1C5058 40%,#3E8C88 68%,#8FC7B4 100%)}
+.sc-noosa-r{background:linear-gradient(170deg,#20343A,#3E6167 40%,#7E9E97 68%,#DECFA9 100%)}
+.sc-sydney{background:linear-gradient(195deg,#1B2B33,#3C5B66 48%,#87A3A6 78%,#D3D3C2 100%)}
+.sc-wake{background:linear-gradient(115deg,#10292F,#1E4650 45%,#5C8489 80%,#9DB8B4 100%)}
+.sc-deck{background:linear-gradient(205deg,#211B14,#584A38 40%,#9C8663 72%,#E3D3AE 100%)}
+.sc-linen{background:linear-gradient(180deg,#D9CFB8,#EBE2CD 55%,#F2EBD8 100%)}
+.sc-dawnsea{background:linear-gradient(180deg,#22343B,#476068 34%,#8D9890 58%,#C8B79A 78%,#DDCBAB 100%)}
+.sc-sunset{background:linear-gradient(180deg,#2A3037,#5C5B57 34%,#A98A67 62%,#D9AE7C 82%,#E8C99B 100%)}
+.sc-cabin{background:linear-gradient(210deg,#171310,#3E352A 48%,#7A6A52 78%,#C9B694 100%)}
+.sc-bridge{background:linear-gradient(160deg,#141E24,#2C4048 46%,#6D8288 76%,#C6C8BE 100%)}
+.sc-swim{background:linear-gradient(150deg,#12333B,#1F5058 42%,#4E8B8C 70%,#9DC4B8 100%)}
+.sc-anasa{background:linear-gradient(172deg,#152A36,#2C4E63 42%,#6E93A4 72%,#D8D2BC 100%)}
+
+/* ---- layout ---- */
+.wp-sec{padding:var(--wp-section) var(--wp-pad)}
+.wp-sec--dark{background:var(--wp-bg-dark);color:var(--wp-text-inv)}
+.wp-contain{max-width:var(--wp-max);margin:0 auto}
+.wp-split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(44px,6vw,110px);align-items:center}
+
+/* ---- motion (SEA: horizontal, slower) ---- */
+.wp-reveal{opacity:0;transform:translateY(16px);transition:opacity var(--wp-dur-reveal) var(--wp-ease),transform var(--wp-dur-reveal) var(--wp-ease)}
+.wp-reveal--drift{transform:translateX(-26px)}
+.wp-reveal.is-in{opacity:1;transform:none}
+[data-swell]{will-change:transform}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:26px var(--wp-pad);transition:background var(--wp-dur-micro) var(--wp-ease),padding var(--wp-dur-micro) var(--wp-ease),box-shadow var(--wp-dur-micro) var(--wp-ease);color:var(--wp-text-inv)}
+.nav.is-solid{background:var(--wp-glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--wp-text);padding-top:16px;padding-bottom:16px;box-shadow:0 1px 0 var(--wp-border)}
+.wordmark{font-family:var(--wp-serif);font-weight:400;font-size:17px;letter-spacing:.06em;white-space:nowrap}
+.wordmark span{font-size:12px;letter-spacing:.2em;opacity:.75}
+.nav-links{display:flex;gap:36px;justify-content:center}
+.nav-links a{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.85;padding:6px 0;position:relative;transition:opacity var(--wp-dur-micro) var(--wp-ease)}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:currentColor;transition:right 420ms var(--wp-ease)}
+.nav-links a:hover{opacity:1}.nav-links a:hover::after{right:0}
+.nav-links a.is-here{opacity:1}.nav-links a.is-here::after{right:0}
+.nav-right{display:flex;gap:30px;justify-content:flex-end;align-items:center}
+.nav-enquire{font-size:12.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding-bottom:5px;border-bottom:1px solid currentColor;opacity:.95;transition:opacity var(--wp-dur-micro) var(--wp-ease)}
+.nav-enquire:hover{opacity:.65}
+.wp-subnav-bar{position:sticky;top:0;z-index:50;background:var(--wp-glass);backdrop-filter:blur(12px);border-bottom:1px solid var(--wp-border);padding:0 var(--wp-pad);transform:translateY(-100%);transition:transform 600ms var(--wp-ease)}
+.wp-subnav-bar.is-visible{transform:none}
+.wp-subnav{display:flex;gap:var(--wp-s6);overflow-x:auto;max-width:var(--wp-max);margin:0 auto;scrollbar-width:none}
+.wp-subnav::-webkit-scrollbar{display:none}
+.wp-subnav a{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--wp-text-2);padding:var(--wp-s4) 0;border-bottom:1px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color var(--wp-dur-micro) var(--wp-ease),border-color var(--wp-dur-micro) var(--wp-ease)}
+.wp-subnav a:hover,.wp-subnav a.is-active{color:var(--wp-text);border-color:var(--wp-accent)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;height:100svh;min-height:640px;display:flex;align-items:flex-end;color:var(--wp-text-inv);isolation:isolate;overflow:hidden}
+.hero .scene{position:absolute;inset:-4% 0;z-index:0;background:linear-gradient(170deg,#0C2229 0%,#16333A 30%,#2E5A61 56%,#6E9A97 78%,#9DB8AC 100%)}
+@keyframes seaGlide{from{transform:translateX(-1.2%)}to{transform:translateX(1.2%)}}
+.hero .scene{animation:seaGlide 30s var(--wp-ease) infinite alternate}
+.hero-grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,18,20,.34) 0%,rgba(12,18,20,0) 36%,rgba(12,18,20,0) 62%,rgba(12,34,41,.55) 100%)}
+.hero-inner{position:relative;z-index:2;width:100%;padding:0 var(--wp-pad) clamp(64px,9vh,110px)}
+.hero-fix{position:absolute;top:96px;right:var(--wp-pad);z-index:2;text-align:right;font-size:10px;letter-spacing:.16em;color:rgba(245,242,235,.5);font-variant-numeric:tabular-nums;line-height:2}
+.hero h1{max-width:12ch}
+.hero-sub{max-width:44ch;margin-top:22px;font-size:16.5px;line-height:1.7;color:rgba(245,242,235,.86)}
+.hero-dissolve{position:absolute;left:0;right:0;bottom:-1px;height:200px;z-index:3;background:linear-gradient(180deg,transparent,#EAE9DC)}
+.intro-sec{background:linear-gradient(180deg,#EAE9DC 0%,var(--wp-surface) 34%)}
+
+/* ============================================================
+   THE WAYPOINT NAVIGATION SYSTEM — chart form
+   A plotted course that draws itself as the visitor moves.
+   Chart, not map. Log, not GPS.
+   ============================================================ */
+.passage{position:relative}
+.passage-head{max-width:720px;margin-bottom:var(--wp-s9)}
+.route{position:relative;padding-left:clamp(56px,8vw,120px)}
+/* the course — dashed like a plotted line on a chart */
+.route-track{position:absolute;left:clamp(16px,3vw,40px);top:0;bottom:0;width:1px;background-image:repeating-linear-gradient(180deg,var(--wp-border) 0 5px,transparent 5px 11px)}
+.route-fill{position:absolute;left:clamp(16px,3vw,40px);top:0;width:1px;height:0;background-image:repeating-linear-gradient(180deg,var(--wp-accent) 0 5px,transparent 5px 11px);transition:height 200ms linear}
+/* waypoint node — a fix on the chart */
+.wpt{position:relative;padding:var(--wp-s8) 0}
+.wpt:first-child{padding-top:0}
+.wpt .node{position:absolute;left:calc(clamp(16px,3vw,40px) - clamp(56px,8vw,120px));top:calc(var(--wp-s8) + 8px);width:9px;height:9px;margin-left:-4px;border:1px solid var(--wp-border);border-radius:999px;background:var(--wp-surface);transition:border-color 800ms var(--wp-ease),transform 800ms var(--wp-ease);transform:scale(.55)}
+.wpt:first-child .node{top:8px}
+.wpt .node::before,.wpt .node::after{content:"";position:absolute;background:var(--wp-border);transition:background 800ms var(--wp-ease)}
+.wpt .node::before{left:50%;top:-7px;width:1px;height:4px;margin-left:-.5px}
+.wpt .node::after{left:50%;bottom:-7px;width:1px;height:4px;margin-left:-.5px}
+.wpt.is-passed .node{border-color:var(--wp-accent);transform:scale(1)}
+.wpt.is-passed .node::before,.wpt.is-passed .node::after{background:var(--wp-accent)}
+/* waypoint content */
+.wpt-inner{display:grid;grid-template-columns:5fr 6fr;gap:clamp(36px,5vw,80px);align-items:center;opacity:0;transform:translateX(-20px);transition:opacity 1100ms var(--wp-ease),transform 1100ms var(--wp-ease)}
+.wpt:nth-child(even) .wpt-inner{grid-template-columns:6fr 5fr}
+.wpt:nth-child(even) .wpt-inner .wpt-media{order:2}
+.wpt.is-passed .wpt-inner{opacity:1;transform:none}
+.wpt-name{font-family:var(--wp-serif);font-weight:300;font-size:clamp(24px,2.6vw,34px);margin:10px 0 12px}
+.wpt-line{font-size:15px;color:var(--wp-text-2);max-width:40ch;line-height:1.7}
+.wpt .wp-fix{display:block}
+/* the leg between fixes — heading & distance, discovered not announced */
+.leg{position:relative;padding:0 0 0 0;margin:calc(-1 * var(--wp-s6)) 0;height:var(--wp-s8);display:flex;align-items:center}
+.leg span{margin-left:calc(clamp(16px,3vw,40px) + 22px);font-size:10px;letter-spacing:.18em;color:var(--wp-muted);font-variant-numeric:tabular-nums;opacity:0;transition:opacity 1200ms var(--wp-ease)}
+.leg.is-passed span{opacity:1}
+
+/* ============================================================
+   DESTINATIONS — trimmed, quieter
+   ============================================================ */
+.dest-feature{display:grid;grid-template-columns:7fr 5fr;gap:clamp(44px,6vw,110px);align-items:center;padding:var(--wp-s9) 0;border-top:1px solid var(--wp-border)}
+.dest-feature:first-of-type{border-top:none;padding-top:0}
+.dest-feature.is-flipped .media{order:2}
+.dest-name{font-family:var(--wp-serif);font-weight:300;font-size:clamp(30px,3.4vw,44px);line-height:1.1;margin:14px 0 18px}
+.dest-essence{font-family:var(--wp-serif);font-weight:300;font-style:italic;font-size:clamp(17px,1.5vw,20px);line-height:1.9;color:var(--wp-accent);max-width:28ch}
+.dest-facts{margin-top:var(--wp-s6);border-top:1px solid var(--wp-border);max-width:420px}
+.dest-facts div{display:flex;justify-content:space-between;gap:var(--wp-s5);padding:12px 0;border-bottom:1px solid var(--wp-border-soft);font-size:13.5px}
+.dest-facts dt{color:var(--wp-text-2);font-size:11px;letter-spacing:.18em;text-transform:uppercase;align-self:center}
+.dest-facts dd{text-align:right;font-variant-numeric:tabular-nums}
+.dest-related{margin-top:var(--wp-s5);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-accent)}
+.dest-related a{border-bottom:1px solid var(--wp-border);padding-bottom:3px;transition:border-color var(--wp-dur-micro) var(--wp-ease)}
+.dest-related a:hover{border-color:var(--wp-accent)}
+.dest-related span{color:var(--wp-border);margin:0 10px}
+
+/* ============================================================
+   FLEET
+   ============================================================ */
+.vessel{padding:var(--wp-s9) 0}
+.vessel+.vessel{border-top:1px solid var(--wp-border-inverse)}
+.vessel-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--wp-s5);flex-wrap:wrap;margin-bottom:var(--wp-s6)}
+.vessel-name{font-family:var(--wp-serif);font-weight:300;font-size:clamp(34px,4vw,52px);letter-spacing:.16em}
+.vessel-region{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--wp-text-inv-2)}
+.vessel-grid{display:grid;grid-template-columns:8fr 4fr;gap:clamp(40px,5vw,90px);align-items:start}
+.vessel-story{font-size:15.5px;line-height:1.8;color:var(--wp-text-inv-2);max-width:48ch}
+.vessel-line{display:flex;gap:var(--wp-s6);margin:var(--wp-s5) 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--wp-text-inv-2);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.vessel-line b{font-weight:500;color:var(--wp-text-inv)}
+.vessel details{margin-top:var(--wp-s5);border-top:1px solid var(--wp-border-inverse)}
+.vessel summary{list-style:none;cursor:pointer;padding:16px 0;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--wp-text-inv);display:flex;justify-content:space-between;align-items:center}
+.vessel summary::-webkit-details-marker{display:none}
+.vessel summary .ind{transition:transform var(--wp-dur-micro) var(--wp-ease)}
+.vessel details[open] summary .ind{transform:rotate(45deg)}
+.vessel .spec-rows div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(245,242,235,.1);font-size:13.5px;font-variant-numeric:tabular-nums}
+.vessel .spec-rows dt{color:var(--wp-text-inv-2)}
+.partner-note{margin-top:var(--wp-s8);padding-top:var(--wp-s6);border-top:1px solid var(--wp-border-inverse);font-size:13.5px;color:var(--wp-text-inv-2);max-width:56ch;line-height:1.7}
+
+/* ============================================================
+   PAUSE — a breath. No copy, no CTA. Just water.
+   ============================================================ */
+.pause{position:relative;height:78vh;min-height:420px;isolation:isolate;overflow:hidden}
+.pause .scene{position:absolute;inset:-6% 0;z-index:0}
+.pause::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,18,20,.12),rgba(12,18,20,.3))}
+.pause .fixes{position:absolute;left:var(--wp-pad);bottom:var(--wp-s6);z-index:2;font-size:10px;letter-spacing:.18em;color:rgba(245,242,235,.7);font-variant-numeric:tabular-nums;line-height:2.1;text-transform:uppercase}
+
+/* ============================================================
+   THE DAY — human moments, horizontal
+   ============================================================ */
+.day-rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(260px,26vw,380px);gap:var(--wp-s5);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--wp-s5);scrollbar-width:none}
+.day-rail::-webkit-scrollbar{display:none}
+.moment{scroll-snap-align:start}
+.moment .wp-frame{margin-bottom:var(--wp-s4)}
+.moment .m-time{display:block;font-size:10px;letter-spacing:.2em;color:var(--wp-muted);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.moment .m-name{font-family:var(--wp-serif);font-weight:300;font-size:19px}
+.rail-line{height:1px;background:var(--wp-border);position:relative;margin-top:var(--wp-s2)}
+.rail-line i{position:absolute;left:0;top:0;bottom:0;width:12%;background:var(--wp-accent);transition:left 260ms linear}
+
+/* ============================================================
+   THE LOG — journey layers as a captain's log
+   ============================================================ */
+.log-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,110px);align-items:start}
+.log{position:relative;padding-left:34px}
+.log::before{content:"";position:absolute;left:4px;top:8px;bottom:8px;width:1px;background-image:repeating-linear-gradient(180deg,var(--wp-border) 0 5px,transparent 5px 11px)}
+.log li{list-style:none;position:relative;padding:0 0 26px}
+.log li:last-child{padding-bottom:0}
+.log li::before{content:"";position:absolute;left:-34px;top:7px;width:9px;height:9px;margin-left:0;border:1px solid var(--wp-accent);border-radius:999px;background:var(--wp-surface)}
+.log .stage{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--wp-metal);display:block;margin-bottom:2px}
+.log .place{font-size:15px}
+.log .note{font-size:12.5px;color:var(--wp-text-2);margin-top:2px;line-height:1.55}
+.log li{opacity:0;transform:translateX(-14px);transition:opacity 900ms var(--wp-ease),transform 900ms var(--wp-ease)}
+.log.is-in li{opacity:1;transform:none}
+.journey-side{display:grid;gap:var(--wp-s7);align-content:start}
+.journey-mini{border-top:1px solid var(--wp-border);padding-top:var(--wp-s5)}
+.journey-mini h3{font-family:var(--wp-serif);font-weight:300;font-size:clamp(20px,1.9vw,24px);transition:color var(--wp-dur-micro) var(--wp-ease)}
+.journey-mini:hover h3{color:var(--wp-accent)}
+.journey-mini .line{margin-top:8px;font-size:14px;color:var(--wp-text-2);max-width:40ch;line-height:1.6}
+
+/* ============================================================
+   ONBOARD — asymmetric, human
+   ============================================================ */
+.onboard{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--wp-s4);align-items:start}
+.ob-a{grid-column:1/8}
+.ob-b{grid-column:8/13;margin-top:var(--wp-s9)}
+.ob-c{grid-column:1/5;margin-top:calc(-1 * var(--wp-s7))}
+.ob-d{grid-column:5/10}
+.ob-e{grid-column:10/13;margin-top:var(--wp-s7)}
+.ob-cap{margin-top:10px;font-family:var(--wp-serif);font-style:italic;font-size:14px;color:var(--wp-text-2)}
+
+/* ============================================================
+   WHY — four blocks, no icons
+   ============================================================ */
+.why{display:grid;grid-template-columns:repeat(4,1fr);margin-top:var(--wp-s8);border-top:1px solid var(--wp-border)}
+.why .blk{padding:var(--wp-s6) var(--wp-s6) var(--wp-s3) 0}
+.why .blk+.blk{padding-left:var(--wp-s6);border-left:1px solid var(--wp-border-soft)}
+.why h3{font-family:var(--wp-serif);font-weight:300;font-size:19px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--wp-s4)}
+.why p{font-size:14.5px;line-height:1.7;color:var(--wp-text-2)}
+
+/* ============================================================
+   CLOSE
+   ============================================================ */
+.close-sec{position:relative;isolation:isolate;color:var(--wp-text-inv);padding:clamp(140px,22vh,240px) var(--wp-pad);overflow:hidden}
+.close-sec .scene{position:absolute;inset:-6% 0;z-index:0}
+.close-sec::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,18,20,.4),rgba(12,18,20,.6))}
+.close-sec .wp-contain{position:relative;z-index:2}
+.close-fix{margin-top:64px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,242,235,.5);font-variant-numeric:tabular-nums}
+
+footer{border-top:1px solid var(--wp-border);padding:var(--wp-s8) var(--wp-pad) var(--wp-s6)}
+.foot{display:flex;justify-content:space-between;gap:var(--wp-s6);flex-wrap:wrap;max-width:var(--wp-max);margin:0 auto;font-size:12px;color:var(--wp-text-2)}
+.foot a{border-bottom:1px solid transparent;transition:border-color var(--wp-dur-micro) var(--wp-ease)}
+.foot a:hover{border-color:var(--wp-accent);color:var(--wp-accent)}
+.foot .fs{font-family:var(--wp-serif);font-style:italic;font-size:14px;color:var(--wp-accent)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1020px){
+  .nav-links{display:none}
+  .why{grid-template-columns:1fr 1fr}
+  .why .blk:nth-child(odd){padding-left:0;border-left:none}
+  .why .blk{border-top:1px solid var(--wp-border-soft);padding-top:var(--wp-s5)}
+  .log-wrap{grid-template-columns:1fr}
+  .vessel-grid{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  body{font-size:16px}
+  .wp-split,.dest-feature{grid-template-columns:1fr;gap:36px}
+  .dest-feature.is-flipped .media{order:0}
+  .wpt-inner,.wpt:nth-child(even) .wpt-inner{grid-template-columns:1fr;gap:24px}
+  .wpt:nth-child(even) .wpt-inner .wpt-media{order:0}
+  .onboard{grid-template-columns:1fr 1fr}
+  .ob-a,.ob-b,.ob-c,.ob-d,.ob-e{grid-column:auto;margin-top:0}
+  .ob-a,.ob-d{grid-column:1/-1}
+  .why{grid-template-columns:1fr}
+  .why .blk+.blk{padding-left:0;border-left:none}
+  .hero-fix{display:none}
+}
+
+/* ============================================================
+   REDUCED MOTION — everything present, nothing moving
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .wp-reveal,.wp-reveal--drift{opacity:1;transform:none}
+  .wpt-inner{opacity:1;transform:none}
+  .wpt .node{transform:scale(1);border-color:var(--wp-accent)}
+  .leg span{opacity:1}
+  .log li{opacity:1;transform:none}
+  .route-fill{height:100%!important}
+  [data-swell]{transform:none!important}
+  .wp-frame:hover .scene{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav" id="nav" aria-label="Primary">
+  <a class="wordmark" href="#">WAYPOINT <span>&amp; CO.</span></a>
+  <div class="nav-links">
+    <a href="#">Air</a>
+    <a class="is-here" href="#top" aria-current="page">Sea</a>
+    <a href="#">Stay</a>
+    <a href="#">Destinations</a>
+    <a href="#">Journeys</a>
+    <a href="#">Journal</a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-enquire" href="#begin">Enquire</a>
+  </div>
+</nav>
+
+<div class="wp-subnav-bar" id="subnav" aria-label="Sea sections">
+  <div class="wp-subnav">
+    <a href="#intro">Overview</a>
+    <a href="#passage">The Passage</a>
+    <a href="#destinations">Waters</a>
+    <a href="#fleet">The Fleet</a>
+    <a href="#experience">The Day</a>
+    <a href="#journeys">The Log</a>
+    <a href="#onboard">Onboard</a>
+    <a href="#begin">Enquire</a>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="scene" data-swell="0.05" aria-hidden="true"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <p class="hero-fix">20°20′ S · 148°57′ E<br>Whitsunday Passage<br><span style="opacity:.7">Placeholder plate · aft-following · late light</span></p>
+  <div class="hero-inner">
+    <span class="wp-eyebrow" style="color:rgba(245,242,235,.72);margin-bottom:26px">Sea — Private yacht charter</span>
+    <h1 class="wp-display">Let the coastline unfold.</h1>
+    <p class="hero-sub">Private yacht charters designed around extraordinary destinations, thoughtful service and seamless journeys.</p>
+    <div class="wp-action-row">
+      <a class="wp-action wp-action--light" href="#passage">Explore destinations</a>
+      <a class="wp-action wp-action--light" style="border-bottom-color:rgba(245,242,235,.3);color:rgba(245,242,235,.75)" href="#begin">Begin a charter</a>
+    </div>
+  </div>
+  <div class="hero-dissolve" aria-hidden="true"></div>
+</header>
+
+<!-- ==================== INTRODUCTION ==================== -->
+<section class="wp-sec intro-sec" id="intro" data-cms="sea.introduction">
+  <div class="wp-contain wp-split">
+    <div class="wp-reveal wp-reveal--drift">
+      <span class="wp-eyebrow" style="margin-bottom:28px">Sea</span>
+      <h2 class="wp-h-page">The journey changes once you leave the shoreline.</h2>
+      <p class="wp-body" style="margin-top:26px">Some destinations can only truly be understood from the water. We connect remarkable coastlines, hidden anchorages and exceptional service into one considered journey.</p>
+      <p class="wp-quote" style="margin-top:36px;max-width:32ch">The yacht becomes your private hotel, restaurant and front-row seat to the destination.</p>
+    </div>
+    <div class="wp-frame r-45 wp-reveal" data-swell="0.03">
+      <div class="scene sc-wake"></div>
+      <span class="fix">SOG — kts</span>
+      <span class="cap"><b>Placeholder</b>Wake astern · golden hour · 4:5</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE PASSAGE — WAYPOINT NAVIGATION SYSTEM ==================== -->
+<section class="wp-sec passage" id="passage" data-cms="sea.passage">
+  <div class="wp-contain">
+    <div class="passage-head wp-reveal">
+      <span class="wp-eyebrow" style="margin-bottom:28px">The Passage · Whitsundays</span>
+      <h2 class="wp-h-section">A course, plotted.</h2>
+      <p class="wp-caption" style="margin-top:16px;max-width:52ch">Five fixes through the islands — the way a captain would draw them. The course below plots itself as you move.</p>
+    </div>
+
+    <div class="route" id="route">
+      <div class="route-track" aria-hidden="true"></div>
+      <div class="route-fill" id="routeFill" aria-hidden="true"></div>
+
+      <!-- WPT 1 -->
+      <article class="wpt" data-cms="waypoint.hamilton">
+        <span class="node" aria-hidden="true"></span>
+        <div class="wpt-inner">
+          <div>
+            <span class="wp-fix">WPT 01 · 20°21′ S · 148°57′ E</span>
+            <h3 class="wpt-name">Hamilton Island</h3>
+            <p class="wpt-line">The threshold. Arrive by air, step down to the marina, and the mainland is already a rumour.</p>
+          </div>
+          <div class="wpt-media wp-frame r-32" data-swell="0.03">
+            <div class="scene sc-passage"></div>
+            <span class="cap"><b>Placeholder</b>Marina at dusk · arrival</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="leg"><span>HDG 038° · ≈ 10 NM · under way before the heat of the day</span></div>
+
+      <!-- WPT 2 -->
+      <article class="wpt" data-cms="waypoint.whitehaven">
+        <span class="node" aria-hidden="true"></span>
+        <div class="wpt-inner">
+          <div>
+            <span class="wp-fix">WPT 02 · 20°17′ S · 149°02′ E</span>
+            <h3 class="wpt-name">Whitehaven Beach</h3>
+            <p class="wpt-line">Seven kilometres of silica sand that squeaks underfoot. Best before the day boats; the crew know the hour.</p>
+          </div>
+          <div class="wpt-media wp-frame r-32" data-swell="0.03">
+            <div class="scene sc-whitehaven"></div>
+            <span class="cap"><b>Placeholder</b>Hill Inlet aerial · tide over sand</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="leg"><span>HDG 322° · ≈ 12 NM · lunch at anchor on the way north</span></div>
+
+      <!-- WPT 3 -->
+      <article class="wpt" data-cms="waypoint.hook">
+        <span class="node" aria-hidden="true"></span>
+        <div class="wpt-inner">
+          <div>
+            <span class="wp-fix">WPT 03 · 20°06′ S · 148°55′ E</span>
+            <h3 class="wpt-name">Hook Island</h3>
+            <p class="wpt-line">Fjord-quiet anchorages and the best snorkelling water in the group. The generator goes off; the stars come up.</p>
+          </div>
+          <div class="wpt-media wp-frame r-32" data-swell="0.03">
+            <div class="scene sc-hook"></div>
+            <span class="cap"><b>Placeholder</b>Nara Inlet · still water</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="leg"><span>HDG 300° · ≈ 5 NM · a short morning leg</span></div>
+
+      <!-- WPT 4 -->
+      <article class="wpt" data-cms="waypoint.hayman">
+        <span class="node" aria-hidden="true"></span>
+        <div class="wpt-inner">
+          <div>
+            <span class="wp-fix">WPT 04 · 20°03′ S · 148°53′ E</span>
+            <h3 class="wpt-name">Hayman Island</h3>
+            <p class="wpt-line">The northern edge of the group — blue coves, long lunches, and the reef beginning to announce itself.</p>
+          </div>
+          <div class="wpt-media wp-frame r-32" data-swell="0.03">
+            <div class="scene sc-hayman"></div>
+            <span class="cap"><b>Placeholder</b>Blue Pearl Bay · midday</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="leg"><span>HDG 015° · weather-dependent · the crew read the day</span></div>
+
+      <!-- WPT 5 -->
+      <article class="wpt" data-cms="waypoint.reef">
+        <span class="node" aria-hidden="true"></span>
+        <div class="wpt-inner">
+          <div>
+            <span class="wp-fix">WPT 05 · Outer Great Barrier Reef</span>
+            <h3 class="wpt-name">The Outer Reef</h3>
+            <p class="wpt-line">Where the shelf drops away and the water turns a colour there isn't a word for. The end of the chart, and the point of it.</p>
+          </div>
+          <div class="wpt-media wp-frame r-32" data-swell="0.03">
+            <div class="scene sc-reef"></div>
+            <span class="cap"><b>Placeholder</b>Reef edge aerial · shelf drop</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="wp-action-row wp-reveal" style="margin-top:var(--wp-s8)">
+      <a class="wp-action" href="#begin">Sail this passage</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WATERS — trimmed features ==================== -->
+<section class="wp-sec" id="destinations" style="padding-top:var(--wp-s9)">
+  <div class="wp-contain">
+    <div class="wp-reveal" style="max-width:720px;margin-bottom:var(--wp-s8)">
+      <span class="wp-eyebrow" style="margin-bottom:28px">The Waters</span>
+      <h2 class="wp-h-section">Three coastlines. Three ways the water moves.</h2>
+    </div>
+
+    <article class="dest-feature" data-cms="destination.whitsundays">
+      <div class="media wp-reveal">
+        <div class="wp-frame r-169" data-swell="0.04">
+          <div class="scene sc-whitehaven"></div>
+          <span class="fix">20°17′ S · 149°02′ E</span>
+          <span class="cap"><b>Placeholder</b>Hill Inlet · 16:9</span>
+        </div>
+      </div>
+      <div class="wp-reveal wp-reveal--drift">
+        <span class="wp-kicker">Feature · One</span>
+        <h3 class="dest-name">Whitsundays</h3>
+        <p class="dest-essence">Seventy-four islands, one plotted course, and beaches that never learned your name.</p>
+        <dl class="dest-facts">
+          <div><dt>Season</dt><dd>May — November</dd></div>
+          <div><dt>Charter</dt><dd>3 — 7 days</dd></div>
+          <div><dt>Sunrise · Sunset</dt><dd>≈ 06:30 · 17:50</dd></div>
+        </dl>
+        <p class="dest-related">
+          <a href="#fleet">ALANI</a><span>·</span>
+          <a href="#">Stay — Hamilton Island</a><span>·</span>
+          <a href="#">By air</a>
+        </p>
+        <div class="wp-action-row" style="margin-top:34px">
+          <a class="wp-action" href="#begin">Explore the Whitsundays</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest-feature is-flipped" data-cms="destination.noosa">
+      <div class="media wp-reveal">
+        <div class="wp-frame r-169" data-swell="0.04">
+          <div class="scene sc-noosa-r"></div>
+          <span class="fix">26°23′ S · 153°05′ E</span>
+          <span class="cap"><b>Placeholder</b>River mouth · first light · 16:9</span>
+        </div>
+      </div>
+      <div class="wp-reveal wp-reveal--drift">
+        <span class="wp-kicker">Feature · Two</span>
+        <h3 class="dest-name">Noosa</h3>
+        <p class="dest-essence">River and headland. Everglades in the morning, the bar crossing at just the right hour.</p>
+        <dl class="dest-facts">
+          <div><dt>Season</dt><dd>Year round</dd></div>
+          <div><dt>Charter</dt><dd>Half day — 2 days</dd></div>
+        </dl>
+        <p class="dest-related">
+          <a href="#">Stay — Noosa residences</a><span>·</span>
+          <a href="#">By air</a>
+        </p>
+      </div>
+    </article>
+
+    <article class="dest-feature" data-cms="destination.sydney">
+      <div class="media wp-reveal">
+        <div class="wp-frame r-169" data-swell="0.04">
+          <div class="scene sc-sydney"></div>
+          <span class="fix">33°51′ S · 151°13′ E</span>
+          <span class="cap"><b>Placeholder</b>Harbour from the water · 16:9</span>
+        </div>
+      </div>
+      <div class="wp-reveal wp-reveal--drift">
+        <span class="wp-kicker">Feature · Three</span>
+        <h3 class="dest-name">Sydney Harbour</h3>
+        <p class="dest-essence">The city, understood properly — quiet bays a few hundred metres from the bridge.</p>
+        <dl class="dest-facts">
+          <div><dt>Season</dt><dd>October — April</dd></div>
+          <div><dt>Charter</dt><dd>Half day — full day</dd></div>
+        </dl>
+        <p class="dest-related">
+          <a href="#">By air — Sydney arrivals</a>
+        </p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ==================== THE FLEET ==================== -->
+<section class="wp-sec wp-sec--dark" id="fleet">
+  <div class="wp-contain on-dark">
+    <div class="wp-reveal" style="max-width:720px">
+      <span class="wp-eyebrow" style="margin-bottom:28px">The Fleet</span>
+      <h2 class="wp-h-section">Selected, not listed.</h2>
+    </div>
+
+    <article class="vessel" data-cms="vessel.alani">
+      <div class="vessel-head">
+        <h3 class="vessel-name">ALANI</h3>
+        <span class="vessel-region">Whitsundays · Luxury motor yacht</span>
+      </div>
+      <div class="vessel-grid">
+        <div class="wp-reveal">
+          <div class="wp-frame r-169" data-swell="0.04">
+            <div class="scene sc-passage"></div>
+            <span class="fix">Home waters · 20° S</span>
+            <span class="cap"><b>Placeholder</b>ALANI underway · aft three-quarter · golden hour</span>
+          </div>
+        </div>
+        <div class="wp-reveal wp-reveal--drift">
+          <p class="vessel-story">Built for the passage, at home at anchor. ALANI carries her guests through island and reef with a crew who read the water — and the mood aboard — with the same quiet attention.</p>
+          <div class="vessel-line">
+            <span><b>—</b> m LOA</span><span><b>—</b> guests</span><span><b>—</b> crew</span>
+          </div>
+          <details>
+            <summary>Specifications <span class="ind">+</span></summary>
+            <dl class="spec-rows">
+              <div><dt>Length overall</dt><dd>— m</dd></div>
+              <div><dt>Guests · day</dt><dd>—</dd></div>
+              <div><dt>Guests · overnight</dt><dd>—</dd></div>
+              <div><dt>Crew</dt><dd>—</dd></div>
+              <div><dt>Cruising speed</dt><dd>— kts</dd></div>
+              <div><dt>Cruising region</dt><dd>Whitsundays</dd></div>
+            </dl>
+          </details>
+          <div class="wp-action-row" style="margin-top:30px">
+            <a class="wp-action wp-action--light" href="#begin">Enquire — ALANI</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="vessel" data-cms="vessel.anasa">
+      <div class="vessel-head">
+        <h3 class="vessel-name">ANASA</h3>
+        <span class="vessel-region">Mediterranean · Arriving — future season</span>
+      </div>
+      <div class="vessel-grid">
+        <div class="wp-reveal">
+          <div class="wp-frame r-169" data-swell="0.04">
+            <div class="scene sc-anasa"></div>
+            <span class="cap"><b>Placeholder</b>ANASA · Mediterranean anchorage</span>
+          </div>
+        </div>
+        <div class="wp-reveal wp-reveal--drift">
+          <p class="vessel-story">The house's next water. ANASA extends WAYPOINT &amp; Co. into the Mediterranean — details to follow as the season approaches.</p>
+          <div class="wp-action-row" style="margin-top:30px">
+            <a class="wp-action wp-action--light" style="border-bottom-color:rgba(245,242,235,.3);color:rgba(245,242,235,.75)" href="#begin">Register interest</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <p class="partner-note wp-reveal">Beyond our own decks, a curated fleet is available through our trusted partner network — vessels we know, crews we've sailed with, standards we've checked ourselves.</p>
+  </div>
+</section>
+
+<!-- ==================== PAUSE — no copy, no CTA ==================== -->
+<section class="pause" aria-label="Open water">
+  <div class="scene sc-dawnsea" data-swell="0.07" aria-hidden="true"></div>
+  <p class="fixes">20°06′ S · 148°55′ E<br>Wind SE 12 kts · Sunrise 06:31<br><span style="opacity:.6">Placeholder · open water · dawn · 21:9</span></p>
+</section>
+
+<!-- ==================== THE DAY — human moments ==================== -->
+<section class="wp-sec" id="experience">
+  <div class="wp-contain">
+    <div class="wp-reveal" style="max-width:720px;margin-bottom:var(--wp-s7)">
+      <span class="wp-eyebrow" style="margin-bottom:28px">The Day</span>
+      <h2 class="wp-h-section">The yacht is the setting. You are the story.</h2>
+    </div>
+
+    <div class="day-rail-wrap wp-reveal">
+      <div class="day-rail" id="dayRail" tabindex="0" aria-label="A day on charter">
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-dawnsea"></div><span class="cap"><b>PH</b>Hands · cup · first light</span></div><span class="m-time">06:40</span><span class="m-name">Coffee at sunrise</span></div>
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-linen"></div><span class="cap" style="color:var(--wp-text-2)"><b style="color:var(--wp-muted)">PH</b>Galley · crew · quiet work</span></div><span class="m-time">07:30</span><span class="m-name">Crew preparing breakfast</span></div>
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-passage"></div><span class="cap"><b>PH</b>Under way · bow · morning</span></div><span class="m-time">08:45</span><span class="m-name">The morning leg</span></div>
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-swim"></div><span class="cap"><b>PH</b>Children mid-air · platform</span></div><span class="m-time">10:30</span><span class="m-name">Off the swim platform</span></div>
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-whitehaven"></div><span class="cap"><b>PH</b>Tender at the shoreline</span></div><span class="m-time">14:00</span><span class="m-name">Tender to the beach</span></div>
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-cabin"></div><span class="cap"><b>PH</b>Fresh towels · cabin light</span></div><span class="m-time">16:30</span><span class="m-name">Fresh towels, warm cabin</span></div>
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-sunset"></div><span class="cap"><b>PH</b>Wine poured · aft deck</span></div><span class="m-time">17:45</span><span class="m-name">Wine at sunset</span></div>
+        <div class="moment"><div class="wp-frame r-45"><div class="scene sc-hook"></div><span class="cap"><b>PH</b>Anchor light · stars</span></div><span class="m-time">22:00</span><span class="m-name">Beneath the stars</span></div>
+      </div>
+      <div class="rail-line" aria-hidden="true"><i id="railDot"></i></div>
+      <p class="wp-fix" style="margin-top:14px">Drift through the day →</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE LOG — journey layers ==================== -->
+<section class="wp-sec" id="journeys" style="background:var(--wp-linen)">
+  <div class="wp-contain">
+    <div class="wp-reveal" style="max-width:720px;margin-bottom:var(--wp-s8)">
+      <span class="wp-eyebrow" style="margin-bottom:28px">The Log · Island Passage</span>
+      <h2 class="wp-h-section">One journey, entered in full.</h2>
+    </div>
+
+    <div class="log-wrap">
+      <div>
+        <ol class="log" id="journeyLog" data-cms="journey.island-passage">
+          <li style="transition-delay:0ms"><span class="stage">Arrive</span><span class="place">Brisbane</span><p class="note">Departure lounge to wheels-up, timed to you.</p></li>
+          <li style="transition-delay:90ms"><span class="stage">Arrive</span><span class="place">Private aircraft — BNE → HTI</span><p class="note">≈ 1 hr 30 over the reef line.</p></li>
+          <li style="transition-delay:180ms"><span class="stage">Stay</span><span class="place">Hamilton Island residence</span><p class="note">Prepared before you land.</p></li>
+          <li style="transition-delay:270ms"><span class="stage">Sail</span><span class="place">ALANI</span><p class="note">Boarded at the marina, under way by mid-morning.</p></li>
+          <li style="transition-delay:360ms"><span class="stage">Experience</span><span class="place">Whitehaven Beach</span><p class="note">Before the day boats.</p></li>
+          <li style="transition-delay:450ms"><span class="stage">Experience</span><span class="place">Hill Inlet</span><p class="note">The tide drawing patterns in the sand.</p></li>
+          <li style="transition-delay:540ms"><span class="stage">Sail</span><span class="place">Hook Island</span><p class="note">Night at anchor, generator off.</p></li>
+          <li style="transition-delay:630ms"><span class="stage">Experience</span><span class="place">Private chef</span><p class="note">Dinner set on the aft deck.</p></li>
+          <li style="transition-delay:720ms"><span class="stage">Experience</span><span class="place">Helicopter scenic flight</span><p class="note">The passage you just sailed, from above.</p></li>
+          <li style="transition-delay:810ms"><span class="stage">Return</span><span class="place">Departure</span><p class="note">One house held the whole of it.</p></li>
+        </ol>
+        <div class="wp-action-row">
+          <a class="wp-action" href="#begin">Explore this journey</a>
+          <a class="wp-action wp-action--quiet" href="#begin">Create your own</a>
+        </div>
+      </div>
+
+      <div class="journey-side">
+        <div class="wp-frame r-45 wp-reveal" data-swell="0.04">
+          <div class="scene sc-hill"></div>
+          <span class="fix">HTI → Whitehaven · ≈ 10 NM</span>
+          <span class="cap"><b>Placeholder</b>Island Passage · campaign frame · 4:5</span>
+        </div>
+        <a class="journey-mini wp-reveal" href="#begin" data-cms="journey.sydney-escape">
+          <span class="wp-kicker">Journey · Two</span>
+          <h3 style="margin-top:8px">Sydney Harbour Escape</h3>
+          <p class="line">Arrive by air, dine on the water, stay above the harbour.</p>
+        </a>
+        <a class="journey-mini wp-reveal" href="#begin" data-cms="journey.noosa-river-coast">
+          <span class="wp-kicker">Journey · Three</span>
+          <h3 style="margin-top:8px">Noosa River &amp; Coast</h3>
+          <p class="line">River mornings, coastal afternoons, a residence near the water.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ONBOARD — human, italic captions ==================== -->
+<section class="wp-sec" id="onboard">
+  <div class="wp-contain">
+    <div class="wp-reveal" style="max-width:720px;margin-bottom:var(--wp-s8)">
+      <span class="wp-eyebrow" style="margin-bottom:28px">Life Onboard</span>
+      <h2 class="wp-h-section">The small hours are the point.</h2>
+    </div>
+
+    <div class="onboard">
+      <div class="ob-a wp-reveal">
+        <div class="wp-frame r-169" data-swell="0.05"><div class="scene sc-dawnsea"></div><span class="cap"><b>PH</b>Aft deck · two cups · dawn</span></div>
+        <p class="ob-cap">Sunrise, before the day decides anything.</p>
+      </div>
+      <div class="ob-b wp-reveal">
+        <div class="wp-frame r-45" data-swell="0.03"><div class="scene sc-linen"></div><span class="cap" style="color:var(--wp-text-2)"><b style="color:var(--wp-muted)">PH</b>Table set · linen · timber</span></div>
+        <p class="ob-cap">Breakfast being laid.</p>
+      </div>
+      <div class="ob-c wp-reveal">
+        <div class="wp-frame r-45" data-swell="0.02"><div class="scene sc-cabin"></div><span class="cap"><b>PH</b>Turned-down cabin · lamplight</span></div>
+        <p class="ob-cap">Fresh towels, lamplight.</p>
+      </div>
+      <div class="ob-d wp-reveal">
+        <div class="wp-frame r-32" data-swell="0.04"><div class="scene sc-swim"></div><span class="cap"><b>PH</b>Mid-jump · platform · midday</span></div>
+        <p class="ob-cap">The platform, midday. Someone always jumps first.</p>
+      </div>
+      <div class="ob-e wp-reveal">
+        <div class="wp-frame r-45" data-swell="0.03"><div class="scene sc-sunset"></div><span class="cap"><b>PH</b>Glass being filled · last light</span></div>
+        <p class="ob-cap">The pour, at the exact right hour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHY ==================== -->
+<section class="wp-sec" id="why" style="padding-top:var(--wp-s9)">
+  <div class="wp-contain">
+    <div class="wp-reveal" style="max-width:720px">
+      <span class="wp-eyebrow" style="margin-bottom:28px">Why Waypoint</span>
+      <h2 class="wp-h-section">The difference is the house behind the yacht.</h2>
+    </div>
+    <div class="why wp-reveal">
+      <div class="blk"><h3>One journey</h3><p>One relationship from enquiry to return.</p></div>
+      <div class="blk"><h3>Curated fleet</h3><p>Selected yachts rather than endless inventory.</p></div>
+      <div class="blk"><h3>Local knowledge</h3><p>Whitsundays, Noosa and Sydney expertise.</p></div>
+      <div class="blk"><h3>Connected travel</h3><p>Air. Sea. Stay. One itinerary.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CLOSE ==================== -->
+<section class="close-sec" id="begin">
+  <div class="scene sc-sunset" data-swell="0.05" aria-hidden="true"></div>
+  <div class="wp-contain">
+    <div class="wp-reveal">
+      <span class="wp-eyebrow" style="color:rgba(245,242,235,.6);margin-bottom:28px">Begin</span>
+      <h2 class="wp-display" style="max-width:13ch">Where will the water take you?</h2>
+      <p style="max-width:44ch;margin-top:22px;color:rgba(245,242,235,.85);line-height:1.7">Tell us where you would like to explore, and we'll create a journey designed around the way you travel.</p>
+      <div class="wp-action-row">
+        <a class="wp-action wp-action--light" href="#begin">Begin your charter</a>
+        <a class="wp-action wp-action--light" style="border-bottom-color:rgba(245,242,235,.3);color:rgba(245,242,235,.75)" href="#begin">Speak with our concierge</a>
+      </div>
+      <p class="close-fix">Aft deck · Sunset 17:47 · Placeholder frame pending commission</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <span>© 2026 WAYPOINT &amp; Co.</span>
+    <span><a href="#">Air</a> · <a href="#top">Sea</a> · <a href="#">Stay</a> · <a href="#">Destinations</a> · <a href="#">Journal</a></span>
+    <span class="fs">Precision-crafted journeys by air, sea and stay.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* nav + subnav */
+  var nav = document.getElementById("nav");
+  var subnav = document.getElementById("subnav");
+  var hero = document.querySelector(".hero");
+  function navState(){
+    var past = window.scrollY > hero.offsetHeight - 90;
+    nav.classList.toggle("is-solid", past);
+    subnav.classList.toggle("is-visible", past);
+  }
+  window.addEventListener("scroll", navState, {passive:true});
+  navState();
+
+  /* subnav active */
+  var ids = ["intro","passage","destinations","fleet","experience","journeys","onboard","begin"];
+  var links = subnav.querySelectorAll("a");
+  var secIO = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){ a.classList.toggle("is-active", a.getAttribute("href") === "#" + e.target.id); });
+      }
+    });
+  }, {rootMargin:"-30% 0px -60% 0px"});
+  ids.forEach(function(id){ var el = document.getElementById(id); if(el) secIO.observe(el); });
+
+  /* reveals */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:"0px 0px -6% 0px"});
+  document.querySelectorAll(".wp-reveal").forEach(function(el){ io.observe(el); });
+
+  /* journey log — staggered entries */
+  var log = document.getElementById("journeyLog");
+  if(log){
+    var logIO = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ log.classList.add("is-in"); logIO.disconnect(); } });
+    }, {threshold:.15});
+    logIO.observe(log);
+  }
+
+  /* THE COURSE — draws itself with scroll */
+  var route = document.getElementById("route");
+  var fill = document.getElementById("routeFill");
+  if(route && fill && !reduced){
+    var wpts = Array.prototype.slice.call(route.querySelectorAll(".wpt, .leg"));
+    var ticking = false;
+    function draw(){
+      var r = route.getBoundingClientRect();
+      var vh = window.innerHeight;
+      /* course draws as the visitor moves through the section */
+      var p = Math.min(1, Math.max(0, (vh * .72 - r.top) / r.height));
+      fill.style.height = (p * 100) + "%";
+      var drawn = p * route.offsetHeight;
+      wpts.forEach(function(w){
+        if(w.offsetTop + 20 <= drawn){ w.classList.add("is-passed"); }
+      });
+      ticking = false;
+    }
+    window.addEventListener("scroll", function(){
+      if(!ticking){ requestAnimationFrame(draw); ticking = true; }
+    }, {passive:true});
+    draw();
+  } else if(route){
+    route.querySelectorAll(".wpt, .leg").forEach(function(w){ w.classList.add("is-passed"); });
+    if(fill) fill.style.height = "100%";
+  }
+
+  /* swell parallax — slow water */
+  if(!reduced){
+    var swells = Array.prototype.slice.call(document.querySelectorAll("[data-swell]"));
+    var sTick = false;
+    function swell(){
+      var vh = window.innerHeight;
+      swells.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(r.bottom < 0 || r.top > vh) return;
+        var f = parseFloat(el.dataset.swell) || .04;
+        var centre = (r.top + r.height/2 - vh/2) / vh;
+        el.style.transform = "translateY(" + (centre * f * -100).toFixed(2) + "px)";
+      });
+      sTick = false;
+    }
+    window.addEventListener("scroll", function(){
+      if(!sTick){ requestAnimationFrame(swell); sTick = true; }
+    }, {passive:true});
+    swell();
+  }
+
+  /* day rail progress */
+  var rail = document.getElementById("dayRail");
+  var dot = document.getElementById("railDot");
+  if(rail && dot){
+    rail.addEventListener("scroll", function(){
+      var max = rail.scrollWidth - rail.clientWidth;
+      var p = max > 0 ? rail.scrollLeft / max : 0;
+      dot.style.left = (p * 88) + "%";
+    }, {passive:true});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Whitsundays — The World | WAYPOINT &amp; Co.</title>
+<meta name="description" content="The Whitsundays are experienced differently when every movement is considered. Air, sea, stay and experience — one considered journey through one world.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WAYPOINT & Co. — THE WORLD
+   Phase Eight · Master Destination Template
+   World 01 · The Whitsundays
+   Motion: AIR vertical + SEA horizontal + STAY inward.
+   The destination is orbital — everything revolves around place.
+   ============================================================ */
+
+:root{
+  /* house */
+  --ivory:      #F1EEE7;
+  --charcoal:   #211F1B;
+  --metal:      #B3B0A7;
+  --ink-soft:   #6D6A61;
+  --ink-on-dark:#EDEAE1;
+
+  /* the Whitsundays — limestone, turquoise, white sand, morning haze, salt, sun */
+  --haze:       #E9EBE6;
+  --salt:       #EFEDE4;
+  --sand:       #EDE6D6;
+  --limestone:  #DCD4C3;
+  --water-pale: #C2D5D0;
+  --water:      #8FB3AE;
+  --water-deep: #5E8A86;
+  --sea-ink:    #3E5F5C;
+  --sun:        #C8A97E;
+
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans:  "Instrument Sans", -apple-system, "Helvetica Neue", sans-serif;
+  --mono:  "IBM Plex Mono", "SF Mono", monospace;
+
+  --gutter: clamp(20px, 5vw, 72px);
+  --max: 1360px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  background: var(--salt);
+  color: var(--charcoal);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection{ background: var(--water-deep); color: var(--salt); }
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+.wrap{ max-width: var(--max); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+
+.eyebrow{
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.32em; text-transform: uppercase; color: var(--water-deep);
+}
+.dark .eyebrow{ color: var(--water); }
+
+.display{ font-family: var(--serif); font-weight: 400; line-height: 1.07; letter-spacing: -0.01em; }
+
+.lede{ font-size: clamp(17px, 1.35vw, 20px); line-height: 1.78; color: var(--ink-soft); max-width: 56ch; }
+.dark .lede{ color: #BDC4BD; }
+
+.mono-note{
+  font-family: var(--mono); font-size: 11.5px; font-weight: 300;
+  letter-spacing: .08em; line-height: 1.9; color: var(--ink-soft);
+}
+.dark .mono-note{ color: #93A09B; }
+
+.action{
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 17px 30px;
+  border: 1px solid var(--charcoal);
+  transition: background .5s var(--ease), color .5s var(--ease);
+}
+.action .mark{ font-family: var(--mono); font-weight: 300; transition: transform .5s var(--ease); }
+.action:hover{ background: var(--charcoal); color: var(--salt); }
+.action:hover .mark{ transform: translateX(4px); }
+.action.solid{ background: var(--charcoal); color: var(--salt); }
+.action.solid:hover{ background: var(--sea-ink); border-color: var(--sea-ink); }
+.action.quiet{ border: none; padding: 6px 0; border-bottom: 1px solid var(--metal); }
+.action.quiet:hover{ background: none; color: var(--water-deep); border-bottom-color: var(--water-deep); }
+.dark .action{ border-color: var(--ink-on-dark); color: var(--ink-on-dark); }
+.dark .action:hover{ background: var(--ink-on-dark); color: var(--charcoal); }
+
+a:focus-visible, button:focus-visible{ outline: 2px solid var(--water-deep); outline-offset: 4px; }
+
+/* ---------- the three movement languages ---------- */
+/* AIR — vertical rise */
+.rise{ opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease), transform 1.15s var(--ease); }
+.rise.in{ opacity: 1; transform: none; }
+/* SEA — horizontal drift */
+.drift{ opacity: 0; transform: translateX(-36px); transition: opacity 1.05s var(--ease), transform 1.25s var(--ease); }
+.drift.right{ transform: translateX(36px); }
+.drift.in{ opacity: 1; transform: none; }
+/* STAY — inward threshold */
+.enter{
+  opacity: 0; transform: scale(1.025); clip-path: inset(5% 7% 5% 7%);
+  transition: opacity 1.1s var(--ease), transform 1.4s var(--ease), clip-path 1.4s var(--ease);
+}
+.enter.in{ opacity: 1; transform: scale(1); clip-path: inset(0); }
+.d1{ transition-delay: .14s; } .d2{ transition-delay: .28s; } .d3{ transition-delay: .42s; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px var(--gutter);
+  transition: background .5s var(--ease), box-shadow .5s var(--ease), padding .5s var(--ease);
+}
+.nav.scrolled{
+  background: rgba(239,237,228,0.93);
+  backdrop-filter: blur(12px);
+  padding-top: 14px; padding-bottom: 14px;
+  box-shadow: 0 1px 0 rgba(33,31,27,0.08);
+}
+.nav .wordmark{ font-family: var(--serif); font-size: 19px; letter-spacing: .04em; }
+.nav .wordmark span{ font-family: var(--mono); font-size: 10px; letter-spacing: .3em; color: var(--water-deep); display:block; margin-top: 1px; }
+.nav-links{ display: flex; gap: 34px; align-items: center; }
+.nav-links a{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ink-soft); padding-bottom: 3px; border-bottom: 1px solid transparent;
+  transition: color .3s, border-color .3s;
+}
+.nav-links a:hover{ color: var(--charcoal); }
+.nav-links a.current{ color: var(--charcoal); border-bottom-color: var(--charcoal); }
+.nav-begin{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .24em; text-transform: uppercase;
+  border: 1px solid var(--charcoal); padding: 10px 20px;
+  transition: background .4s var(--ease), color .4s var(--ease);
+}
+.nav-begin:hover{ background: var(--charcoal); color: var(--salt); }
+.nav.on-scene:not(.scrolled){ color: var(--charcoal); }
+
+/* ============================================================
+   1 · ARRIVAL — first light, just water
+   ============================================================ */
+.hero{
+  position: relative; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg,
+      #E9EBE6 0%,      /* morning haze */
+      #DDE4DD 26%,
+      #C2D5D0 44%,     /* pale water meets sky */
+      #8FB3AE 58%,
+      #79A19C 72%,
+      #C9CDBE 88%,     /* shallows over sand */
+      #EDE6D6 100%);   /* white sand */
+}
+/* slow discovery — the scene breathes rather than moves */
+.hero .scene{
+  position: absolute; inset: -4%;
+  background:
+    radial-gradient(120% 40% at 30% 46%, rgba(233,235,230,0.35), transparent 66%),
+    radial-gradient(140% 34% at 74% 58%, rgba(143,179,174,0.25), transparent 70%),
+    radial-gradient(100% 28% at 50% 88%, rgba(237,230,214,0.5), transparent 74%);
+  animation: discover 60s var(--ease) infinite alternate;
+}
+@keyframes discover{
+  from{ transform: scale(1) translateX(-1.2%); }
+  to{   transform: scale(1.045) translateX(1.2%); }
+}
+/* the line begins — faint, patient */
+.hero-line{
+  position: absolute; left: 50%; top: 34%; bottom: 0; width: 1px;
+  transform: translateX(-.5px);
+  background: linear-gradient(180deg, transparent, rgba(62,95,92,0.35) 70%, rgba(62,95,92,0.55) 100%);
+}
+.hero-line::after{
+  content:""; position: absolute; bottom: 10vh; left: 50%; transform: translateX(-50%);
+  width: 7px; height: 7px; border-radius: 50%;
+  border: 1px solid rgba(62,95,92,0.7);
+}
+.hero-inner{ position: relative; z-index: 2; padding-bottom: clamp(60px, 9vh, 110px); }
+.hero h1{
+  font-size: clamp(42px, 6.6vw, 96px);
+  max-width: 15ch;
+}
+.hero .lede{ color: rgba(33,31,27,0.72); margin-top: 24px; max-width: 44ch; }
+.hero-actions{ display: flex; gap: 18px; margin-top: 42px; flex-wrap: wrap; }
+.hero-ident{
+  position: absolute; right: var(--gutter); bottom: clamp(60px, 9vh, 110px);
+  text-align: right; z-index: 2;
+  font-family: var(--mono); font-size: 11px; font-weight: 300;
+  letter-spacing: .3em; line-height: 2.3; color: rgba(62,95,92,0.75);
+}
+.hero-ident b{ font-weight: 400; color: var(--sea-ink); letter-spacing: .34em; }
+.hero .load{ opacity: 0; transform: translateY(24px); animation: settle-in 1.6s var(--ease) forwards; }
+.hero .load.l2{ animation-delay: .35s; }
+.hero .load.l3{ animation-delay: .65s; }
+.hero .load.l4{ animation-delay: .95s; }
+@keyframes settle-in{ to{ opacity: 1; transform: none; } }
+
+/* ============================================================
+   2 · SENSE OF PLACE — immerse, don't explain
+   ============================================================ */
+.sense{ padding: clamp(96px, 14vh, 180px) 0; }
+.sense-head{ max-width: 620px; margin-bottom: clamp(56px, 8vh, 96px); }
+.sense-head h2{ font-size: clamp(30px, 3.4vw, 48px); margin-top: 20px; }
+.observations{
+  display: grid; grid-template-columns: repeat(12, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+.obs{ position: relative; overflow: hidden; }
+.obs .frame{ position: relative; width: 100%; }
+.obs .frame::after{
+  content:""; position:absolute; inset: 12px;
+  border: 1px solid rgba(239,237,228,0.5); pointer-events: none;
+}
+.obs .shot{
+  position: absolute; left: 20px; top: 18px;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 300;
+  letter-spacing: .26em; text-transform: uppercase; color: rgba(239,237,228,0.85);
+}
+.obs figcaption{
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding-top: 14px;
+}
+.obs .word{ font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.6vw, 23px); }
+.obs .note{ font-family: var(--mono); font-size: 10px; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); text-align: right; }
+/* mosaic placement + tonal placeholder frames (commissioned photography) */
+.obs.o1{ grid-column: 1 / span 7; }  .obs.o1 .frame{ aspect-ratio: 16/10;
+  background: linear-gradient(170deg, #DDE4DD 0%, #C2D5D0 46%, #8FB3AE 100%); }
+.obs.o2{ grid-column: 8 / span 5; margin-top: clamp(40px, 6vh, 80px); } .obs.o2 .frame{ aspect-ratio: 4/5;
+  background: linear-gradient(180deg, #EDE6D6 0%, #DCD4C3 58%, #C8A97E 120%); }
+.obs.o3{ grid-column: 1 / span 4; margin-top: clamp(-30px, -3vh, -12px); } .obs.o3 .frame{ aspect-ratio: 4/5;
+  background: linear-gradient(195deg, #E9EBE6 0%, #C2D5D0 70%, #9FBDB7 100%); }
+.obs.o4{ grid-column: 5 / span 8; margin-top: clamp(28px, 4vh, 56px); } .obs.o4 .frame{ aspect-ratio: 16/9;
+  background: linear-gradient(160deg, #79A19C 0%, #8FB3AE 40%, #DCE3DA 100%); }
+.obs.o5{ grid-column: 2 / span 5; margin-top: clamp(28px, 4vh, 56px); } .obs.o5 .frame{ aspect-ratio: 1/1;
+  background: linear-gradient(180deg, #EFEDE4 0%, #EDE6D6 60%, #DCD4C3 100%); }
+.obs.o6{ grid-column: 8 / span 5; margin-top: clamp(60px, 8vh, 110px); } .obs.o6 .frame{ aspect-ratio: 4/3;
+  background: linear-gradient(200deg, #E9EBE6 0%, #DDE4DD 44%, #B9CFC9 100%); }
+
+/* ============================================================
+   3 · THE JOURNEY — the geographic descent
+   ============================================================ */
+.descent{ background: var(--haze); padding: clamp(96px, 14vh, 180px) 0; }
+.descent-head{ text-align: center; max-width: 640px; margin: 0 auto clamp(64px, 9vh, 120px); }
+.descent-head h2{ font-size: clamp(32px, 3.8vw, 54px); margin-top: 20px; }
+.chart{ position: relative; max-width: 680px; margin: 0 auto; }
+.chart-line{
+  position: absolute; left: 50%; top: 8px; bottom: 8px; width: 1px;
+  transform: translateX(-.5px); background: var(--metal);
+}
+.chart-line .plotted{
+  position: absolute; top: 0; left: 0; width: 100%; height: 0%;
+  background: var(--sea-ink); transition: height .2s linear;
+}
+.wpt{
+  position: relative; text-align: center;
+  padding: 0 0 clamp(56px, 7.5vh, 92px);
+}
+.wpt:last-child{ padding-bottom: 0; }
+.wpt .node{
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 1px solid var(--sea-ink); background: var(--haze);
+  margin: 0 auto 20px; position: relative; z-index: 2;
+  transition: background .5s var(--ease);
+}
+.wpt.in .node{ background: var(--sea-ink); }
+.wpt .w-scale{
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .34em;
+  text-transform: uppercase; color: var(--water-deep); margin-bottom: 10px;
+}
+.wpt .w-name{ font-family: var(--serif); font-size: clamp(26px, 3vw, 40px); line-height: 1.12; }
+.wpt .w-fix{ margin-top: 8px; }
+.wpt .w-story{
+  margin: 16px auto 0; max-width: 44ch;
+  font-size: 15px; color: var(--ink-soft); line-height: 1.75;
+}
+.wpt.scale-shift .w-name{ font-style: italic; color: var(--water-deep); }
+
+/* ============================================================
+   4/5/6 · ARRIVE — BELONG — EXPLORE  (children of the world)
+   ============================================================ */
+.pillar{ position: relative; overflow: hidden; }
+.pillar .wrap{ position: relative; }
+.pillar-grid{
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 110px); align-items: center;
+  padding: clamp(96px, 14vh, 180px) 0;
+}
+.pillar h2{ font-size: clamp(34px, 4.2vw, 60px); margin: 20px 0 26px; max-width: 14ch; }
+.pillar .p-themes{
+  margin-top: 26px;
+  font-family: var(--mono); font-size: 11px; font-weight: 300;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+  display: flex; flex-wrap: wrap; gap: 8px 0; max-width: 46ch;
+}
+.pillar .p-themes span::after{ content:"·"; margin: 0 10px; color: var(--metal); }
+.pillar .p-themes span:last-child::after{ content:""; margin: 0; }
+.pillar .action{ margin-top: 36px; }
+.pillar .scene-frame{ position: relative; overflow: hidden; }
+.pillar .scene-frame::after{
+  content:""; position:absolute; inset: 14px;
+  border: 1px solid rgba(239,237,228,0.55); pointer-events: none;
+}
+.pillar .scene-frame .s-note{
+  position: absolute; left: 26px; bottom: 22px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase; color: rgba(239,237,228,0.85);
+}
+/* ARRIVE — vertical, atmospheric */
+.pillar.arrive{ background: var(--salt); }
+.pillar.arrive .scene-frame{ aspect-ratio: 4/5;
+  background: linear-gradient(180deg, #55606A 0%, #8D9598 34%, #C4CDC4 62%, #C2D5D0 100%);
+}
+/* BELONG — inward, grounded */
+.pillar.belong{ background: var(--sand); }
+.pillar.belong .scene-frame{ aspect-ratio: 4/5;
+  background: linear-gradient(165deg, #DCD4C3 0%, #EDE6D6 40%, #8FB3AE 110%);
+}
+.pillar.belong .pillar-grid > .scene-holder{ order: -1; }
+/* EXPLORE — horizontal, tidal */
+.pillar.explore{ background: var(--haze); }
+.pillar.explore .scene-frame{ aspect-ratio: 16/10;
+  background: linear-gradient(90deg, #5E8A86 0%, #8FB3AE 44%, #C2D5D0 78%, #EDE6D6 100%);
+}
+.pillar.explore .pillar-grid{ grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+
+/* ============================================================
+   7 · EXTRAORDINARY MOMENTS — stories, not lists
+   ============================================================ */
+.moments{ background: var(--charcoal); color: var(--ink-on-dark); padding: clamp(104px, 15vh, 190px) 0; position: relative; overflow: hidden; }
+.moments::before{
+  content:""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(80% 55% at 85% 0%, rgba(143,179,174,0.10), transparent 62%),
+    radial-gradient(70% 45% at 8% 100%, rgba(200,169,126,0.08), transparent 58%);
+}
+.moments .wrap{ position: relative; }
+.moments h2{ font-size: clamp(34px, 4.4vw, 64px); margin: 22px 0 26px; max-width: 15ch; }
+.moment-flow{ margin-top: clamp(56px, 7vh, 90px); }
+.mstory{
+  display: grid; grid-template-columns: 200px minmax(0, 1fr) auto;
+  gap: clamp(24px, 4vw, 64px); align-items: baseline;
+  padding: clamp(24px, 3vh, 36px) 0;
+  border-top: 1px solid rgba(179,176,167,0.22);
+  transition: padding-left .6s var(--ease);
+}
+.mstory:last-child{ border-bottom: 1px solid rgba(179,176,167,0.22); }
+.mstory:hover{ padding-left: 14px; }
+.mstory .m-name{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--water);
+}
+.mstory .m-line{ font-family: var(--serif); font-size: clamp(19px, 1.9vw, 26px); line-height: 1.35; max-width: 30ch; }
+.mstory .m-go{
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase;
+  color: #93A09B; border-bottom: 1px solid rgba(147,160,155,0.4);
+  padding-bottom: 3px; transition: color .3s, border-color .3s;
+  white-space: nowrap;
+}
+.mstory .m-go:hover{ color: var(--ink-on-dark); border-color: var(--ink-on-dark); }
+
+/* ============================================================
+   8 · THE JOURNAL
+   ============================================================ */
+.journal{ padding: clamp(96px, 14vh, 180px) 0; background: var(--salt); }
+.journal-head{ max-width: 700px; margin-bottom: clamp(56px, 8vh, 96px); }
+.journal-head h2{ font-size: clamp(34px, 4.2vw, 60px); margin-top: 20px; }
+.stories{
+  display: grid; grid-template-columns: repeat(12, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+.story{ position: relative; }
+.story .frame{ position: relative; overflow: hidden; }
+.story .frame::after{
+  content:""; position: absolute; inset: 12px;
+  border: 1px solid rgba(239,237,228,0.5); pointer-events: none;
+}
+.story .frame .sc{
+  position: absolute; left: 20px; top: 18px;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 300;
+  letter-spacing: .26em; text-transform: uppercase; color: rgba(239,237,228,0.85);
+}
+.story h3{
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(20px, 1.9vw, 27px); line-height: 1.22;
+  margin-top: 16px; max-width: 22ch;
+}
+.story .s-kind{ margin-top: 8px; }
+.story.s1{ grid-column: 1 / span 5; } .story.s1 .frame{ aspect-ratio: 4/5;
+  background: linear-gradient(180deg, #EDE6D6 0%, #C2D5D0 56%, #8FB3AE 100%); }
+.story.s2{ grid-column: 6 / span 7; } .story.s2 .frame{ aspect-ratio: 16/10;
+  background: linear-gradient(170deg, #DDE4DD 0%, #9FBDB7 60%, #5E8A86 100%); }
+.story.s3{ grid-column: 1 / span 7; margin-top: clamp(32px, 4vh, 56px); } .story.s3 .frame{ aspect-ratio: 16/10;
+  background: linear-gradient(200deg, #E9EBE6 0%, #C2D5D0 48%, #79A19C 100%); }
+.story.s4{ grid-column: 8 / span 5; margin-top: clamp(56px, 8vh, 96px); } .story.s4 .frame{ aspect-ratio: 4/5;
+  background: linear-gradient(180deg, #DCD4C3 0%, #EDE6D6 54%, #C8A97E 130%); }
+.story.s5{ grid-column: 4 / span 6; margin-top: clamp(32px, 4vh, 56px); } .story.s5 .frame{ aspect-ratio: 16/9;
+  background: linear-gradient(90deg, #8FB3AE 0%, #C2D5D0 52%, #EFEDE4 100%); }
+
+/* ============================================================
+   9 · ONE COMPLETE JOURNEY — continuous story
+   ============================================================ */
+.complete{ background: var(--haze); padding: clamp(96px, 14vh, 180px) 0; }
+.complete-head{ text-align: center; max-width: 640px; margin: 0 auto clamp(64px, 9vh, 110px); }
+.complete-head h2{ font-size: clamp(32px, 3.8vw, 54px); margin-top: 20px; }
+.voyage{ position: relative; max-width: 560px; margin: 0 auto; }
+.voyage-line{
+  position: absolute; left: 27px; top: 8px; bottom: 8px; width: 1px;
+  background: var(--metal);
+}
+.voyage-line .plotted{
+  position: absolute; top: 0; left: 0; width: 100%; height: 0%;
+  background: var(--sea-ink); transition: height .2s linear;
+}
+.leg{
+  position: relative;
+  display: grid; grid-template-columns: 56px minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 40px); align-items: baseline;
+  padding: 0 0 clamp(38px, 5vh, 56px);
+}
+.leg:last-child{ padding-bottom: 0; }
+.leg .node{
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 1px solid var(--sea-ink); background: var(--haze);
+  position: relative; z-index: 2; justify-self: center; top: 4px;
+  transition: background .5s var(--ease);
+}
+.leg.in .node{ background: var(--sea-ink); }
+.leg .l-kind{
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--water-deep);
+}
+.leg .l-name{ font-family: var(--serif); font-size: clamp(21px, 2.2vw, 29px); line-height: 1.25; margin-top: 4px; }
+.leg .l-note{ font-size: 13.5px; color: var(--ink-soft); margin-top: 6px; max-width: 42ch; }
+.voyage-actions{ text-align: center; margin-top: clamp(52px, 7vh, 80px); display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+
+/* ============================================================
+   10 · BEGIN — sunset; the line reaches its final waypoint
+   ============================================================ */
+.begin{
+  position: relative;
+  min-height: 88svh;
+  display: flex; align-items: center;
+  text-align: center;
+  color: var(--ink-on-dark);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg,
+      #3E5F5C 0%,
+      #5E8A86 30%,
+      #8FA79A 52%,
+      #C8A97E 76%,
+      #DCC49C 90%,
+      #C9A87B 100%);
+}
+.begin::before{ /* the line completes */
+  content:""; position: absolute; left: 50%; top: 0; height: 52%;
+  width: 1px; transform: translateX(-.5px);
+  background: linear-gradient(180deg, rgba(237,234,225,0.0), rgba(237,234,225,0.75));
+}
+.begin::after{ /* final waypoint */
+  content:""; position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
+  width: 11px; height: 11px; border-radius: 50%;
+  border: 1px solid rgba(237,234,225,0.9);
+  background: rgba(237,234,225,0.25);
+}
+.begin .wrap{ position: relative; padding-top: 14vh; }
+.begin h2{ font-size: clamp(38px, 5.4vw, 84px); max-width: 14ch; margin: 0 auto 46px; text-shadow: 0 1px 26px rgba(33,31,27,0.18); }
+.begin .action.solid{ background: rgba(237,234,225,0.96); color: var(--charcoal); border-color: transparent; }
+.begin .action.solid:hover{ background: var(--salt); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{ background: var(--charcoal); color: var(--ink-on-dark); padding: clamp(64px, 8vh, 100px) 0 40px; }
+.footer-top{
+  display: grid; grid-template-columns: minmax(0,1.4fr) repeat(3, minmax(0,1fr));
+  gap: clamp(32px, 4vw, 64px);
+  padding-bottom: clamp(44px, 5vh, 64px);
+  border-bottom: 1px solid rgba(179,176,167,0.22);
+}
+.footer .wordmark{ font-family: var(--serif); font-size: 22px; }
+.footer .wordmark span{ font-family: var(--mono); font-size: 10px; letter-spacing: .3em; color: var(--water); display: block; margin-top: 4px; }
+.footer h4{ font-family: var(--mono); font-size: 10.5px; font-weight: 400; letter-spacing: .32em; text-transform: uppercase; color: var(--water); margin-bottom: 20px; }
+.footer ul{ list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer ul a{ font-size: 14px; color: #BDC4BD; transition: color .3s; }
+.footer ul a:hover{ color: var(--ink-on-dark); }
+.footer-bottom{ display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-top: 32px; }
+.footer-bottom .mono-note{ color: #78847F; }
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{ animation: none !important; transition: none !important; }
+  .rise, .drift, .enter, .hero .load{ opacity: 1; transform: none; clip-path: none; }
+  .chart-line .plotted, .voyage-line .plotted{ height: 100% !important; }
+}
+
+/* ============================================================
+   MOBILE — the world as a vertical log
+   ============================================================ */
+@media (max-width: 980px){
+  .observations{ display: flex; flex-direction: column; gap: 36px; }
+  .obs{ margin-top: 0 !important; }
+  .pillar-grid{ grid-template-columns: 1fr !important; }
+  .pillar.belong .pillar-grid > .scene-holder{ order: 0; }
+  .mstory{ grid-template-columns: 1fr; gap: 10px; }
+  .mstory .m-go{ justify-self: start; }
+  .stories{ display: flex; flex-direction: column; gap: 36px; }
+  .story{ margin-top: 0 !important; }
+  .footer-top{ grid-template-columns: 1fr 1fr; }
+  .hero-ident{ display: none; }
+  .nav-links{ display: none; }
+}
+@media (max-width: 560px){
+  .footer-top{ grid-template-columns: 1fr; }
+  .leg{ grid-template-columns: 40px minmax(0,1fr); }
+  .voyage-line{ left: 19px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     THE WORLD · MASTER DESTINATION TEMPLATE
+     World 01 · The Whitsundays
+     data-cms="world" — every child section queries the relationship
+     graph. No duplicated content: AIR, SEA, STAY, experiences,
+     journeys, journal entries and waypoints all render dynamically
+     from CMS-authored relationships for this destination.
+     ================================================================ -->
+
+<!-- ============ NAV ============ -->
+<nav class="nav on-scene" id="nav">
+  <a href="/" class="wordmark">WAYPOINT &amp; Co.<span>THE WORLD</span></a>
+  <div class="nav-links">
+    <a href="/world" class="current" aria-current="page">The World</a>
+    <a href="/sea">Sea</a>
+    <a href="/stay">Stay</a>
+    <a href="/air">Air</a>
+  </div>
+  <a class="nav-begin" href="/begin?dest=whitsundays&src=world-nav">Begin</a>
+</nav>
+
+<!-- ============ 1 · ARRIVAL — first light ============ -->
+<header class="hero" id="arrival" data-cms="world" data-world="whitsundays">
+  <div class="scene" aria-hidden="true"></div>
+  <div class="hero-line" aria-hidden="true"></div>
+
+  <div class="hero-inner wrap">
+    <p class="eyebrow load">The World · 01</p>
+    <h1 class="display load l2">Some places are meant to be crossed slowly.</h1>
+    <p class="lede load l3">The Whitsundays are experienced differently when every movement is considered.</p>
+    <div class="hero-actions load l4">
+      <a class="action solid" href="/begin?dest=whitsundays&src=world-hero">Begin a journey <span class="mark">→</span></a>
+      <a class="action" href="#descent">Explore the passage <span class="mark">→</span></a>
+    </div>
+  </div>
+
+  <div class="hero-ident load l4" aria-label="The World, number one: The Whitsundays">
+    <b>THE WHITSUNDAYS</b><br>
+    20°S · 149°E<br>
+    SEVENTY-FOUR ISLANDS
+  </div>
+</header>
+
+<!-- ============ 2 · SENSE OF PLACE ============ -->
+<section class="sense" id="sense">
+  <div class="wrap">
+    <div class="sense-head">
+      <p class="eyebrow rise">Sense of place</p>
+      <h2 class="display rise d1">Before the journey, the place itself.</h2>
+    </div>
+
+    <!-- Commissioned photography renders from mediaAsset · placeholders carry shot briefs -->
+    <div class="observations">
+      <figure class="obs o1 enter">
+        <div class="frame"><span class="shot">SHOT · OPEN WATER, FIRST LIGHT</span></div>
+        <figcaption><span class="word">Wind.</span><span class="note">From the south-east, most afternoons</span></figcaption>
+      </figure>
+      <figure class="obs o2 enter d1">
+        <div class="frame"><span class="shot">SHOT · SAND UNDERFOOT, NO HORIZON</span></div>
+        <figcaption><span class="word">Sand.</span><span class="note">Silica, cool at any hour</span></figcaption>
+      </figure>
+      <figure class="obs o3 drift">
+        <div class="frame"><span class="shot">SHOT · SURFACE TEXTURE, MID MORNING</span></div>
+        <figcaption><span class="word">Water.</span><span class="note">Clear to the seagrass</span></figcaption>
+      </figure>
+      <figure class="obs o4 drift right">
+        <div class="frame"><span class="shot">SHOT · CHANNEL BETWEEN ISLANDS</span></div>
+        <figcaption><span class="word">Distance.</span><span class="note">Islands measured in hours, not miles</span></figcaption>
+      </figure>
+      <figure class="obs o5 enter">
+        <div class="frame"><span class="shot">SHOT · HAZE OVER LIMESTONE</span></div>
+        <figcaption><span class="word">Light.</span><span class="note">Soft until ten, gold after four</span></figcaption>
+      </figure>
+      <figure class="obs o6 enter d1">
+        <div class="frame"><span class="shot">SHOT · ANCHORAGE BEFORE THE HOUSE WAKES</span></div>
+        <figcaption><span class="word">Morning.</span><span class="note">The passage at its quietest</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · THE JOURNEY — geographic descent ============ -->
+<section class="descent" id="descent">
+  <div class="wrap">
+    <div class="descent-head">
+      <p class="eyebrow rise">The journey</p>
+      <h2 class="display rise d1">From a continent to a single anchorage.</h2>
+    </div>
+
+    <!-- Waypoints render from `place` via the relationship graph -->
+    <div class="chart" id="chart">
+      <div class="chart-line" aria-hidden="true"><div class="plotted" id="chartPlotted"></div></div>
+
+      <div class="wpt scale-shift rise" data-cms="place" data-place="australia">
+        <div class="node"></div>
+        <div class="w-scale">Continent</div>
+        <div class="w-name">Australia</div>
+        <p class="w-story">The journey begins wherever you are. Everything after this line is coordinated.</p>
+      </div>
+
+      <div class="wpt scale-shift rise" data-cms="place" data-place="queensland">
+        <div class="node"></div>
+        <div class="w-scale">State</div>
+        <div class="w-name">Queensland</div>
+        <p class="w-story">North along the coast, the water begins to change colour.</p>
+      </div>
+
+      <div class="wpt scale-shift rise" data-cms="place" data-place="whitsundays">
+        <div class="node"></div>
+        <div class="w-scale">The world</div>
+        <div class="w-name">The Whitsundays</div>
+        <div class="w-fix mono-note">20°S · 149°E</div>
+        <p class="w-story">Seventy-four islands inside the reef's shelter. The passage runs between them like a road that was never built.</p>
+      </div>
+
+      <div class="wpt rise" data-cms="place" data-place="hamilton-island">
+        <div class="node"></div>
+        <div class="w-scale">Waypoint 01</div>
+        <div class="w-name">Hamilton Island</div>
+        <div class="w-fix mono-note">HTI · 20°21′S 148°57′E</div>
+        <p class="w-story">The island with its own runway. Arrival, residence and marina within minutes of each other — the world's front door.</p>
+      </div>
+
+      <div class="wpt rise" data-cms="place" data-place="whitehaven">
+        <div class="node"></div>
+        <div class="w-scale">Waypoint 02</div>
+        <div class="w-name">Whitehaven</div>
+        <div class="w-fix mono-note">20°17′S 149°02′E</div>
+        <p class="w-story">Seven kilometres of silica sand that stays cool underfoot. Best met early, from the water, before the day arrives.</p>
+      </div>
+
+      <div class="wpt rise" data-cms="place" data-place="hook-island">
+        <div class="node"></div>
+        <div class="w-scale">Waypoint 03</div>
+        <div class="w-name">Hook Island</div>
+        <div class="w-fix mono-note">20°06′S 148°57′E</div>
+        <p class="w-story">Steep, forested and quiet. Anchorages on its northern edge hold still water and the best of the fringing reef.</p>
+      </div>
+
+      <div class="wpt rise" data-cms="place" data-place="hayman">
+        <div class="node"></div>
+        <div class="w-scale">Waypoint 04</div>
+        <div class="w-name">Hayman</div>
+        <div class="w-fix mono-note">20°03′S 148°53′E</div>
+        <p class="w-story">The most northern of the group — the last island before open water, and the turn toward the reef proper.</p>
+      </div>
+
+      <div class="wpt rise" data-cms="place" data-place="outer-reef">
+        <div class="node"></div>
+        <div class="w-scale">Waypoint 05</div>
+        <div class="w-name">The Outer Reef</div>
+        <p class="w-story">Beyond the islands, the reef itself. A different scale of blue — reached by sea or by air, never hurried.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · ARRIVE (AIR) — vertical ============ -->
+<section class="pillar arrive" id="arrive" data-cms="pillar" data-pillar="air" data-world="whitsundays">
+  <div class="wrap pillar-grid">
+    <div>
+      <p class="eyebrow rise">Arrive</p>
+      <h2 class="display rise d1">The world begins from the air.</h2>
+      <p class="lede rise d2">Private fixed-wing to Hamilton Island or Proserpine; helicopter onward to the beach, the vessel or the residence. Arrival here is not a connection — it is the first view of the passage from above.</p>
+      <div class="p-themes rise d3">
+        <span>Private aviation</span><span>Helicopter</span><span>Regional access</span><span>Coordinated arrival</span>
+      </div>
+      <a class="action rise d3" href="/air?dest=whitsundays&src=world-arrive">Continue into AIR <span class="mark">→</span></a>
+    </div>
+    <div class="scene-holder">
+      <div class="scene-frame rise d1" aria-hidden="true">
+        <span class="s-note">SHOT · DESCENT OVER THE PASSAGE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 · BELONG (STAY) — inward ============ -->
+<section class="pillar belong" id="belong" data-cms="pillar" data-pillar="stay" data-world="whitsundays">
+  <div class="wrap pillar-grid">
+    <div class="scene-holder">
+      <div class="scene-frame enter" aria-hidden="true">
+        <span class="s-note">SHOT · TERRACE, LIMESTONE, THE PASSAGE BEYOND</span>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow enter">Belong</p>
+      <h2 class="display enter d1">An island residence at the centre of it all.</h2>
+      <p class="lede enter d2">Hamilton Island living — open architecture, limestone and timber, the water framed from every room. The residence is the point of return: where the world becomes personal.</p>
+      <div class="p-themes enter d3">
+        <span>Private residences</span><span>Island living</span><span>Architecture</span><span>The point of return</span>
+      </div>
+      <a class="action enter d3" href="/stay?dest=whitsundays&src=world-belong">Continue into STAY <span class="mark">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · EXPLORE (SEA) — horizontal ============ -->
+<section class="pillar explore" id="explore" data-cms="pillar" data-pillar="sea" data-world="whitsundays">
+  <div class="wrap pillar-grid">
+    <div>
+      <p class="eyebrow drift">Explore</p>
+      <h2 class="display drift d1">The passage, crossed at your own pace.</h2>
+      <p class="lede drift d2">ALANI through the islands — Whitehaven at first light, the still anchorages of Hook, and the outer reef when the weather opens. The sea is how this world was always meant to be read.</p>
+      <div class="p-themes drift d3">
+        <span>ALANI</span><span>Whitehaven</span><span>Outer reef</span><span>Private anchorages</span>
+      </div>
+      <a class="action drift d3" href="/sea?dest=whitsundays&src=world-explore">Continue into SEA <span class="mark">→</span></a>
+    </div>
+    <div class="scene-holder">
+      <div class="scene-frame drift right d1" aria-hidden="true">
+        <span class="s-note">SHOT · THE PASSAGE, BEAM ON, MID MORNING</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7 · EXTRAORDINARY MOMENTS ============ -->
+<section class="dark moments" id="moments">
+  <div class="wrap">
+    <p class="eyebrow rise">Extraordinary moments</p>
+    <h2 class="display rise d1">The days are made of these.</h2>
+    <p class="lede rise d2">Experiences are woven into the journey, never bolted on. Each is arranged around where you are staying, sailing and arriving.</p>
+
+    <!-- Experiences render from `experience` via CMS-authored relationships -->
+    <div class="moment-flow rise d2">
+      <a class="mstory" href="/begin?dest=whitsundays&experience=private-chef&src=world-moments" data-cms="experience">
+        <span class="m-name">Private chef</span>
+        <span class="m-line">Dinner cooked where it was caught, served as the anchorage goes quiet.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=helicopter&src=world-moments" data-cms="experience">
+        <span class="m-name">Helicopter</span>
+        <span class="m-line">The reef from above — then down to a sandbar that disappears with the tide.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=wine&src=world-moments" data-cms="experience">
+        <span class="m-name">Wine</span>
+        <span class="m-line">A cellar chosen before you arrive, opened slowly across the week.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=reef&src=world-moments" data-cms="experience">
+        <span class="m-name">Reef</span>
+        <span class="m-line">Snorkelling the fringing coral at slack water, guided, unhurried.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=fishing&src=world-moments" data-cms="experience">
+        <span class="m-name">Fishing</span>
+        <span class="m-line">Dawn on the outer edges, lines out before the heat arrives.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=sunrise&src=world-moments" data-cms="experience">
+        <span class="m-name">Sunrise</span>
+        <span class="m-line">Coffee on deck as the passage turns from grey to green to gold.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=picnic&src=world-moments" data-cms="experience">
+        <span class="m-name">Picnic</span>
+        <span class="m-line">A table set on sand that will be underwater by evening.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=wellness&src=world-moments" data-cms="experience">
+        <span class="m-name">Wellness</span>
+        <span class="m-line">Morning practice on the foredeck; the horizon does the rest.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+      <a class="mstory" href="/begin?dest=whitsundays&experience=photography&src=world-moments" data-cms="experience">
+        <span class="m-name">Photography</span>
+        <span class="m-line">The week documented quietly, so no one has to leave the moment to keep it.</span>
+        <span class="m-go">Add to a journey</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 · THE JOURNAL ============ -->
+<section class="journal" id="journal">
+  <div class="wrap">
+    <div class="journal-head">
+      <p class="eyebrow rise">The journal</p>
+      <h2 class="display rise d1">Notes from this world.</h2>
+    </div>
+
+    <!-- Journal entries render from `journalEntry` filtered to this world -->
+    <div class="stories">
+      <a class="story s1 enter" href="/journal/quieter-side-of-whitehaven" data-cms="journalEntry">
+        <div class="frame"><span class="sc">SHOT · SOUTHERN END, NO FOOTPRINTS</span></div>
+        <h3>The quieter side of Whitehaven</h3>
+        <p class="mono-note s-kind">FIELD NOTES</p>
+      </a>
+      <a class="story s2 enter d1" href="/journal/morning-on-hook-island" data-cms="journalEntry">
+        <div class="frame"><span class="sc">SHOT · NARA INLET, 0600</span></div>
+        <h3>Morning on Hook Island</h3>
+        <p class="mono-note s-kind">FIELD NOTES</p>
+      </a>
+      <a class="story s3 drift" href="/journal/how-the-reef-changes-with-the-tide" data-cms="journalEntry">
+        <div class="frame"><span class="sc">SHOT · CORAL EDGE, FALLING TIDE</span></div>
+        <h3>How the reef changes with the tide</h3>
+        <p class="mono-note s-kind">ON THE WATER</p>
+      </a>
+      <a class="story s4 enter" href="/journal/island-architecture" data-cms="journalEntry">
+        <div class="frame"><span class="sc">SHOT · EAVES, LIMESTONE, SHADOW</span></div>
+        <h3>Island architecture</h3>
+        <p class="mono-note s-kind">PLACES</p>
+      </a>
+      <a class="story s5 drift right" href="/journal/travelling-by-private-yacht" data-cms="journalEntry">
+        <div class="frame"><span class="sc">SHOT · WAKE ASTERN, LATE AFTERNOON</span></div>
+        <h3>Travelling by private yacht</h3>
+        <p class="mono-note s-kind">THE JOURNEY</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 · ONE COMPLETE JOURNEY ============ -->
+<section class="complete" id="journey">
+  <div class="wrap">
+    <div class="complete-head">
+      <p class="eyebrow rise">One journey, complete</p>
+      <h2 class="display rise d1">Island Passage, plotted end to end.</h2>
+    </div>
+
+    <!-- Renders from `journey` + `journeyLeg` · CMS-authored, one continuous course -->
+    <div class="voyage" id="voyage" data-cms="journey" data-journey="island-passage">
+      <div class="voyage-line" aria-hidden="true"><div class="plotted" id="voyagePlotted"></div></div>
+
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Depart</div><div class="l-name">Brisbane</div>
+        <p class="l-note">The city recedes; the coordination begins.</p></div>
+      </div>
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Air</div><div class="l-name">Private aircraft</div>
+        <p class="l-note">North over the coast, the islands appearing one by one.</p></div>
+      </div>
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Stay</div><div class="l-name">Hamilton Island residence</div>
+        <p class="l-note">Bags disappear. The passage waits beyond the terrace.</p></div>
+      </div>
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Sea</div><div class="l-name">ALANI</div>
+        <p class="l-note">Lines away mid-morning; the world becomes water.</p></div>
+      </div>
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Experience</div><div class="l-name">Whitehaven</div>
+        <p class="l-note">Seven kilometres of silica, met before the day arrives.</p></div>
+      </div>
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Experience</div><div class="l-name">Private chef</div>
+        <p class="l-note">Dinner aboard as the anchorage settles into evening.</p></div>
+      </div>
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Air</div><div class="l-name">Helicopter</div>
+        <p class="l-note">The reef from above on the way back to the runway.</p></div>
+      </div>
+      <div class="leg">
+        <div class="node"></div>
+        <div><div class="l-kind">Return</div><div class="l-name">Home</div>
+        <p class="l-note">The course complete — held as one movement throughout.</p></div>
+      </div>
+    </div>
+
+    <div class="voyage-actions rise">
+      <a class="action" href="/begin?journey=island-passage&src=world-journey">Explore the journey <span class="mark">→</span></a>
+      <a class="action quiet" href="/begin?journey=island-passage&shape=1&src=world-journey">Shape this journey <span class="mark">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 · BEGIN — sunset, one button ============ -->
+<section class="begin" id="begin">
+  <div class="wrap">
+    <h2 class="display rise">Where will your journey begin?</h2>
+    <div class="rise d1">
+      <a class="action solid" href="/begin?dest=whitsundays&src=world-begin">Begin a journey <span class="mark">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer dark">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="wordmark">WAYPOINT &amp; Co.<span>THE WORLD</span></div>
+      </div>
+      <div>
+        <h4>The World</h4>
+        <ul>
+          <li><a href="/world/whitsundays">The Whitsundays</a></li>
+          <li><a href="/world">All worlds</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Journey</h4>
+        <ul>
+          <li><a href="/air">Air</a></li>
+          <li><a href="/sea">Sea</a></li>
+          <li><a href="/stay">Stay</a></li>
+          <li><a href="/journeys">Journeys</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="mono-note">THE WORLD · 01 · THE WHITSUNDAYS · 20°S 149°E</span>
+      <span class="mono-note">© WAYPOINT &amp; CO.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- nav ---- */
+  const nav = document.getElementById('nav');
+  const onScrollNav = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScrollNav();
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+
+  /* ---- the three movement languages ---- */
+  const revealEls = document.querySelectorAll('.rise, .drift, .enter, .wpt, .leg');
+  if ('IntersectionObserver' in window && !reduced){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  /* ---- plotted lines draw with scroll ---- */
+  function scrollDraw(containerId, fillId){
+    const box = document.getElementById(containerId);
+    const fill = document.getElementById(fillId);
+    if (!box || !fill || reduced) return;
+    const draw = () => {
+      const r = box.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const start = vh * 0.82;
+      const total = r.height + (start - vh * 0.3);
+      const travelled = Math.min(Math.max(start - r.top, 0), total);
+      fill.style.height = (travelled / total * 100).toFixed(2) + '%';
+    };
+    draw();
+    window.addEventListener('scroll', draw, { passive: true });
+    window.addEventListener('resize', draw);
+  }
+  scrollDraw('chart', 'chartPlotted');
+  scrollDraw('voyage', 'voyagePlotted');
+})();
+</script>
+
+</body>
+</html>

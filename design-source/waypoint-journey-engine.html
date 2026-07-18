@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Begin a Journey — WAYPOINT &amp; Co.</title>
+<meta name="description" content="Tell us where you are drawn to, and we will begin shaping the journey around you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WAYPOINT & Co. — THE JOURNEY ENGINE
+   A digital concierge. Not a form.
+   Inherits Design System v1.0 · Signature: the plotted course
+   ============================================================ */
+:root{
+  --wp-surface:#F5F2EB; --wp-surface-2:#EDE9DE;
+  --wp-bg-dark:#16333A;
+  --wp-border:#DBD4C4; --wp-border-soft:#E9E4D8;
+  --wp-text:#1B1C1C; --wp-text-2:#66675F;
+  --wp-text-inv:#F5F2EB; --wp-text-inv-2:rgba(245,242,235,.68);
+  --wp-accent:#16333A; --wp-accent-soft:#274B54; --wp-metal:#8E744C;
+  --wp-muted:#A9A395;
+  --wp-glass:rgba(245,242,235,.9);
+  --wp-ease:cubic-bezier(.22,1,.36,1);
+  --wp-dur-scene:1400ms; --wp-dur-step:850ms; --wp-dur-micro:350ms;
+  --wp-serif:'Fraunces',serif; --wp-sans:'Hanken Grotesk',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--wp-bg-dark);color:var(--wp-text);font-family:var(--wp-sans);font-weight:300;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow:hidden}
+::selection{background:var(--wp-accent);color:var(--wp-surface)}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit}
+:focus-visible{outline:1.5px solid var(--wp-accent);outline-offset:4px}
+.on-scene :focus-visible{outline-color:var(--wp-text-inv)}
+
+/* ============================================================
+   THE SCENE — the destination, breathing behind everything
+   ============================================================ */
+.scenes{position:fixed;inset:0;z-index:0}
+.scene{position:absolute;inset:-4%;opacity:0;transition:opacity var(--wp-dur-scene) var(--wp-ease);will-change:opacity,transform}
+.scene.is-active{opacity:1}
+@keyframes drift{from{transform:translateX(-1.1%) scale(1.01)}to{transform:translateX(1.1%) scale(1.01)}}
+.scene.is-active{animation:drift 34s var(--wp-ease) infinite alternate}
+.sc-neutral{background:linear-gradient(170deg,#14262C 0%,#2C4A52 34%,#5F7B7A 62%,#A9AE99 86%,#C9BFA3 100%)}
+.sc-whitsundays{background:linear-gradient(172deg,#0F2B33,#1D4C54 34%,#3E8483 62%,#9DC9B8 86%,#EFE5C8 100%)}
+.sc-hamilton{background:linear-gradient(168deg,#122A31,#28545C 38%,#5B8E8C 66%,#C4BFA0 100%)}
+.sc-noosa{background:linear-gradient(170deg,#20343A,#3E6167 40%,#7E9E97 68%,#DECFA9 100%)}
+.sc-tasmania{background:linear-gradient(180deg,#1E2826,#3B4C46 42%,#6E7F72 70%,#B9BBA8 100%)}
+.sc-sydney{background:linear-gradient(195deg,#1B2B33,#3C5B66 48%,#87A3A6 78%,#D3D3C2 100%)}
+.sc-mediterranean{background:linear-gradient(176deg,#152A36,#2C4E63 42%,#6E93A4 72%,#D8D2BC 100%)}
+.sc-japan{background:linear-gradient(182deg,#1C2430,#3D4A5C 40%,#8B8C97 68%,#D9C9BC 100%)}
+.sc-nz{background:linear-gradient(178deg,#18242A,#33505A 38%,#6C8F92 64%,#CFD5C8 100%)}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.scrim{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,rgba(10,16,18,.28) 0%,rgba(10,16,18,.08) 46%,rgba(10,16,18,.42) 100%)}
+.scene-fix{position:fixed;right:clamp(20px,3vw,44px);bottom:20px;z-index:3;text-align:right;font-size:9.5px;letter-spacing:.16em;color:rgba(245,242,235,.55);font-variant-numeric:tabular-nums;line-height:1.9;text-transform:uppercase;transition:opacity 800ms var(--wp-ease)}
+
+/* ============================================================
+   SHELL — question paper left · living chart right
+   ============================================================ */
+.shell{position:relative;z-index:2;height:100svh;display:grid;grid-template-columns:minmax(420px,56%) 1fr}
+
+/* ---- the paper ---- */
+.paper{position:relative;background:var(--wp-glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;flex-direction:column;box-shadow:1px 0 0 rgba(27,28,28,.06)}
+/* faint chart-paper graticule */
+.paper::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(var(--wp-border-soft) 1px,transparent 1px),linear-gradient(90deg,var(--wp-border-soft) 1px,transparent 1px);background-size:88px 88px;mask-image:linear-gradient(180deg,transparent,black 18%,black 82%,transparent)}
+.paper-head{position:relative;display:flex;justify-content:space-between;align-items:center;padding:clamp(20px,3vh,30px) clamp(28px,4.5vw,64px)}
+.wordmark{font-family:var(--wp-serif);font-weight:400;font-size:16px;letter-spacing:.06em}
+.wordmark span{font-size:11px;letter-spacing:.2em;opacity:.7}
+.leave{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-text-2);padding-bottom:4px;border-bottom:1px solid var(--wp-border);transition:color var(--wp-dur-micro) var(--wp-ease),border-color var(--wp-dur-micro) var(--wp-ease)}
+.leave:hover{color:var(--wp-accent);border-color:var(--wp-accent)}
+
+.paper-body{position:relative;flex:1;overflow-y:auto;padding:clamp(10px,2vh,20px) clamp(28px,4.5vw,64px) 20px;scrollbar-width:thin}
+.step-label{font-size:10.5px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--wp-metal);margin-bottom:clamp(16px,2.6vh,26px)}
+.q{font-family:var(--wp-serif);font-weight:300;font-size:clamp(27px,3vw,40px);line-height:1.16;letter-spacing:-.008em;max-width:16ch;margin-bottom:clamp(22px,3.5vh,40px)}
+.q-note{font-size:13px;color:var(--wp-text-2);margin:-14px 0 26px;max-width:44ch;line-height:1.6}
+
+/* ---- panes ---- */
+.pane{display:none}
+.pane.is-active{display:block;animation:settle var(--wp-dur-step) var(--wp-ease)}
+@keyframes settle{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
+.pane.is-leaving{animation:leave 420ms var(--wp-ease) forwards}
+@keyframes leave{to{opacity:0;transform:translateX(14px)}}
+
+/* ---- editorial selectors (never checkboxes) ---- */
+.sel{border-top:1px solid var(--wp-border)}
+.sel-row{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:18px;width:100%;text-align:left;padding:15px 0 15px 26px;border-bottom:1px solid var(--wp-border-soft);transition:padding var(--wp-dur-micro) var(--wp-ease)}
+.sel-row .name{font-family:var(--wp-serif);font-weight:300;font-size:clamp(18px,1.7vw,22px);transition:color var(--wp-dur-micro) var(--wp-ease)}
+.sel-row .meta{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--wp-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sel-row::before{content:"";position:absolute;left:2px;top:50%;width:8px;height:8px;margin-top:-4px;border:1px solid var(--wp-border);border-radius:999px;background:transparent;transition:border-color var(--wp-dur-micro) var(--wp-ease),background var(--wp-dur-micro) var(--wp-ease),transform var(--wp-dur-micro) var(--wp-ease);transform:scale(.7)}
+.sel-row:hover .name{color:var(--wp-accent)}
+.sel-row:hover::before{border-color:var(--wp-accent)}
+.sel-row[aria-pressed=true]::before{border-color:var(--wp-accent);background:var(--wp-accent);transform:scale(1)}
+.sel-row[aria-pressed=true] .name{color:var(--wp-accent)}
+.sel-row.is-quiet .name{font-size:16px;font-style:italic;color:var(--wp-text-2)}
+
+/* ---- word tiles (experiences) ---- */
+.tiles{display:flex;flex-wrap:wrap;gap:10px}
+.tile{border:1px solid var(--wp-border);padding:13px 20px;font-family:var(--wp-serif);font-weight:300;font-size:16px;color:var(--wp-text-2);transition:color var(--wp-dur-micro) var(--wp-ease),border-color var(--wp-dur-micro) var(--wp-ease),background var(--wp-dur-micro) var(--wp-ease)}
+.tile:hover{border-color:var(--wp-accent);color:var(--wp-accent)}
+.tile[aria-pressed=true]{background:var(--wp-accent);border-color:var(--wp-accent);color:var(--wp-text-inv)}
+
+/* ---- steppers ---- */
+.who{display:flex;gap:clamp(24px,4vw,56px);flex-wrap:wrap;margin-bottom:34px}
+.who .lbl{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-text-2);margin-bottom:10px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--wp-border);background:rgba(255,255,255,.25)}
+.stepper button{width:46px;height:46px;font-size:17px;color:var(--wp-text-2);transition:color var(--wp-dur-micro) var(--wp-ease)}
+.stepper button:hover{color:var(--wp-accent)}
+.stepper .v{min-width:58px;text-align:center;font-variant-numeric:tabular-nums;font-size:15px;align-self:stretch;display:flex;align-items:center;justify-content:center;border-left:1px solid var(--wp-border-soft);border-right:1px solid var(--wp-border-soft)}
+
+/* ---- fields ---- */
+.field{display:block;margin-bottom:26px}
+.field .l{display:block;font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-text-2);margin-bottom:8px}
+.field input,.field textarea{width:100%;background:none;border:none;border-bottom:1px solid var(--wp-border);font-family:inherit;font-size:16px;font-weight:300;color:var(--wp-text);padding:9px 0;transition:border-color var(--wp-dur-micro) var(--wp-ease)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--wp-accent)}
+.field input::placeholder,.field textarea::placeholder{color:var(--wp-muted)}
+.field.is-error input{border-color:#8A5A2E}
+.field .help{margin-top:6px;font-size:12px;color:var(--wp-text-2)}
+.field.is-error .help{color:#8A5A2E}
+.story textarea{font-family:var(--wp-serif);font-size:19px;line-height:1.8;min-height:32vh;resize:vertical;border:none;border-left:1px solid var(--wp-border);padding:4px 0 4px 22px}
+.story textarea:focus{border-color:var(--wp-metal)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+
+/* ---- footer nav ---- */
+.paper-foot{position:relative;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(28px,4.5vw,64px) clamp(20px,3.4vh,32px)}
+.nav-act{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid var(--wp-text);transition:color var(--wp-dur-micro) var(--wp-ease),border-color var(--wp-dur-micro) var(--wp-ease),opacity var(--wp-dur-micro) var(--wp-ease)}
+.nav-act:hover{color:var(--wp-accent);border-color:var(--wp-accent)}
+.nav-act--back{color:var(--wp-text-2);border-color:var(--wp-border)}
+.nav-act--back[hidden]{display:none}
+.nav-act.is-dim{opacity:.35;pointer-events:none}
+.foot-fix{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--wp-muted);font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   THE CHART — the journey, plotting itself
+   ============================================================ */
+.chart{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,4vh,44px) clamp(24px,3.5vw,52px);color:var(--wp-text-inv);overflow:hidden}
+.chart-head{position:absolute;top:clamp(22px,3.4vh,34px);left:clamp(24px,3.5vw,52px);right:clamp(24px,3.5vw,52px);display:flex;justify-content:space-between;align-items:baseline}
+.chart-title{font-size:10.5px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:rgba(245,242,235,.75)}
+.chart-count{font-size:10px;letter-spacing:.18em;color:rgba(245,242,235,.5);font-variant-numeric:tabular-nums;text-transform:uppercase}
+.chart-scroll{overflow-y:auto;max-height:calc(100svh - 150px);scrollbar-width:none;padding-right:6px}
+.chart-scroll::-webkit-scrollbar{display:none}
+.chart svg{display:block;width:min(340px,100%);overflow:visible}
+.route-path{fill:none;stroke:rgba(245,242,235,.85);stroke-width:1.1}
+.route-node{fill:var(--wp-bg-dark);stroke:rgba(245,242,235,.9);stroke-width:1.1}
+.route-node.is-new{animation:nodeIn 900ms var(--wp-ease)}
+@keyframes nodeIn{from{opacity:0;r:1}to{opacity:1}}
+.route-tick{stroke:rgba(245,242,235,.7);stroke-width:1}
+.n-stage{font-family:var(--wp-sans);font-size:8.4px;letter-spacing:.24em;fill:rgba(245,242,235,.55);text-transform:uppercase}
+.n-name{font-family:var(--wp-serif);font-style:italic;font-weight:300;font-size:14.5px;fill:rgba(245,242,235,.95)}
+.n-ghost .n-name{fill:rgba(245,242,235,.5)}
+.n-ghost .n-stage{fill:rgba(245,242,235,.35)}
+.ghost-node{fill:none;stroke:rgba(245,242,235,.45);stroke-width:1;stroke-dasharray:2 3}
+.ghost-hit{fill:transparent;cursor:pointer}
+.ghost-add{font-family:var(--wp-sans);font-size:8.4px;letter-spacing:.2em;fill:rgba(245,242,235,.45);text-transform:uppercase}
+.chart-note{margin-top:14px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,242,235,.45);line-height:1.9}
+
+/* mini log (mobile) */
+.mini-log{display:none;position:relative;z-index:2;padding:14px clamp(20px,5vw,32px);background:rgba(12,26,30,.55);backdrop-filter:blur(10px);color:var(--wp-text-inv);overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-size:11px;letter-spacing:.1em}
+.mini-log::-webkit-scrollbar{display:none}
+.mini-log em{font-family:var(--wp-serif);font-style:italic;font-size:13px}
+.mini-log .sep{color:rgba(245,242,235,.4);margin:0 10px}
+
+/* ---- confirmation ---- */
+.confirm-mark{width:9px;height:9px;border-radius:999px;background:var(--wp-accent);position:relative;margin-bottom:26px}
+.confirm-mark::before,.confirm-mark::after{content:"";position:absolute;left:50%;width:1px;height:5px;background:var(--wp-accent);margin-left:-.5px}
+.confirm-mark::before{top:-8px}.confirm-mark::after{bottom:-8px}
+.confirm-copy{font-size:15.5px;line-height:1.8;color:var(--wp-text-2);max-width:46ch}
+.confirm-copy strong{font-weight:400;color:var(--wp-text)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:960px){
+  body{overflow:auto}
+  .shell{grid-template-columns:1fr;height:auto;min-height:100svh;grid-template-rows:1fr auto}
+  .paper{min-height:88svh}
+  .chart{display:none}
+  .mini-log{display:block;position:sticky;bottom:0}
+  .scene-fix{display:none}
+  .duo{grid-template-columns:1fr}
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .scene{opacity:0}.scene.is-active{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<!-- the destination, behind everything -->
+<div class="scenes" aria-hidden="true">
+  <div class="scene sc-neutral is-active" data-scene="neutral"></div>
+  <div class="scene sc-whitsundays" data-scene="whitsundays"></div>
+  <div class="scene sc-hamilton" data-scene="hamilton"></div>
+  <div class="scene sc-noosa" data-scene="noosa"></div>
+  <div class="scene sc-tasmania" data-scene="tasmania"></div>
+  <div class="scene sc-sydney" data-scene="sydney"></div>
+  <div class="scene sc-mediterranean" data-scene="mediterranean"></div>
+  <div class="scene sc-japan" data-scene="japan"></div>
+  <div class="scene sc-nz" data-scene="nz"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<div class="scrim" aria-hidden="true"></div>
+<p class="scene-fix" id="sceneFix">Open water<br>Placeholder plate · destination pending</p>
+
+<div class="shell">
+
+  <!-- ==================== THE PAPER ==================== -->
+  <section class="paper" aria-label="Journey planning">
+    <div class="paper-head">
+      <a class="wordmark" href="#">WAYPOINT <span>&amp; CO.</span></a>
+      <a class="leave" href="#">Return to site</a>
+    </div>
+
+    <div class="paper-body" id="paperBody">
+
+      <!-- STEP 1 · destination -->
+      <div class="pane is-active" data-step="1">
+        <p class="step-label">Journey Step 01 — The place</p>
+        <h1 class="q" tabindex="-1">Where are you drawn to?</h1>
+        <div class="sel" data-single="dest">
+          <button class="sel-row" data-value="whitsundays"><span class="name">Whitsundays</span><span class="meta">20°S · island &amp; reef</span></button>
+          <button class="sel-row" data-value="hamilton"><span class="name">Hamilton Island</span><span class="meta">20°21′S · the threshold</span></button>
+          <button class="sel-row" data-value="noosa"><span class="name">Noosa</span><span class="meta">26°S · river &amp; headland</span></button>
+          <button class="sel-row" data-value="tasmania"><span class="name">Tasmania</span><span class="meta">42°S · wilderness &amp; weather</span></button>
+          <button class="sel-row" data-value="sydney"><span class="name">Sydney</span><span class="meta">33°S · the harbour</span></button>
+          <button class="sel-row" data-value="mediterranean"><span class="name">Mediterranean</span><span class="meta">future season</span></button>
+          <button class="sel-row" data-value="japan"><span class="name">Japan</span><span class="meta">by arrangement</span></button>
+          <button class="sel-row" data-value="nz"><span class="name">New Zealand</span><span class="meta">by arrangement</span></button>
+          <button class="sel-row is-quiet" data-value="exploring"><span class="name">I'm still exploring</span><span class="meta">the best kind of start</span></button>
+        </div>
+      </div>
+
+      <!-- STEP 2 · how -->
+      <div class="pane" data-step="2">
+        <p class="step-label">Journey Step 02 — The way</p>
+        <h1 class="q" tabindex="-1">How would you like to experience it?</h1>
+        <p class="q-note">Choose one, or several. Most journeys become a combination.</p>
+        <div class="sel" data-multi="modes">
+          <button class="sel-row" data-value="air"><span class="name">Private aviation</span><span class="meta">fixed wing · helicopter</span></button>
+          <button class="sel-row" data-value="sea"><span class="name">Yacht charter</span><span class="meta">crewed · at your pace</span></button>
+          <button class="sel-row" data-value="stay"><span class="name">Private residence</span><span class="meta">prepared before arrival</span></button>
+          <button class="sel-row" data-value="experiences"><span class="name">Experiences</span><span class="meta">shaped to the place</span></button>
+          <button class="sel-row" data-value="complete"><span class="name">The complete journey</span><span class="meta">one house holds it all</span></button>
+        </div>
+      </div>
+
+      <!-- STEP 3 · who -->
+      <div class="pane" data-step="3">
+        <p class="step-label">Journey Step 03 — The travellers</p>
+        <h1 class="q" tabindex="-1">Who is travelling?</h1>
+        <div class="who">
+          <div><span class="lbl">Adults</span>
+            <div class="stepper" data-count-for="adults"><button data-minus aria-label="Fewer adults">−</button><span class="v">2</span><button data-plus aria-label="More adults">+</button></div>
+          </div>
+          <div><span class="lbl">Children</span>
+            <div class="stepper" data-count-for="children"><button data-minus aria-label="Fewer children">−</button><span class="v">0</span><button data-plus aria-label="More children">+</button></div>
+          </div>
+        </div>
+        <span class="lbl" style="display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-text-2);margin-bottom:12px">The occasion</span>
+        <div class="tiles" data-single="occasion">
+          <button class="tile" data-value="Escape">Escape</button>
+          <button class="tile" data-value="Celebration">Celebration</button>
+          <button class="tile" data-value="Family holiday">Family holiday</button>
+          <button class="tile" data-value="Corporate retreat">Corporate retreat</button>
+          <button class="tile" data-value="Adventure">Adventure</button>
+          <button class="tile" data-value="Wellness">Wellness</button>
+          <button class="tile" data-value="Special event">Special event</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 · when -->
+      <div class="pane" data-step="4">
+        <p class="step-label">Journey Step 04 — The timing</p>
+        <h1 class="q" tabindex="-1">When are you thinking of travelling?</h1>
+        <div class="sel" data-single="whenMode" id="whenModes">
+          <button class="sel-row" data-value="exact"><span class="name">I have dates in mind</span><span class="meta">we'll plan to them</span></button>
+          <button class="sel-row" data-value="flexible"><span class="name">Flexible</span><span class="meta">we'll find the best window</span></button>
+          <button class="sel-row" data-value="season"><span class="name">A season</span><span class="meta">the feel of a time of year</span></button>
+          <button class="sel-row" data-value="month"><span class="name">A month</span><span class="meta">roughly then</span></button>
+          <button class="sel-row is-quiet" data-value="unsure"><span class="name">Not sure yet</span><span class="meta">that's part of the conversation</span></button>
+        </div>
+        <div id="whenDetail" style="margin-top:26px"></div>
+      </div>
+
+      <!-- STEP 5 · shape -->
+      <div class="pane" data-step="5">
+        <p class="step-label">Journey Step 05 — The texture</p>
+        <h1 class="q" tabindex="-1">Shape the experience.</h1>
+        <p class="q-note">A few words that belong in your journey. Curated, not exhaustive.</p>
+        <div class="tiles" data-multi="shapes">
+          <button class="tile" data-value="Private chef">Private chef</button>
+          <button class="tile" data-value="Helicopter">Helicopter</button>
+          <button class="tile" data-value="Wine">Wine</button>
+          <button class="tile" data-value="Wellness">Wellness</button>
+          <button class="tile" data-value="Diving">Diving</button>
+          <button class="tile" data-value="Fishing">Fishing</button>
+          <button class="tile" data-value="Golf">Golf</button>
+          <button class="tile" data-value="Adventure">Adventure</button>
+          <button class="tile" data-value="Island picnic">Island picnic</button>
+          <button class="tile" data-value="Fine dining">Fine dining</button>
+          <button class="tile" data-value="Photography">Photography</button>
+          <button class="tile" data-value="Culture">Culture</button>
+          <button class="tile" data-value="Architecture">Architecture</button>
+          <button class="tile" data-value="Spa">Spa</button>
+        </div>
+      </div>
+
+      <!-- STEP 6 · the story -->
+      <div class="pane" data-step="6">
+        <p class="step-label">Journey Step 06 — The story</p>
+        <h1 class="q" tabindex="-1">Tell us about the journey you imagine.</h1>
+        <label class="field story">
+          <span class="l" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Your story</span>
+          <textarea id="storyText" placeholder="The best journeys begin with a conversation."></textarea>
+        </label>
+        <p class="q-note" style="margin-top:14px">Who it's for, what it should feel like, a moment you'd like to happen. Leave the logistics to us.</p>
+      </div>
+
+      <!-- STEP 7 · contact -->
+      <div class="pane" data-step="7">
+        <p class="step-label">Journey Step 07 — The introduction</p>
+        <h1 class="q" tabindex="-1">How do we reach you?</h1>
+        <div class="duo">
+          <label class="field"><span class="l">Name</span><input type="text" id="cName" autocomplete="name"></label>
+          <label class="field"><span class="l">Phone</span><input type="tel" id="cPhone" autocomplete="tel"></label>
+        </div>
+        <label class="field" id="emailField"><span class="l">Email</span><input type="email" id="cEmail" autocomplete="email"><span class="help" id="emailHelp">A member of our concierge team replies personally.</span></label>
+        <span class="lbl" style="display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-text-2);margin:8px 0 12px">Preferred contact</span>
+        <div class="tiles" data-single="contactPref">
+          <button class="tile" data-value="Email">Email</button>
+          <button class="tile" data-value="Phone">Phone</button>
+          <button class="tile" data-value="Video call">Video call</button>
+          <button class="tile" data-value="WhatsApp">WhatsApp</button>
+        </div>
+        <span class="lbl" style="display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--wp-text-2);margin:26px 0 12px">Planning timeframe</span>
+        <div class="tiles" data-single="timeframe">
+          <button class="tile" data-value="Soon">In the coming weeks</button>
+          <button class="tile" data-value="This year">Within the year</button>
+          <button class="tile" data-value="Dreaming">Still dreaming</button>
+        </div>
+      </div>
+
+      <!-- CONFIRMATION -->
+      <div class="pane" data-step="done">
+        <p class="step-label">The journey</p>
+        <div class="confirm-mark" aria-hidden="true"></div>
+        <h1 class="q" tabindex="-1">Your journey begins here.</h1>
+        <p class="confirm-copy">One of our concierge team will <strong>personally review your plans</strong> and begin shaping your itinerary. <br><br>No automated itinerary will ever replace thoughtful planning — everything from here is done by people.</p>
+        <p class="q-note" style="margin-top:30px">Your course so far is plotted beside you. We'll pick it up from exactly there.</p>
+      </div>
+
+    </div>
+
+    <div class="paper-foot">
+      <button class="nav-act nav-act--back" id="btnBack" hidden>Back</button>
+      <span class="foot-fix" id="footFix">WPT 01 / 07</span>
+      <button class="nav-act" id="btnNext">Continue</button>
+    </div>
+  </section>
+
+  <!-- ==================== THE CHART ==================== -->
+  <aside class="chart on-scene" aria-label="Your journey, plotted">
+    <div class="chart-head">
+      <span class="chart-title">Your course</span>
+      <span class="chart-count" id="chartCount">0 waypoints</span>
+    </div>
+    <div class="chart-scroll" id="chartScroll">
+      <svg id="chartSvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A chart of your planned journey"></svg>
+    </div>
+    <p class="chart-note" id="chartNote">The course plots itself as you decide.<br>Hollow marks are suggestions — press to add.</p>
+  </aside>
+
+</div>
+
+<!-- mobile mini log -->
+<div class="mini-log" id="miniLog" aria-label="Your journey so far">Your course will appear here as you decide.</div>
+
+<script>
+(function(){
+"use strict";
+var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ============================================================
+   CMS — relationship graph.
+   In production this object is replaced by the CMS API.
+   The engine only ever QUERIES it; nothing below is bespoke logic
+   per destination. Add a destination in the CMS, the engine learns it.
+   ============================================================ */
+var CMS = {
+  entities:{
+    "res-hamilton":{stage:"Stay", name:"Hamilton Island residence", kind:"residence"},
+    "res-noosa":{stage:"Stay", name:"Noosa residence", kind:"residence"},
+    "res-tasmania":{stage:"Stay", name:"Tasmanian residence", kind:"residence"},
+    "yacht-alani":{stage:"Sail", name:"ALANI", kind:"yacht"},
+    "yacht-partner":{stage:"Sail", name:"Partner fleet vessel", kind:"yacht"},
+    "air-fixedwing":{stage:"Arrive", name:"Private aircraft", kind:"aircraft"},
+    "air-heli":{stage:"Experience", name:"Helicopter scenic", kind:"aircraft"},
+    "exp-whitehaven":{stage:"Experience", name:"Whitehaven Beach", kind:"experience"},
+    "exp-reef":{stage:"Experience", name:"Outer Reef", kind:"experience"},
+    "exp-everglades":{stage:"Experience", name:"Noosa Everglades", kind:"experience"},
+    "exp-harbour-dining":{stage:"Experience", name:"Harbour dining", kind:"experience"},
+    "exp-wilderness":{stage:"Experience", name:"Wilderness by air", kind:"experience"}
+  },
+  destinations:{
+    whitsundays:{name:"Whitsundays", fix:"20°17′ S · 149°02′ E", origin:"Brisbane",
+      related:["air-fixedwing","res-hamilton","yacht-alani","exp-whitehaven","exp-reef","air-heli"],
+      byMode:{air:"air-fixedwing", sea:"yacht-alani", stay:"res-hamilton"}},
+    hamilton:{name:"Hamilton Island", fix:"20°21′ S · 148°57′ E", origin:"Brisbane",
+      related:["air-fixedwing","res-hamilton","yacht-alani","exp-whitehaven","air-heli"],
+      byMode:{air:"air-fixedwing", sea:"yacht-alani", stay:"res-hamilton"}},
+    noosa:{name:"Noosa", fix:"26°23′ S · 153°05′ E", origin:"Your city",
+      related:["air-fixedwing","res-noosa","yacht-partner","exp-everglades"],
+      byMode:{air:"air-fixedwing", sea:"yacht-partner", stay:"res-noosa"}},
+    tasmania:{name:"Tasmania", fix:"42°S · wilderness", origin:"Your city",
+      related:["air-fixedwing","res-tasmania","exp-wilderness","air-heli"],
+      byMode:{air:"air-fixedwing", stay:"res-tasmania"}},
+    sydney:{name:"Sydney", fix:"33°51′ S · 151°13′ E", origin:"Your city",
+      related:["air-fixedwing","yacht-partner","exp-harbour-dining"],
+      byMode:{air:"air-fixedwing", sea:"yacht-partner"}},
+    mediterranean:{name:"Mediterranean", fix:"future season", origin:"By arrangement",
+      related:["air-fixedwing"], byMode:{air:"air-fixedwing"}},
+    japan:{name:"Japan", fix:"by arrangement", origin:"By arrangement",
+      related:["air-fixedwing"], byMode:{air:"air-fixedwing"}},
+    nz:{name:"New Zealand", fix:"by arrangement", origin:"By arrangement",
+      related:["air-fixedwing"], byMode:{air:"air-fixedwing"}},
+    exploring:{name:"Somewhere, still forming", fix:"open water", origin:"Wherever you are",
+      related:[], byMode:{}}
+  },
+  sceneNotes:{
+    neutral:"Open water<br>Placeholder plate · destination pending",
+    whitsundays:"20°17′ S · 149°02′ E<br>Placeholder · Hill Inlet aerial · dawn",
+    hamilton:"20°21′ S · 148°57′ E<br>Placeholder · marina at dusk",
+    noosa:"26°23′ S · 153°05′ E<br>Placeholder · river mouth · first light",
+    tasmania:"42° S<br>Placeholder · highlands in weather",
+    sydney:"33°51′ S · 151°13′ E<br>Placeholder · harbour, late light",
+    mediterranean:"Future season<br>Placeholder · anchorage, evening",
+    japan:"By arrangement<br>Placeholder · coastline in mist",
+    nz:"By arrangement<br>Placeholder · alpine water"
+  }
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+var state = {
+  dest:null, modes:[], adults:2, children:0, occasion:null,
+  whenMode:null, whenDetail:null, shapes:[], extras:[],
+  story:"", name:"", email:"", phone:"", contactPref:null, timeframe:null
+};
+var steps = ["1","2","3","4","5","6","7","done"];
+var idx = 0;
+
+/* ============================================================
+   SCENES
+   ============================================================ */
+var scenes = document.querySelectorAll(".scene");
+var sceneFix = document.getElementById("sceneFix");
+function setScene(name){
+  var target = document.querySelector('.scene[data-scene="'+name+'"]') ? name : "neutral";
+  scenes.forEach(function(s){ s.classList.toggle("is-active", s.dataset.scene === target); });
+  sceneFix.innerHTML = CMS.sceneNotes[target] || CMS.sceneNotes.neutral;
+}
+
+/* ============================================================
+   SELECTORS — editorial rows & tiles (no checkboxes anywhere)
+   ============================================================ */
+function bindGroup(el){
+  var singleKey = el.getAttribute("data-single");
+  var multiKey = el.getAttribute("data-multi");
+  el.querySelectorAll("[data-value]").forEach(function(btn){
+    btn.setAttribute("aria-pressed","false");
+    btn.addEventListener("click", function(){
+      var v = btn.dataset.value;
+      if(singleKey){
+        el.querySelectorAll("[data-value]").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+        btn.setAttribute("aria-pressed","true");
+        state[singleKey] = v;
+        if(singleKey === "dest"){ setScene(v); }
+        if(singleKey === "whenMode"){ renderWhenDetail(v); }
+      } else if(multiKey){
+        var on = btn.getAttribute("aria-pressed") === "true";
+        btn.setAttribute("aria-pressed", on ? "false" : "true");
+        var arr = state[multiKey];
+        if(on){ arr.splice(arr.indexOf(v),1); } else { arr.push(v); }
+      }
+      buildChart();
+    });
+  });
+}
+document.querySelectorAll("[data-single],[data-multi]").forEach(bindGroup);
+
+/* steppers */
+document.querySelectorAll(".stepper").forEach(function(st){
+  var key = st.getAttribute("data-count-for");
+  var v = st.querySelector(".v");
+  st.querySelector("[data-minus]").addEventListener("click", function(){
+    state[key] = Math.max(0, state[key]-1);
+    if(key==="adults") state[key] = Math.max(1, state[key]);
+    v.textContent = state[key];
+  });
+  st.querySelector("[data-plus]").addEventListener("click", function(){
+    state[key] = Math.min(30, state[key]+1);
+    v.textContent = state[key];
+  });
+});
+
+/* when — detail renders per mode, still no conventional date picker unless dates chosen */
+var whenDetail = document.getElementById("whenDetail");
+function renderWhenDetail(mode){
+  state.whenDetail = null;
+  if(mode === "exact"){
+    whenDetail.innerHTML =
+      '<div class="duo">'+
+      '<label class="field"><span class="l">From</span><input type="date" id="dFrom"></label>'+
+      '<label class="field"><span class="l">To</span><input type="date" id="dTo"></label></div>';
+    whenDetail.querySelectorAll("input").forEach(function(i){
+      i.addEventListener("change", function(){
+        var f = document.getElementById("dFrom").value, t = document.getElementById("dTo").value;
+        state.whenDetail = (f||"") + (t ? " → " + t : "");
+      });
+    });
+  } else if(mode === "season"){
+    whenDetail.innerHTML = '<div class="tiles" data-single="whenDetail">'+
+      ["Summer","Autumn","Winter","Spring"].map(function(s){return '<button class="tile" data-value="'+s+'">'+s+'</button>';}).join("")+'</div>';
+    bindGroup(whenDetail.firstChild);
+  } else if(mode === "month"){
+    whenDetail.innerHTML = '<div class="tiles" data-single="whenDetail">'+
+      ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map(function(m){return '<button class="tile" data-value="'+m+'">'+m+'</button>';}).join("")+'</div>';
+    bindGroup(whenDetail.firstChild);
+  } else {
+    whenDetail.innerHTML = "";
+  }
+}
+
+/* story + contact bindings */
+document.getElementById("storyText").addEventListener("input", function(e){ state.story = e.target.value; });
+["cName","cEmail","cPhone"].forEach(function(id){
+  document.getElementById(id).addEventListener("input", function(e){
+    state[{cName:"name",cEmail:"email",cPhone:"phone"}[id]] = e.target.value;
+  });
+});
+
+/* ============================================================
+   JOURNEY INTELLIGENCE — the engine queries the CMS graph.
+   No recommendations are hardcoded here; the chain comes from
+   the selected destination's `related` list, ordered by the CMS.
+   ============================================================ */
+function buildJourneyNodes(){
+  var nodes = [];
+  var d = state.dest ? CMS.destinations[state.dest] : null;
+  if(!d) return {nodes:nodes, ghosts:[]};
+
+  nodes.push({stage:"Depart", name:d.origin});
+
+  var chosen = {};   /* entity ids already placed */
+
+  /* arrival mode — from CMS relationship, if aviation chosen or complete journey */
+  var wantAll = state.modes.indexOf("complete") > -1;
+  if((state.modes.indexOf("air") > -1 || wantAll) && d.byMode.air){
+    nodes.push(ent(d.byMode.air)); chosen[d.byMode.air] = 1;
+  }
+
+  nodes.push({stage:"Arrive", name:d.name, fix:d.fix});
+
+  if((state.modes.indexOf("stay") > -1 || wantAll) && d.byMode.stay){
+    nodes.push(ent(d.byMode.stay)); chosen[d.byMode.stay] = 1;
+  }
+  if((state.modes.indexOf("sea") > -1 || wantAll) && d.byMode.sea){
+    nodes.push(ent(d.byMode.sea)); chosen[d.byMode.sea] = 1;
+  }
+
+  /* experiences from CMS chain if visitor wants experiences / complete */
+  if(state.modes.indexOf("experiences") > -1 || wantAll){
+    d.related.forEach(function(id){
+      if(!chosen[id] && CMS.entities[id].kind === "experience"){
+        nodes.push(ent(id)); chosen[id] = 1;
+      }
+    });
+  }
+
+  /* visitor-accepted suggestions */
+  state.extras.forEach(function(id){
+    if(!chosen[id]){ nodes.push(ent(id)); chosen[id] = 1; }
+  });
+
+  /* shaped textures become markers */
+  state.shapes.forEach(function(s){ nodes.push({stage:"Shape", name:s}); });
+
+  if(state.occasion){ nodes.push({stage:"Occasion", name:state.occasion}); }
+  nodes.push({stage:"Return", name:"Home, eventually"});
+
+  /* ghosts — CMS relations not yet chosen */
+  var ghosts = d.related.filter(function(id){ return !chosen[id]; }).slice(0,3);
+  return {nodes:nodes, ghosts:ghosts};
+
+  function ent(id){ var e = CMS.entities[id]; return {stage:e.stage, name:e.name, id:id}; }
+}
+
+/* ============================================================
+   THE CHART — hand-plotted, quiet, intentional
+   ============================================================ */
+var svg = document.getElementById("chartSvg");
+var chartCount = document.getElementById("chartCount");
+var miniLog = document.getElementById("miniLog");
+var prevLen = 0, prevNodeCount = 0;
+var NS = "http://www.w3.org/2000/svg";
+
+function buildChart(){
+  var j = buildJourneyNodes();
+  var nodes = j.nodes, ghosts = j.ghosts;
+  var all = nodes.length + ghosts.length;
+  var rowH = 58, top = 16, w = 340;
+  var h = Math.max(80, top + all * rowH + 20);
+  svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+  svg.setAttribute("height", h);
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+
+  chartCount.textContent = nodes.length ? nodes.length + " waypoints" : "0 waypoints";
+
+  if(!nodes.length){
+    var t = document.createElementNS(NS,"text");
+    t.setAttribute("x",0); t.setAttribute("y",26);
+    t.setAttribute("class","n-name");
+    t.textContent = "Choose a place, and the chart begins.";
+    svg.appendChild(t);
+    miniLog.innerHTML = "Your course will appear here as you decide.";
+    prevLen = 0; prevNodeCount = 0;
+    return;
+  }
+
+  /* hand-plotted path — gentle alternating bends, like pencil on chart */
+  var pts = nodes.map(function(n,i){
+    return {x: 26 + (i % 2 ? 16 : 0) + (i % 3 === 2 ? 8 : 0), y: top + i * rowH + 10};
+  });
+  var dStr = "M " + pts[0].x + " " + pts[0].y;
+  for(var i=1;i<pts.length;i++){
+    var p0 = pts[i-1], p1 = pts[i];
+    var cy = (p0.y + p1.y)/2;
+    dStr += " C " + p0.x + " " + cy + ", " + p1.x + " " + cy + ", " + p1.x + " " + p1.y;
+  }
+  var path = document.createElementNS(NS,"path");
+  path.setAttribute("d", dStr);
+  path.setAttribute("class","route-path");
+  svg.appendChild(path);
+
+  /* draw-on for the newly added length only */
+  var len = path.getTotalLength();
+  if(!reduced && len > prevLen){
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len - prevLen;
+    path.getBoundingClientRect(); /* reflow */
+    path.style.transition = "stroke-dashoffset 1200ms cubic-bezier(.22,1,.36,1)";
+    path.style.strokeDashoffset = 0;
+  }
+  prevLen = len;
+
+  /* nodes */
+  nodes.forEach(function(n,i){
+    var p = pts[i];
+    var g = document.createElementNS(NS,"g");
+    var c = document.createElementNS(NS,"circle");
+    c.setAttribute("cx",p.x); c.setAttribute("cy",p.y); c.setAttribute("r",4.5);
+    c.setAttribute("class","route-node" + (i >= prevNodeCount && !reduced ? " is-new" : ""));
+    g.appendChild(c);
+    /* fix ticks */
+    [[0,-9,0,-5],[0,5,0,9]].forEach(function(tk){
+      var l = document.createElementNS(NS,"line");
+      l.setAttribute("x1",p.x+tk[0]); l.setAttribute("y1",p.y+tk[1]);
+      l.setAttribute("x2",p.x+tk[2]); l.setAttribute("y2",p.y+tk[3]);
+      l.setAttribute("class","route-tick");
+      g.appendChild(l);
+    });
+    var stage = document.createElementNS(NS,"text");
+    stage.setAttribute("x",p.x+22); stage.setAttribute("y",p.y-6);
+    stage.setAttribute("class","n-stage");
+    stage.textContent = n.stage;
+    g.appendChild(stage);
+    var name = document.createElementNS(NS,"text");
+    name.setAttribute("x",p.x+22); name.setAttribute("y",p.y+10);
+    name.setAttribute("class","n-name");
+    name.textContent = n.name;
+    g.appendChild(name);
+    svg.appendChild(g);
+  });
+  prevNodeCount = nodes.length;
+
+  /* ghosts — suggestions from the CMS graph, press to add */
+  ghosts.forEach(function(id,gi){
+    var e = CMS.entities[id];
+    var y = top + (nodes.length + gi) * rowH + 10;
+    var x = 26;
+    var g = document.createElementNS(NS,"g");
+    g.setAttribute("class","n-ghost");
+    var c = document.createElementNS(NS,"circle");
+    c.setAttribute("cx",x); c.setAttribute("cy",y); c.setAttribute("r",4.5);
+    c.setAttribute("class","ghost-node");
+    g.appendChild(c);
+    var stage = document.createElementNS(NS,"text");
+    stage.setAttribute("x",x+22); stage.setAttribute("y",y-6);
+    stage.setAttribute("class","n-stage");
+    stage.textContent = "Suggested · " + e.stage;
+    g.appendChild(stage);
+    var name = document.createElementNS(NS,"text");
+    name.setAttribute("x",x+22); name.setAttribute("y",y+10);
+    name.setAttribute("class","n-name");
+    name.textContent = e.name;
+    g.appendChild(name);
+    var add = document.createElementNS(NS,"text");
+    add.setAttribute("x",x+22); add.setAttribute("y",y+26);
+    add.setAttribute("class","ghost-add");
+    add.textContent = "+ add to course";
+    g.appendChild(add);
+    var hit = document.createElementNS(NS,"rect");
+    hit.setAttribute("x",0); hit.setAttribute("y",y-20);
+    hit.setAttribute("width",w); hit.setAttribute("height",48);
+    hit.setAttribute("class","ghost-hit");
+    hit.setAttribute("role","button");
+    hit.setAttribute("tabindex","0");
+    hit.setAttribute("aria-label","Add " + e.name + " to your journey");
+    function accept(){ state.extras.push(id); buildChart(); }
+    hit.addEventListener("click", accept);
+    hit.addEventListener("keydown", function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); accept(); } });
+    g.appendChild(hit);
+    svg.appendChild(g);
+  });
+
+  /* mini log (mobile) */
+  miniLog.innerHTML = nodes.map(function(n){ return "<em>"+n.name+"</em>"; }).join('<span class="sep">—</span>');
+
+  /* keep newest in view */
+  var sc = document.getElementById("chartScroll");
+  sc.scrollTop = sc.scrollHeight;
+}
+
+/* ============================================================
+   STEP FLOW
+   ============================================================ */
+var panes = document.querySelectorAll(".pane");
+var btnBack = document.getElementById("btnBack");
+var btnNext = document.getElementById("btnNext");
+var footFix = document.getElementById("footFix");
+var paperBody = document.getElementById("paperBody");
+
+function show(){
+  panes.forEach(function(p){ p.classList.toggle("is-active", p.dataset.step === steps[idx]); });
+  var done = steps[idx] === "done";
+  btnBack.hidden = (idx === 0 || done);
+  btnNext.style.display = done ? "none" : "";
+  btnNext.textContent = (steps[idx] === "7") ? "Begin the journey" : "Continue";
+  footFix.textContent = done ? "Course received" : "WPT 0" + (idx+1) + " / 07";
+  paperBody.scrollTop = 0;
+  var q = document.querySelector('.pane[data-step="'+steps[idx]+'"] .q');
+  if(q) q.focus({preventScroll:true});
+}
+
+btnNext.addEventListener("click", function(){
+  if(steps[idx] === "7"){
+    var email = document.getElementById("cEmail");
+    var field = document.getElementById("emailField");
+    var help = document.getElementById("emailHelp");
+    if(!email.value || email.value.indexOf("@") < 1){
+      field.classList.add("is-error");
+      help.textContent = "An email address, so a real person can reply.";
+      email.focus();
+      return;
+    }
+    field.classList.remove("is-error");
+  }
+  if(idx < steps.length - 1){ idx++; show(); }
+});
+btnBack.addEventListener("click", function(){ if(idx > 0){ idx--; show(); } });
+document.addEventListener("keydown", function(e){
+  if(e.key === "Enter" && e.target.tagName !== "TEXTAREA" && e.target.tagName !== "BUTTON" && steps[idx] !== "done"){
+    btnNext.click();
+  }
+});
+
+show();
+buildChart();
+})();
+</script>
+</body>
+</html>
