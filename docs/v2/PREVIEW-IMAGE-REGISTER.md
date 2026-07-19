@@ -23,3 +23,7 @@ hti-residence (island contemporary house) · noosa-residence (coastal architectu
 Whitehaven · Hook/Hayman aerials · Noosa National Park · Sydney Harbour · Tasmania highlands · Queenstown (future). Path: /public/images/editorial/{dest}/…
 
 Rule preserved: preview imagery is type/size-class representative and must never contradict listed capacity, configuration or claims. Verified replacement removes the register row.
+
+
+## v2.2.2 — preview images placed (2026-07-19)
+Live previews (all imageStatus:preview, imageReplacementRequired:true): capelli hero+g1 (REAL vessel — TMM/Short Marine, confirm usage rights), capelli g2 + alani hero (owner-supplied renders/photos), alani g1+g2 (AI-generated, Higgsfield, provenance on file), rascal (Sunseeker 100ft class-representative), nisi (52ft class render), citation-cj4/challenger-605/gulfstream-g650 (generic/Gulfstream airframes — class guides only), ec130 (correct type), robinson-r66 (EC130 reused as rotary guide). STILL TONAL: king-air-b200, pilatus-pc-12, robinson-r44 (no suitable prop/piston imagery supplied — deliberately not faked), all POA yachts, all STAY residences (no residence photography supplied — never substituted). Homepage/editorial frozen pages keep tonal plates by architecture; imagery enters via fleet pages, featured moments and details.
